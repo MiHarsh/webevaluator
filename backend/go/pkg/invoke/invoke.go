@@ -1,21 +1,16 @@
 package invoke
 
 import (
-	"bufio"
-	"fmt"
-	"io/ioutil"
+	"errors"
 	"net/url"
 	"os"
-	"strings"
 	"sync"
 
 	"github.com/Aman-Codes/backend/go/pkg/core"
 	"github.com/Aman-Codes/backend/go/pkg/log"
-
-	"github.com/sirupsen/logrus"
 )
 
-var (
+const (
 	// Enable JSON output
 	jsonOutput bool = true
 	// MaxDepth limits the recursion depth of visited URLs. (Set it to 0 for infinite recursion)
@@ -41,30 +36,21 @@ var (
 	randomUA string = "web"
 	// Output folder
 	outputFolder string = "./output"
-	// Turn on debug mode
-	isDebug bool = false
-	// Turn on verbose mode
-	verbose  bool     = false
-	siteList []string = []string{}
-	threads  int      = 10
+	threads      int    = 50
 	// Try to crawl sitemap.xml
 	useSitemap bool = true
 	// Enable linkfinder in javascript file
-	linkfinder bool = true
+	linkfinder bool = false
 	// Try to crawl robots.txt
 	robots bool = true
 )
 
-func Invoke(Url string) []core.SpiderOutput {
+var (
+	siteList []string = []string{}
+)
+
+func Invoke(Url string) ([]core.SpiderOutput, []core.SpiderOutput, error) {
 	siteList = append(siteList, Url)
-	if isDebug {
-		core.Logger.SetLevel(logrus.DebugLevel)
-	} else {
-		core.Logger.SetLevel(logrus.InfoLevel)
-	}
-	if !verbose && !isDebug {
-		core.Logger.SetOutput(ioutil.Discard)
-	}
 
 	// Create output folder when save file option selected
 	if outputFolder != "" {
@@ -73,22 +59,10 @@ func Invoke(Url string) []core.SpiderOutput {
 		}
 	}
 
-	stat, _ := os.Stdin.Stat()
-	// detect if anything came from std
-	if (stat.Mode() & os.ModeCharDevice) == 0 {
-		sc := bufio.NewScanner(os.Stdin)
-		for sc.Scan() {
-			target := strings.TrimSpace(sc.Text())
-			if err := sc.Err(); err == nil && target != "" {
-				siteList = append(siteList, target)
-			}
-		}
-	}
-
 	// Check again to make sure at least one site in slice
 	if len(siteList) == 0 {
-		core.Logger.Info("No site in list. Please check your site input again")
-		os.Exit(1)
+		log.Error("No site in list. Please check your site input again")
+		return nil, nil, errors.New("no Url received")
 	}
 
 	var wg sync.WaitGroup
@@ -101,10 +75,11 @@ func Invoke(Url string) []core.SpiderOutput {
 			for rawSite := range inputChan {
 				site, err := url.Parse(rawSite)
 				if err != nil {
-					logrus.Errorf("Failed to parse %s: %s", rawSite, err)
+					log.Errorf("Failed to parse %s: %s", rawSite, err)
 					continue
 				}
 				var siteWg sync.WaitGroup
+				log.Info("Stating new crawler")
 				crawler = core.NewCrawler(site, jsonOutput, maxDepth, concurrent, delay,
 					randomDelay, subs, proxy, timeout, noRedirect, randomUA, outputFolder)
 				siteWg.Add(1)
@@ -136,8 +111,7 @@ func Invoke(Url string) []core.SpiderOutput {
 	}
 	close(inputChan)
 	wg.Wait()
-	fmt.Println(crawler.Output.L)
-	log.Infof("slice is %v", crawler.Output.L)
-	core.Logger.Info("Done.")
-	return crawler.Output.L
+	log.Infof("url list length is %v", len(crawler.Output.L))
+	log.Infof("medial list length is %v", len(crawler.Output.M))
+	return crawler.Output.L, crawler.Output.M, nil
 }

@@ -34,10 +34,18 @@ func Router() {
 		// 	})
 		// 	return
 		// }
-		data := invoke.Invoke(url.URL)
+		urlList, mediaList, err := invoke.Invoke(url.URL)
+		if err != nil {
+			c.JSON(200, gin.H{
+				"status": "error",
+				"data":   err.Error(),
+			})
+			return
+		}
 		c.JSON(200, gin.H{
-			"status": "OK",
-			"data":   data,
+			"status":    "OK",
+			"urlList":   urlList,
+			"mediaList": mediaList,
 		})
 	})
 	router.Run(":8080")

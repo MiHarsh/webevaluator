@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"sync"
 
+	"github.com/Aman-Codes/backend/go/pkg/log"
 	jsoniter "github.com/json-iterator/go"
 
 	"github.com/gocolly/colly/v2"
@@ -19,7 +20,7 @@ func ParseSiteMap(site *url.URL, crawler *Crawler, c *colly.Collector, wg *sync.
 
 	for _, path := range sitemapUrls {
 		// Ignore error when that not valid sitemap.xml path
-		Logger.Infof("Trying to find %s", site.String()+path)
+		log.Infof("Trying to find %s", site.String()+path)
 		_ = sitemap.ParseFromSite(site.String()+path, func(entry sitemap.Entry) error {
 			outputFormat := fmt.Sprintf("[sitemap] - %s", entry.GetLocation())
 
@@ -30,17 +31,14 @@ func ParseSiteMap(site *url.URL, crawler *Crawler, c *colly.Collector, wg *sync.
 					OutputType: "url",
 					Output:     entry.GetLocation(),
 				}
-				// crawler.Data = append()
 				if data, err := jsoniter.MarshalToString(sout); err == nil {
 					outputFormat = data
 				}
-			} else if crawler.Quiet {
-				outputFormat = entry.GetLocation()
 			}
-			fmt.Println(outputFormat)
-			if crawler.Output != nil {
-				crawler.Output.WriteToFile(outputFormat)
-			}
+			log.Infof(outputFormat)
+			// if crawler.Output != nil {
+			// 	crawler.Output.WriteToFile(outputFormat)
+			// }
 			_ = c.Visit(entry.GetLocation())
 			return nil
 		})

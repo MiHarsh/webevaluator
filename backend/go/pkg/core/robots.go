@@ -9,6 +9,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/Aman-Codes/backend/go/pkg/log"
 	jsoniter "github.com/json-iterator/go"
 
 	"github.com/gocolly/colly/v2"
@@ -23,7 +24,7 @@ func ParseRobots(site *url.URL, crawler *Crawler, c *colly.Collector, wg *sync.W
 		return
 	}
 	if resp.StatusCode == 200 {
-		Logger.Infof("Found robots.txt: %s", robotsURL)
+		log.Infof("Found robots.txt: %s", robotsURL)
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			return
@@ -50,13 +51,11 @@ func ParseRobots(site *url.URL, crawler *Crawler, c *colly.Collector, wg *sync.W
 					if data, err := jsoniter.MarshalToString(sout); err == nil {
 						outputFormat = data
 					}
-				} else if crawler.Quiet {
-					outputFormat = url
 				}
-				fmt.Println(outputFormat)
-				if crawler.Output != nil {
-					crawler.Output.WriteToFile(outputFormat)
-				}
+				log.Infof(outputFormat)
+				// if crawler.Output != nil {
+				// 	crawler.Output.WriteToFile(outputFormat)
+				// }
 				_ = c.Visit(url)
 			}
 		}
