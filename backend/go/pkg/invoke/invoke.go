@@ -49,7 +49,7 @@ var (
 	siteList []string = []string{}
 )
 
-func Invoke(Url string) ([]core.SpiderOutput, []core.SpiderOutput, error) {
+func Invoke(Url string) (map[string]core.SpiderOutput, map[string]core.SpiderOutput, error) {
 	siteList = append(siteList, Url)
 
 	// Create output folder when save file option selected

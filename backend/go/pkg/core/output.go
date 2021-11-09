@@ -12,8 +12,8 @@ type Output struct {
 	mu sync.Mutex
 	mm sync.Mutex
 	f  *os.File
-	L  []SpiderOutput
-	M  []SpiderOutput
+	L  map[string]SpiderOutput
+	M  map[string]SpiderOutput
 }
 
 func NewOutput(folder, filename string) *Output {
@@ -23,8 +23,8 @@ func NewOutput(folder, filename string) *Output {
 		log.Errorf("Failed to open file to write Output: %s", err)
 		return nil
 	}
-	var list []SpiderOutput
-	var mediaList []SpiderOutput
+	var list map[string]SpiderOutput = make(map[string]SpiderOutput)
+	var mediaList map[string]SpiderOutput = make(map[string]SpiderOutput)
 	return &Output{
 		f: f,
 		L: list,
@@ -41,13 +41,15 @@ func (o *Output) WriteToFile(msg string) {
 func (o *Output) WriteToList(msg SpiderOutput) {
 	o.mu.Lock()
 	defer o.mu.Unlock()
-	o.L = append(o.L, msg)
+	o.L[msg.Output] = msg
+	// o.L = append(o.L, msg)
 }
 
 func (o *Output) WriteToMediaList(msg SpiderOutput) {
 	o.mm.Lock()
 	defer o.mm.Unlock()
-	o.M = append(o.M, msg)
+	o.M[msg.Output] = msg
+	// o.M = append(o.M, msg)
 }
 
 func (o *Output) Close() {
