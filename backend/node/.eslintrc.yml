@@ -4,8 +4,6 @@ extends:
 env:
   es6: true
 root: true
-plugins:
-  - react
 rules:
   arrow-spacing: "error"
   no-const-assign: "error"
