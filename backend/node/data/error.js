@@ -1,4 +1,4 @@
-const data = [
+const error = [
   {
     selector: "button audio[controls]",
     category: "error",
@@ -247,12 +247,46 @@ const data = [
       "Ensure that <area> with an href attribute does not have a tab index of -1",
   },
   {
-    selector: "area[href][tabindex='-1']",
+    selector: "input:not([disabled])[tabindex='-1']",
     category: "error",
-    name: "-1-tab-index-of-a[href]",
+    name: "-1-tab-index-of-input",
     description:
-      "Ensure that <area> with an href attribute does not have a tab index of -1",
+      "Ensure that <input> that is not disabled does not have a tab index of -1",
+  },
+  {
+    selector: "select:not([disabled])[tabindex='-1']",
+    category: "error",
+    name: "-1-tab-index-of-select",
+    description:
+      "Ensure that <select> that is not disabled does not have a tab index of -1",
+  },
+  {
+    selector: "textarea:not([disabled])[tabindex='-1']",
+    category: "error",
+    name: "-1-tab-index-of-textarea",
+    description:
+      "Ensure that <textarea> that is not disabled does not have a tab index of -1",
+  },
+  {
+    selector: "button:not([disabled])[tabindex='-1']",
+    category: "error",
+    name: "-1-tab-index-of-button",
+    description:
+      "Ensure that <button> that is not disabled does not have a tab index of -1",
+  },
+  {
+    selector: "iframe[tabindex='-1']",
+    category: "error",
+    name: "-1-tab-index-of-iframe",
+    description: "Ensure that <iframe> does not have a tab index of -1",
+  },
+  {
+    selector: "[contentEditable=true][tabindex='-1']",
+    category: "error",
+    name: "-1-tab-index-of-editable-content",
+    description:
+      "Ensure that HTML elements with editable content don't have a tab index of -1",
   },
 ];
 
-module.exports = data;
+module.exports = error;

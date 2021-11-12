@@ -1,12 +1,12 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
-const data = require("../data/data");
+const errorList = require("../data/error");
+const warningList = require("../data/warning");
 
 const router = express.Router();
 
-router.get("/css", async (req, res) => {
-  // const { url } = req.params;
-  const url = "https://techfest.org";
+router.post("/css", async (req, res) => {
+  const { url } = req.body;
   console.log("Url is", url);
   if (!url) {
     res.send({
@@ -41,22 +41,35 @@ router.get("/css", async (req, res) => {
     await page.goto(url, {
       waitUntil: "domcontentloaded",
     });
-    const resultList = await page.evaluate((list) => {
-      const result = [];
-      list.forEach((e) => {
-        const elementList = document.querySelectorAll(e.selector);
-        if (elementList.length) {
-          result.push({ ...e, count: elementList.length });
-        }
-      });
-      return result;
-    }, data);
+    const resultList = await page.evaluate(
+      (errorlist, warninglist) => {
+        const result = {
+          error: [],
+          warning: [],
+        };
+        errorlist.forEach((e) => {
+          const elementList = document.querySelectorAll(e.selector);
+          if (elementList.length) {
+            result.error.push({ ...e, count: elementList.length });
+          }
+        });
+        warninglist.forEach((e) => {
+          const elementList = document.querySelectorAll(e.selector);
+          if (elementList.length) {
+            result.warning.push({ ...e, count: elementList.length });
+          }
+        });
+        return result;
+      },
+      errorList,
+      warningList
+    );
     console.log("evaluation completed");
     await browser.close();
     console.log("resultList is", resultList);
     res.send({
       status: "success",
-      result: resultList,
+      data: resultList,
     });
   } catch (error) {
     await browser?.close();
