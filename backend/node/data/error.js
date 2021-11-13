@@ -302,6 +302,53 @@ const error = [
     description:
       "Ensure that only proper html elemnets should be assigned checkbox as role",
   },
+  {
+    selector:
+      "[role='scrollbar']:not([aria-controls]), [role='scrollbar']:not([aria-valuemin]), [role='scrollbar']:not([aria-valuemax]), [role='scrollbar']:not([aria-valuenow]), [role='scrollbar']:not([aria-orientation])",
+    category: "error",
+    name: "scrollbar not given control",
+    description: "Ensure that scrollbar is given all movement controls",
+  },
+  {
+    selector:
+      "img:not([src]):not([srcset]), input[type='image']:not([src]):not([srcset]), img[src=''], img[src=' '], img[src='#'], img[src='/'], input[type='image'][src=''], input[type='image'][src=' '], input[type='image'][src='#'], input[type='image'][src='/']",
+    category: "error",
+    name: "image and input path incorrect",
+    description: "Ensure the src of image is viable and approachable",
+  },
+  {
+    selector:
+      "[type='radio']:not([name]), [type='checkbox']:not(:only-of-type):not([name]), [role='slider']:not([aria-valuemin]), [role='slider']:not([aria-valuemax]), [role='slider']:not([aria-valuenow]), area[role='slider']:not([aria-valuemin]), area[role='slider']:not([aria-valuemax]), area[role='slider']:not([aria-valuenow])",
+    category: "error",
+    name: "extreme values of sliders",
+    description: "Ensure that sliders and radio buttons have defined ranges",
+  },
+  {
+    selector:
+      "meta[name='viewport'][content*='maximum-scale'] ~ link:last-of-type, meta[name='viewport'][content*='minimum-scale'] ~ link:last-of-type, meta[name='viewport'][content*='user-scalable=no'] ~ link:last-of-type",
+    category: "error",
+    name: "Unaccessible [meta name=viewport]",
+    description: "Ensure the meta viewport is accessible on all devices",
+  },
+  {
+    selector:
+      "meta[charset]:not([charset='utf-8']):not([charset='UTF-8']) ~ link:last-of-type",
+    category: "error",
+    name: "[charset] isn't utf-8",
+    description: "Ensure that the charset is standard utf-8",
+  },
+  {
+    selector: "head :first-child:not([charset]) ~ link:last-of-type",
+    category: "error",
+    name: "<head> must start with [charset]",
+    description: "Ensure the correct formatting of head tag",
+  },
+  {
+    selector: "[dir]:not([dir='rtl']):not([dir='rtl']):not([dir='auto'])",
+    category: "error",
+    name: "Invalid [dir]",
+    description: "Ensure the correct structure of directory",
+  },
 ];
 
 module.exports = error;

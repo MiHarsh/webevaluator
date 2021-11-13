@@ -143,6 +143,20 @@ const warning = [
     description:
       "It is expected to use correct file format for an alternate text",
   },
+  {
+    selector:
+      "[class=''], [class=' '], area[class=''], area[class=' '], base[class=''], base[class=' '], br[class=''], br[class=' '], col[class=''], col[class=' '], command[class=''], command[class=' '], embed[class=''], embed[class=' '], hr[class=''], hr[class=' '], img[class=''], img[class=' '], input[class=''], input[class=' '], link[class=''], link[class=' '], meta[class=''], meta[class=' '], textarea[class=''], textarea[class=' ']",
+    category: "error",
+    name: "classes must be meaningful",
+    description: "Empty or unusual classes should be looked upon",
+  },
+  {
+    selector:
+      "[id=''], [id=' '], area[id=''], area[id=' '], base[id=''], base[id=' '], br[id=''], br[id=' '], col[id=''], col[id=' '], command[id=''], command[id=' '], embed[id=''], embed[id=' '], hr[id=''], hr[id=' '], img[id=''], img[id=' '], input[id=''], input[id=' '], link[id=''], link[id=' '], meta[id=''], meta[id=' '], textarea[id=''], textarea[id=' ']",
+    category: "error",
+    name: "ids must be meaningful",
+    description: "Empty or unusual ids should be looked upon",
+  },
 ];
 
 module.exports = warning;
