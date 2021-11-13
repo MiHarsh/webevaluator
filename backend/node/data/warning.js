@@ -105,6 +105,44 @@ const warning = [
     description:
       "Using <u> element could be confused as a hyperlink, consider using a different element such as <em> or <b>",
   },
+  {
+    selector:
+      "[href$='.pdf']:not(link), [href$='.doc']:not(link), [href$='.svg']:not(link), [href$='.docx']:not(link), [href$='.mp3']:not(link), [href$='.gif']:not(link)",
+    category: "warning",
+    name: "link-to-unrecommended formats",
+    description:
+      "link elements should not point directly to unrecommended file formats",
+  },
+  {
+    selector:
+      "body[marginbottom], body[marginheight], body[margintop], body[marginleft], body[marginwidth], body[marginright]",
+    category: "warning",
+    name: "body-direct-styles",
+    description: "It is not recommended to apply direct styles to body",
+  },
+  {
+    selector:
+      "area[hidden]:not(:empty), area[aria-hidden='true']:not(:empty), base[hidden]:not(:empty), base[aria-hidden='true']:not(:empty), br[hidden]:not(:empty), br[aria-hidden='true']:not(:empty), col[hidden]:not(:empty), col[aria-hidden='true']:not(:empty), command[hidden]:not(:empty), command[aria-hidden='true']:not(:empty), embed[hidden]:not(:empty), embed[aria-hidden='true']:not(:empty), hr[hidden]:not(:empty), hr[aria-hidden='true']:not(:empty), img[hidden]:not(:empty), img[aria-hidden='true']:not(:empty), input[hidden]:not(:empty), input[aria-hidden='true']:not(:empty), audio[hidden]:not(:empty), audio[aria-hidden='true']:not(:empty), iframe[hidden]:not(:empty), iframe[aria-hidden='true']:not(:empty)",
+    category: "warning",
+    name: "area-hidden-attribute",
+    description:
+      "It is not recommended to use any element with area-hidden true",
+  },
+  {
+    selector:
+      "h1[align], h2[align], h3[align], h4[align], h5[align], h6[align]",
+    category: "warning",
+    name: "heading-align",
+    description: "It is not recommended to use align attribute in headings",
+  },
+  {
+    selector:
+      "img[alt$=''], area[alt$=''], img[alt$='.pdf'], area[alt$='.pdf'], img[alt$='.doc'], area[alt$='.doc'], img[alt$='.png'], area[alt$='.png'], img[alt$='.jpg'], area[alt$='.jpg'], img[alt$='.gif'], area[alt$='.gif'], img[alt$='.ics'], area[alt$='.ics'], img[alt$='.zip'], area[alt$='.zip'], input[type='image'][alt$='.pdf'], input[type='image'][alt$='.doc'], input[type='image'][alt$='.png'], input[type='image'][alt$='.jpg'], input[type='image'][alt$='.gif'], input[type='image'][alt$='.ics'], input[type='image'][alt$='.zip']",
+    category: "warning",
+    name: "alt-text",
+    description:
+      "It is expected to use correct file format for an alternate text",
+  },
 ];
 
 module.exports = warning;

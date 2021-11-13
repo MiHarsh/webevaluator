@@ -72,7 +72,7 @@ router.post("/css", async (req, res) => {
       data: resultList,
     });
   } catch (error) {
-    await browser?.close();
+    await browser.close();
     console.log("error is", error);
     res.send({
       status: "error",

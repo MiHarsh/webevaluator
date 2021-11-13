@@ -287,6 +287,21 @@ const error = [
     description:
       "Ensure that HTML elements with editable content don't have a tab index of -1",
   },
+  {
+    selector:
+      "area[id*='NAN'], area[id*='null'], area[id*='undefined'], br[id*='NAN'], br[id*='null'], br[id*='undefined']",
+    category: "error",
+    name: "Bad computed value for [id]",
+    description: "Ensure that HTML elements do not have invalid ids",
+  },
+  {
+    selector:
+      "area[role='checkbox']:not([aria-checked]), base[role='checkbox']:not([aria-checked]), br[role='checkbox']:not([aria-checked]), col[role='checkbox']:not([aria-checked]), command[role='checkbox']:not([aria-checked]), embed[role='checkbox']:not([aria-checked]), hr[role='checkbox']:not([aria-checked]), img[role='checkbox']:not([aria-checked]), input[role='checkbox']:not([aria-checked]), link[role='checkbox']:not([aria-checked]), meta[role='checkbox']:not([aria-checked]), textarea[role='checkbox']:not([aria-checked]), select[role='checkbox']:not([aria-checked])",
+    category: "error",
+    name: "bad role assigning of checkbox",
+    description:
+      "Ensure that only proper html elemnets should be assigned checkbox as role",
+  },
 ];
 
 module.exports = error;
