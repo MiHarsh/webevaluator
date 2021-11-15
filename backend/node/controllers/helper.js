@@ -64,11 +64,11 @@ const openPage = async (browser, url) => {
 };
 
 const handleError = async (error, res, browser) => {
-  await browser?.close();
+  await browser.close();
   console.log("error is", error);
   res.send({
     status: "error",
-    message: error?.message || "Internal Server Error",
+    message: error.message || "Internal Server Error",
   });
 };
 
