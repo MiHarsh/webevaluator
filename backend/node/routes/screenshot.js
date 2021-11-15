@@ -45,7 +45,7 @@ router.post("/lowvision", async (req, res) => {
   }
 });
 
-router.post("/lowvision", async (req, res) => {
+router.post("/colorblind", async (req, res) => {
   const url = urlValidation(req, res);
   let browser;
   try {
