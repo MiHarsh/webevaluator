@@ -1,7 +1,41 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
+const Cookie = require("../models/cookie");
 
 const router = express.Router();
+
+const fetchCookieInfo = (cookieName) => {
+  return new Promise((resolve, reject) => {
+    Cookie.findOne({ cookie_name: cookieName }).exec((err, c) => {
+      if (err) {
+        console.log("Error occured in finding cookie", err);
+        reject(err);
+      } else {
+        console.log("c is", c);
+        resolve({
+          cookie_name: c?.cookie_name,
+          placed_by: c?.placed_by,
+          functionality: c?.functionality,
+          purpose: c?.purpose,
+        });
+      }
+    });
+  });
+};
+
+const fetchCookiesInfo = async (cookiesList) => {
+  const promiseList = [];
+  await cookiesList.forEach((cookie) => {
+    promiseList.push(
+      fetchCookieInfo(cookie.name)
+        .then((cookieInfo) => {
+          return { ...cookie, info: cookieInfo };
+        })
+        .catch((err) => console.log("error is", err))
+    );
+  });
+  return Promise.all(promiseList).then((values) => values);
+};
 
 router.post("/cchecker", async (req, res) => {
   const { url } = req.body;
@@ -83,7 +117,7 @@ router.post("/cchecker", async (req, res) => {
       if (denyConsent) {
         // delete all the cookies, then reload the page
         const client = await page.target().createCDPSession();
-        await await client.send("Network.clearBrowserCookies");
+        await client.send("Network.clearBrowserCookies");
         await page.reload();
 
         await page.evaluate((triggerDeny) => {
@@ -115,20 +149,21 @@ router.post("/cchecker", async (req, res) => {
       dCookies = null;
     }
 
-    const result = {
-      "initial-cookies": iCookies,
-      "cookies-consent_denied": dCookies,
-      "cookies-consent_accepted": aCookies,
-      "user-can_deny": denyConsent,
-      "consent-popup": cnstAsked,
-    };
-
     await browser.close();
+    fetchCookiesInfo(iCookies).then((updatedCookiesInfo) => {
+      const result = {
+        "initial-cookies": updatedCookiesInfo,
+        "cookies-consent_denied": dCookies,
+        "cookies-consent_accepted": aCookies,
+        "user-can_deny": denyConsent,
+        "consent-popup": cnstAsked,
+      };
 
-    // console.log("result is", result);
-    res.send({
-      status: "success",
-      data: result,
+      console.log("updatedCookiesInfo is", updatedCookiesInfo);
+      res.send({
+        status: "success",
+        data: result,
+      });
     });
   } catch (error) {
     await browser.close();
