@@ -157,7 +157,7 @@ router.post("/cchecker", async (req, res) => {
     await browser.close();
 
     const PromiseList = [
-      fetchCookiesInfo(iCookies),
+      iCookies ? fetchCookiesInfo(iCookies) : null,
       dCookies ? fetchCookiesInfo(dCookies) : null,
       aCookies ? fetchCookiesInfo(aCookies) : null,
     ];
