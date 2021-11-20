@@ -11,13 +11,19 @@ const fetchCookieInfo = (cookieName) => {
         console.log("Error occured in finding cookie", err);
         reject(err);
       } else {
-        console.log("c is", c);
-        resolve({
-          cookie_name: c?.cookie_name,
-          placed_by: c?.placed_by,
-          functionality: c?.functionality,
-          purpose: c?.purpose,
-        });
+        const output = {
+          placed_by: null,
+          functionality: null,
+          purpose: null,
+        };
+
+        if (c !== null) {
+          output.placed_by = c.placed_by;
+          output.functionality = c.functionality;
+          output.purpose = c.purpose;
+        }
+
+        resolve(output);
       }
     });
   });
@@ -68,7 +74,6 @@ router.post("/cchecker", async (req, res) => {
 
     const [cnstAsked, denyConsent] = await page.evaluate(
       (triggerAccept, triggerDeny) => {
-        console.log(triggerAccept, triggerDeny);
         let cnstAsked = false;
         let denyConsent = false; // consent can be denied
 
@@ -150,16 +155,22 @@ router.post("/cchecker", async (req, res) => {
     }
 
     await browser.close();
-    fetchCookiesInfo(iCookies).then((updatedCookiesInfo) => {
+
+    const PromiseList = [
+      fetchCookiesInfo(iCookies),
+      dCookies ? fetchCookiesInfo(dCookies) : null,
+      aCookies ? fetchCookiesInfo(aCookies) : null,
+    ];
+
+    Promise.all(PromiseList).then((updatedCookiesInfo) => {
       const result = {
-        "initial-cookies": updatedCookiesInfo,
-        "cookies-consent_denied": dCookies,
-        "cookies-consent_accepted": aCookies,
+        "initial-cookies": updatedCookiesInfo[0],
+        "cookies-consent_denied": updatedCookiesInfo[1],
+        "cookies-consent_accepted": updatedCookiesInfo[2],
         "user-can_deny": denyConsent,
         "consent-popup": cnstAsked,
       };
 
-      console.log("updatedCookiesInfo is", updatedCookiesInfo);
       res.send({
         status: "success",
         data: result,
