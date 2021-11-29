@@ -1,6 +1,11 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
 const Cookie = require("../models/cookie");
+const {
+  urlValidation,
+  puppeteerConf,
+  handleError,
+} = require("../controllers/helper");
 
 const router = express.Router();
 
@@ -44,19 +49,11 @@ const fetchCookiesInfo = async (cookiesList) => {
 };
 
 router.post("/cchecker", async (req, res) => {
-  const { url } = req.body;
-  console.log("Url is", url);
-  if (!url) {
-    res.send({
-      status: "error",
-      message: "missing input url",
-    });
-  }
+  const url = urlValidation(req, res);
   let browser;
+  console.log("Url is", url);
   try {
-    browser = await puppeteer.launch({
-      headless: false,
-    });
+    browser = await puppeteer.launch(puppeteerConf);
 
     const page = await browser.newPage(); // to store cookies
     const waitUntil = ["load", "domcontentloaded"];
@@ -154,7 +151,7 @@ router.post("/cchecker", async (req, res) => {
       dCookies = null;
     }
 
-    await browser.close();
+    await browser?.close();
 
     const PromiseList = [
       iCookies ? fetchCookiesInfo(iCookies) : null,
@@ -177,12 +174,7 @@ router.post("/cchecker", async (req, res) => {
       });
     });
   } catch (error) {
-    await browser.close();
-    console.log("error is", error);
-    res.send({
-      status: "error",
-      message: error,
-    });
+    await handleError(error, res, browser);
   }
 });
 

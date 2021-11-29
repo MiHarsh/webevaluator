@@ -19,3 +19,8 @@
 .font-size-main-heading {
   font-size: 1.5rem;
 }
+
+div.dropdown-menu.show {
+  right: 0rem;
+  left: auto;
+}

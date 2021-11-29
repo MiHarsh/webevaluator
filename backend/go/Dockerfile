@@ -1,17 +1,18 @@
 FROM golang:alpine
 
-RUN mkdir /app
+RUN mkdir /usr/app
 
-WORKDIR /app
+WORKDIR /usr/app
 
-COPY go.mod .
-COPY go.sum .
+COPY go.mod ./
+COPY go.sum ./
 
 RUN go mod download
+
 COPY . .
 
-RUN go get github.com/Aman-Codes/backend/go
+RUN go build -o /backend-go
 
 EXPOSE 8080
 
-ENTRYPOINT BackendGo --build="go build main.go" --command=./main
+CMD [ "/backend-go" ]

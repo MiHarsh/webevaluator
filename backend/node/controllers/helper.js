@@ -1,12 +1,13 @@
 const fs = require("fs");
 
 const puppeteerConf = {
-  headless: false,
+  headless: true,
+  args: ["--no-sandbox", "--disable-setuid-sandbox"],
   timeout: 100000,
 };
 
 const autoScroll = async (page) => {
-  await page.evaluate(async () => {
+  await page?.evaluate(async () => {
     await new Promise((resolve, reject) => {
       let totalHeight = 0;
       const distance = 200;
@@ -26,7 +27,7 @@ const autoScroll = async (page) => {
 
 const screenshot = async (page, filePath = `${__dirname}page.png`) => {
   await autoScroll(page);
-  await page.screenshot({
+  await page?.screenshot({
     path: filePath,
     fullPage: true,
   });
@@ -55,16 +56,16 @@ const sendFile = (res, filePath) => {
 };
 
 const openPage = async (browser, url) => {
-  const page = await browser.newPage();
-  await page.setViewport({ width: 1200, height: 800 });
-  await page.goto(url, {
+  const page = await browser?.newPage();
+  await page?.setViewport({ width: 1200, height: 800 });
+  await page?.goto(url, {
     waitUntil: "networkidle0",
   });
   return page;
 };
 
 const handleError = async (error, res, browser) => {
-  await browser.close();
+  await browser?.close();
   console.log("error is", error);
   res.send({
     status: "error",

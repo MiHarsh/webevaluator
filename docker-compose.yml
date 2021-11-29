@@ -16,6 +16,8 @@ services:
       context: ./backend/node
       dockerfile: Dockerfile
     container_name: backend-node
+    environment:
+      - MONGODB_URL
     volumes:
       - ./backend/node/:/usr/app
       - node_modules_server:/usr/app/node_modules
