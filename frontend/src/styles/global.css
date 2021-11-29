@@ -1,0 +1,21 @@
+.wrapper {
+  min-height: calc(100vh - 3.3125rem); 
+  margin: auto;
+}
+.main-container {
+  width: 95%;
+  margin: auto;
+}
+
+.font-size-small {
+  font-size: 0.875rem;
+}
+.font-size-medium {
+  font-size: 1rem;
+}
+.font-size-sub-heading {
+  font-size: 1.2rem;
+}
+.font-size-main-heading {
+  font-size: 1.5rem;
+}
