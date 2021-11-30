@@ -3,6 +3,7 @@ module github.com/Aman-Codes/backend/go
 go 1.17
 
 require (
+	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.7.4
 	github.com/gocolly/colly/v2 v2.1.0
 	github.com/json-iterator/go v1.1.12

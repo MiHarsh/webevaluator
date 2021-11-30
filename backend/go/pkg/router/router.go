@@ -5,6 +5,7 @@ import (
 	"github.com/Aman-Codes/backend/go/pkg/log"
 	"github.com/Aman-Codes/backend/go/pkg/sendRequest"
 	"github.com/Aman-Codes/backend/go/pkg/ssl"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,6 +15,7 @@ type URL struct {
 
 func Router() {
 	router := gin.Default()
+	router.Use(cors.Default())
 	router.GET("/status", func(c *gin.Context) {
 		log.Info("hit the status route")
 		c.JSON(200, gin.H{
