@@ -2,11 +2,11 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    marginTop: "30vh",
+    marginTop: "10vh",
     marginBottom: "3rem",
   },
   h5: {
-    fontSize: "25px",
+    fontSize: "30px",
     color: "#5B44BA",
   },
   grid: {
@@ -19,6 +19,13 @@ const useStyles = makeStyles({
     color: "white",
     outline: "none",
     padding: "20px",
+    cursor: "pointer",
+  },
+  para_head: {
+    fontSize: "20px",
+    color: "#5B44BA",
+    lineHeight: "25px",
+    fontWeight: "bold",
   },
   para: {
     fontSize: "15px",
@@ -30,6 +37,18 @@ const useStyles = makeStyles({
   },
   number_para: {
     fontSize: "25px",
+  },
+  fixed_div: {
+    margin: "auto",
+    textAlign: "center",
+  },
+  paper: {
+    margin: "auto",
+    marginTop: "40vh",
+    padding: "10px",
+    background: "white",
+    width: 400,
+    border: "2px solid #000",
   },
 });
 
