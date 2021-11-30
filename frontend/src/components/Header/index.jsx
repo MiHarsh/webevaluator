@@ -32,11 +32,11 @@ const Header = () => {
         </Link>
 
         <div className={classes.middleSection}>
-          <HomeIcon color={theme.palette.text.tertiary} />
+          <HomeIcon color="primary" />
           <Link to="/" className={classes.link}>
             <Typography variant="body1">&nbsp;{t("header.home")}</Typography>
           </Link>
-          <HomeIcon color={theme.palette.text.tertiary} />
+          <HomeIcon color="primary" />
           <Link to="/" className={classes.link}>
             <Typography variant="body1">&nbsp;{t("header.about")}</Typography>
           </Link>

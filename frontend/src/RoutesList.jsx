@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SuspenseLoader from "components/SuspenseLoader";
 import Header from "components/Header";
 
-const ErrorPage = lazy(() => import("pages/Error"));
+const ErrorPage = lazy(() => import("pages/ErrorPage"));
 const HomePage = lazy(() => import("pages/Home"));
 
 const RoutesList = () => {

@@ -2,7 +2,7 @@ error:
   whoops: Whoops!
   pageUnavailable: This page is unavailable
   pageDoesNotExist: The page does not exist, or please try again later.
-  goBackHome: Go back to Home
+  goHome: Go to Home page
 header:
   title: WebCrawler
   home: Home

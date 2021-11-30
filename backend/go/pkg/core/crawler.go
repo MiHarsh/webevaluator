@@ -134,11 +134,7 @@ func NewCrawler(
 	extensions.Referer(c)
 
 	// Init Output
-	var output *Output
-	if outputFolder != "" {
-		filename := strings.ReplaceAll(site.Hostname(), ".", "_")
-		output = NewOutput(outputFolder, filename)
-	}
+	var output *Output = NewOutput()
 
 	// Set url whitelist regex
 	reg := ""

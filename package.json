@@ -1,0 +1,23 @@
+{
+  "name": "webcrawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend-go": "cd backend && cd node && nodemon index.js",
+    "backend-node": "cd backend && cd go && nodemon --exec go run main.go --signal SIGTERM",
+    "frontend": "cd frontend && npm start ",
+    "start": "concurrently \"npm run backend-go\" \"npm run backend-node\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aman-Codes/techfest.git"
+  },
+  "author": "Aman Dwivedi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aman-Codes/techfest/issues"
+  },
+  "homepage": "https://github.com/Aman-Codes/techfest#readme"
+}
