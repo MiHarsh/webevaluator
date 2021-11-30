@@ -1,54 +1,67 @@
-import React, { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Navbar, Nav, Dropdown } from "react-bootstrap";
-import { PersonCircle } from "react-bootstrap-icons";
-import { GlobalContext } from "context";
+import React from "react";
+import { Link } from "react-router-dom";
+import { useTheme } from "@material-ui/styles";
+import { Typography } from "@material-ui/core";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
+import Brightness7Icon from "@material-ui/icons/Brightness7";
+import HomeIcon from "@material-ui/icons/Home";
+import { useTranslation } from "react-i18next";
+import ColorModeContext from "shared/ColorModeContext";
+import GitHubLogo from "./images/github.svg";
+import useStyles from "./styles";
 
 const Header = () => {
-  const { setTheme } = useContext(GlobalContext);
-  const location = useLocation();
+  const theme = useTheme();
+  const colorMode = React.useContext(ColorModeContext);
+  const classes = useStyles();
+  const { t } = useTranslation();
   return (
-    <Navbar
-      expand="lg"
-      className="bg-primary-color py-0 pl-0 text-white"
-      sticky="top"
-    >
-      <Navbar.Brand as={Link} to="/" className="py-0">
-        <img
-          src="https://www.howtogeek.com/wp-content/uploads/2021/05/web_crawler_header.jpg"
-          alt="logo"
-          height="50"
-          width="50"
-        />
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
-          <Nav.Link
-            as={Link}
-            to="/"
-            className={location.pathname === "/" && "active-nav-item"}
-          >
-            Home
-          </Nav.Link>
-        </Nav>
-        <Nav className="ms-auto">
-          <Dropdown drop="left">
-            <Dropdown.Toggle variant="link" bsPrefix="p-0">
-              <PersonCircle color="#fff" size={40} className="m-2" />
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => setTheme("light")}>
-                Light Theme
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => setTheme("dark")}>
-                Dark Theme
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <AppBar className={classes.appBar}>
+      <Toolbar disableGutters className={classes.toolBar}>
+        <Link
+          to={{
+            pathname: "/",
+          }}
+          className={classes.link}
+        >
+          <Typography className={classes.title} variant="body1">
+            {t("header.title")}
+          </Typography>
+        </Link>
+
+        <div className={classes.middleSection}>
+          <HomeIcon color={theme.palette.text.tertiary} />
+          <Link to="/" className={classes.link}>
+            <Typography variant="body1">&nbsp;{t("header.home")}</Typography>
+          </Link>
+          <HomeIcon color={theme.palette.text.tertiary} />
+          <Link to="/" className={classes.link}>
+            <Typography variant="body1">&nbsp;{t("header.about")}</Typography>
+          </Link>
+        </div>
+
+        <div className={classes.rightSection}>
+          <div className={classes.iconContainer}>
+            {theme.palette.mode === "dark" ? (
+              <Brightness4Icon onClick={colorMode.toggleColorMode} />
+            ) : (
+              <Brightness7Icon onClick={colorMode.toggleColorMode} />
+            )}
+          </div>
+          <div className={classes.iconContainer}>
+            <a
+              href="https://slack.litmuschaos.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={GitHubLogo} alt="GitHub logo" />
+            </a>
+          </div>
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 };
 
