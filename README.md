@@ -77,11 +77,11 @@ The ADA compliance majorly includes the following points:
 
 | <!-- -->    | <!-- -->    |
 | --- | --- |
-| **Alternatives** | **a**. Alt text for all images and non-text content **b**. Captions for all audio or video content |
-| **Presentation** | **a**. Proper HTML structure and meaningful order (Eg: consecutive heading levels) **b**. Audio control: Any audio must be able to pause, stopped or muted **c**. Color contrast ratio \&gt;= 4.5:1 b/w regular text &amp; background and \&gt;= 3:1 for large text **d**. Text resize: Text must be resizable up to 200% without affecting readability |
-| **User Control** | **a**. Keyboard only accessible **b**. Skip navigation link |
-| **Understandable** | **a**. Link anchor text **b**. Website language |
-| **Predictability** | **a**. Consistent navigation **b**. Form labels and instructions **c**. Name, role, value for all UI components |
+| **Alternatives** | **a**. Alt text for all images and non-text content</br > **b**. Captions for all audio or video content |
+| **Presentation** | **a**. Proper HTML structure and meaningful order (Eg: consecutive heading levels)</br > **b**. Audio control: Any audio must be able to pause, stopped or muted</br > **c**. Color contrast ratio \&gt;= 4.5:1 b/w regular text &amp; background and \&gt;= 3:1 for large text</br > **d**. Text resize: Text must be resizable up to 200% without affecting readability |
+| **User Control** | **a**. Keyboard only accessible</br > **b**. Skip navigation link |
+| **Understandable** | **a**. Link anchor text</br > **b**. Website language |
+| **Predictability** | **a**. Consistent navigation</br > **b**. Form labels and instructions</br > **c**. Name, role, value for all UI components |
 
 A microservice would be created in node.js which would receive the list of URLs from the main golang backend and would run ADA compliance scans. The ADA compliance agent would fetch the webpage from the provided URL.
 
@@ -122,9 +122,9 @@ The project is using a microstructure architecture where we have the main server
 
 The front end is created in React.js and Material UI. All the reports are displayed to users in a visually appealing manner which can be exported in all the major formats including pdf, doc, etc. We created a very flexible and versatile foundation for our codebase, so that in future its functionality could be easily extended and new agents could be easily added into it. 
 
-| <!-- -->    | <!-- -->    | <!-- -->    |
-| --- | --- | --- |
+
 |<!-- -->    | Page-specific | All URLs |
+| --- | --- | --- |
 | SSL Agent | ✅ | ❌ |
 | Cookies checker | ✅ | ❌ |
 | ADA compliance | ✅ | ✅ |
@@ -203,7 +203,7 @@ upstream	git@github.com:Aman-Codes/techfest.git (push)
 ```
 ## Installation or Dev Setup
 
-### Method 1 (recommended): using Docker
+### Method 1 (recommended): Using Docker
 
 #### Pre-requisites
 
