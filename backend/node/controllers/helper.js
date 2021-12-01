@@ -48,9 +48,15 @@ const urlValidation = (req, res) => {
 
 const sendFile = (res, filePath) => {
   res.sendFile(filePath, (err) => {
-    if (err) throw err;
+    if (err) {
+      console.log(err);
+      res.send(err);
+    }
     fs.unlink(filePath, function (error) {
-      if (error) throw error;
+      if (error) {
+        console.log(error);
+        res.send(error);
+      }
     });
   });
 };
