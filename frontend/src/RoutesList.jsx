@@ -5,6 +5,7 @@ import Header from "components/Header";
 
 const ErrorPage = lazy(() => import("pages/ErrorPage"));
 const HomePage = lazy(() => import("pages/Home"));
+const TableView = lazy(() => import("pages/Tables"));
 
 const RoutesList = () => {
   return (
@@ -14,6 +15,7 @@ const RoutesList = () => {
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route path="*" element={<ErrorPage />} />
+          <Route exact path="/tables" element={<TableView />} />
         </Routes>
       </BrowserRouter>
     </SuspenseLoader>

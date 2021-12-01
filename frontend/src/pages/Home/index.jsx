@@ -5,6 +5,10 @@ import Loader from "components/Loader";
 import endpoints from "constants/endpoints";
 import { sendPostRequest } from "shared/sendRequest";
 import { Grid, Container, Modal } from "@material-ui/core";
+
+// trial purpose
+import TableGrid from "pages/Tables";
+// ends here
 import useStyles from "./styles";
 
 const Home = () => {
@@ -179,12 +183,14 @@ const Home = () => {
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
           >
-            <div className={classes.paper}>
+            {/* <div className={classes.paper}>
               <h2>Text in a modal</h2>
               <p>
                 Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
               </p>
-            </div>
+            </div> */}
+
+            <TableGrid />
           </Modal>
         </Container>
       )}
