@@ -48,7 +48,7 @@ const fetchCookiesInfo = async (cookiesList) => {
   return Promise.all(promiseList).then((values) => values);
 };
 
-router.post("/cchecker", async (req, res) => {
+router.post("/", async (req, res) => {
   const url = urlValidation(req, res);
   let browser;
   console.log("Url is", url);
