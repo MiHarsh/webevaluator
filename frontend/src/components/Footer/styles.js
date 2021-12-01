@@ -1,34 +1,22 @@
 import { makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   footer: {
-    background: "#5B44BA",
+    background: theme.palette.header,
     color: "white",
-    position: "absolute",
+    position: "fixed",
     width: "100%",
     bottom: 0,
-  },
-  copyright: {
-    padding: "25px",
-  },
-  copy_text: {
-    fontSize: "15px",
-    marginBottom: "10px",
-  },
-  footer_links: {
-    padding: "25px",
-    paddingLeft: "250px",
-  },
-  footer_span: {
-    fontSize: "15px",
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    marginTop: "10px",
+    display: "flex",
+    justifyContent: "space-between",
+    height: "4rem",
+    padding: "1.5rem",
   },
   anchor: {
-    color: "white",
+    color: theme.palette.text.secondary,
     textDecoration: "none",
+    margin: "0 1rem",
   },
-});
+}));
 
 export default useStyles;

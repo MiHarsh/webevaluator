@@ -7,3 +7,8 @@ header:
   title: WebCrawler
   home: Home
   about: About
+footer:
+  copyrightNotice: Copyright © 2021 WebCrawler. All rights reserved.
+  terms: Terms and Privacy
+  about: About
+  github: GitHub

@@ -1,45 +1,28 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 import useStyles from "./styles";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const classes = useStyles();
   return (
     <footer className={classes.footer}>
+      <div>{t("footer.copyrightNotice")}</div>
       <div>
-        <Grid container>
-          <Grid item sx={6} md={6}>
-            <div className={classes.copyright}>
-              <p className={classes.copy_text}>
-                Copyright © 2021 WebEx. All rights reserved.
-              </p>
-            </div>
-          </Grid>
-          <Grid item sx={6} md={6}>
-            <div className={classes.footer_links}>
-              <span>
-                <span className={classes.footer_span}>
-                  <a href="/terms" className={classes.anchor}>
-                    Terms and Privacy
-                  </a>
-                </span>
-                <span className={classes.footer_span}>
-                  <a href="/about" className={classes.anchor}>
-                    About
-                  </a>
-                </span>
-                <span className={classes.footer_span}>
-                  <a
-                    href="/https://github.com/Aman-Codes/techfest"
-                    className={classes.anchor}
-                  >
-                    GitHub
-                  </a>
-                </span>
-              </span>
-            </div>
-          </Grid>
-        </Grid>
+        <a href="/terms" className={classes.anchor}>
+          {t("footer.terms")}
+        </a>
+        <a href="/about" className={classes.anchor}>
+          {t("footer.about")}
+        </a>
+        <a
+          href="https://github.com/Aman-Codes/techfest"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={classes.anchor}
+        >
+          {t("footer.github")}
+        </a>
       </div>
     </footer>
   );
