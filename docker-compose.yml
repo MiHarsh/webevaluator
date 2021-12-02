@@ -20,7 +20,7 @@ services:
       - MONGODB_URL
     volumes:
       - ./backend/node/:/usr/app
-      - node_modules_server:/usr/app/node_modules
+      # - node_modules_server:/usr/app/node_modules
     ports:
       - "${BACKEND_NODE_PORT}:${BACKEND_NODE_PORT}"
 
@@ -38,6 +38,6 @@ services:
   #   ports:
   #     - "${FRONTEND_PORT}:${FRONTEND_PORT}"
 
-volumes:
-  node_modules_server:
-  node_modules_frontend:
+# volumes:
+  # node_modules_server:
+  # node_modules_frontend:
