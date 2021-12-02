@@ -116,11 +116,9 @@ The project is using a microstructure architecture where we have the main server
 | SSL certificate compliance | Python | Python script that uses ssllabs API |
 | Cookie checker | Node.js and JavaScript | Using Puppeteer for automated cookie consent verification |
 | ADA compliance | Node.js and JavaScript | Using a variety of node libraries for getting complete ADA compliance information |
-| Security Checks | Headers checking: Python XXS checker: Python SQL injection: Python DNS enum: Perl Web vuln scanner: PythonGDPR checks: HTML Scraping | All are the command-line scripts that will be used to perform the particular task and give results to our backend. |
-| SEO Scan | Python | Scripts and command-line tool |
 
 
-The front end is created in React.js and Material UI. All the reports are displayed to users in a visually appealing manner which can be exported in all the major formats including pdf, doc, etc. We created a very flexible and versatile foundation for our codebase, so that in future its functionality could be easily extended and new agents could be easily added into it. 
+The front end is created in React.js and Material UI. All the reports are displayed to users in a visually appealing manner which can be exported in formats such as PDF. We created a very flexible and versatile foundation for our codebase, so that in future its functionality could be easily extended and new agents could be easily added into it. 
 
 
 |<!-- -->    | Page-specific | All URLs |
@@ -128,12 +126,6 @@ The front end is created in React.js and Material UI. All the reports are displa
 | SSL Agent | ✅ | ❌ |
 | Cookies checker | ✅ | ❌ |
 | ADA compliance | ✅ | ✅ |
-| Header Scan | ✅ | ❌ |
-| DNS Scan | ✅ | ❌ |
-| Web page vulnerability | ✅ | ❌ |
-| SEO check | ✅ | ❌ |
-| XXS scan | ✅ | ✅ |
-| SQL injection | ✅ | ✅ |
 | GDPR compliance | ✅ | ✅ |
 
 ## Usage or Working Demo
