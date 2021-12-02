@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SuspenseLoader from "components/SuspenseLoader";
 import Header from "components/Header";
 import Footer from "components/Footer";
@@ -15,13 +15,13 @@ const RoutesList = () => {
     <SuspenseLoader style={{ height: "80vh" }}>
       <BrowserRouter>
         <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/about" component={AboutPage} />
-          <Route exact path="/report" component={ReportPage} />
-          <Route path="*" component={ErrorPage} />
-          <Route exact path="/tables" component={TableView} />
-        </Switch>
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/about" element={<AboutPage />} />
+          <Route exact path="/report" element={<ReportPage />} />
+          <Route path="*" element={<ErrorPage />} />
+          <Route exact path="/tables" element={<TableView />} />
+        </Routes>
         <Footer />
       </BrowserRouter>
     </SuspenseLoader>

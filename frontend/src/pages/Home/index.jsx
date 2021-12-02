@@ -1,64 +1,31 @@
 import React, { useState } from "react";
 import Center from "components/Center";
 import InputButton from "components/InputButton";
-import Loader from "components/Loader";
-import endpoints from "constants/endpoints";
-import { sendPostRequest } from "shared/sendRequest";
-import { Grid, Container, Modal } from "@material-ui/core";
+// import Loader from "components/Loader";
+// import endpoints from "constants/endpoints";
+// import { sendPostRequest } from "shared/sendRequest";
+// import { Grid, Container, Modal } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 // trial purpose
-import TableGrid from "components/Table";
+// import TableGrid from "components/Table";
 // ends here
 import useStyles from "./styles";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [value, setValue] = useState("");
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
-  const handleOpen = () => setOpen(true);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(value);
-    setLoading(true);
-    const promiseList = [];
-    promiseList.push(
-      sendPostRequest(endpoints.ssl(), {
-        URL: value,
-      })
-    );
-    promiseList.push(
-      sendPostRequest(endpoints.crawl(), {
-        URL: value,
-      })
-    );
-    promiseList.push(
-      sendPostRequest(endpoints.cookieChecker(), {
-        url: value,
-      })
-    );
-    promiseList.push(
-      sendPostRequest(endpoints.ada(), {
-        url: value,
-      })
-    );
-    // promiseList.push(
-    //   sendPostRequest(endpoints.tenon(), {
-    //     url: value,
-    //   })
-    // );
-    Promise.all(promiseList)
-      .then((data) => {
-        setResult(data);
-        console.log(result);
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  // const [result, setResult] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  // const [open, setOpen] = useState(false);
+  // const handleClose = () => setOpen(false);
+  // const handleOpen = () => setOpen(true);
+  const handleSubmit = () => {
+    // e.preventDefault();
+    navigate(`/report?url=${value}`);
+
+    // setLoading(true);
+    // setResult("");
   };
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -73,7 +40,7 @@ const Home = () => {
           handleSubmit={handleSubmit}
         />
       </Center>
-      {loading && <Loader />}
+      {/* {loading && <Loader />}
       {result && (
         <Container fixed>
           <div className={classes.fixed_div}>
@@ -184,8 +151,8 @@ const Home = () => {
           </Grid>
           <div>
             <p className={classes.para_head}>WCAG Guidelines Errors</p>
-          </div>
-          {/* <Grid container spacing={2}>
+          </div> */}
+      {/* <Grid container spacing={2}>
             {result[4].data.data.map((data) => {
               return (
                 <Grid item xs={4} md={4} className={classes.grid} spacing={2}>
@@ -203,23 +170,22 @@ const Home = () => {
               );
             })}
           </Grid> */}
-          <Modal
+      {/* <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
-          >
-            {/* <div className={classes.paper}>
+          > */}
+      {/* <div className={classes.paper}>
               <h2>Text in a modal</h2>
               <p>
                 Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
               </p>
             </div> */}
-
-            <TableGrid />
+      {/* <TableGrid />
           </Modal>
-        </Container>
-      )}
+        </Container> */}
+      {/* )} */}
     </>
   );
 };
