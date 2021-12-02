@@ -8,6 +8,7 @@ const ErrorPage = lazy(() => import("pages/ErrorPage"));
 const HomePage = lazy(() => import("pages/Home"));
 const TableView = lazy(() => import("pages/Tables"));
 const AboutPage = lazy(() => import("pages/About"));
+const ReportPage = lazy(() => import("pages/Report"));
 
 const RoutesList = () => {
   return (
@@ -17,6 +18,7 @@ const RoutesList = () => {
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route exact path="/about" element={<AboutPage />} />
+          <Route exact path="/report" element={<ReportPage />} />
           <Route path="*" element={<ErrorPage />} />
           <Route exact path="/tables" element={<TableView />} />
         </Routes>

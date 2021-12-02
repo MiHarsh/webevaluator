@@ -11,6 +11,7 @@ const endpoints = {
   cookieChecker: () => `${baseNodeUrl}/cchecker`,
   ada: () => `${baseNodeUrl}/errors/css`,
   tenon: () => `${baseNodeUrl}/tenon`,
+  sniffer: () => `${baseNodeUrl}/sniffer`,
 };
 
 export default endpoints;

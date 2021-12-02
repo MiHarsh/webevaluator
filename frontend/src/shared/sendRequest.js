@@ -15,6 +15,22 @@ export const sendPostRequest = (url, data) =>
       throw error;
     });
 
+export const sendPostRequestSetter = (url, postData, setValue) =>
+  axios({
+    method: "POST",
+    url,
+    data: postData,
+  })
+    .then(({ data }) => {
+      console.log("data is", data);
+      setValue(data);
+      return data;
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
+
 export const sendGetRequest = (url) =>
   axios({
     method: "POST",
