@@ -11,6 +11,7 @@ const useStyles = makeStyles({
   },
   grid: {
     padding: "auto 20px",
+    marginBottom: "30px",
   },
   grid_div: {
     background: "#5B44BA",

@@ -20,6 +20,10 @@ router.post("/", async (req, res) => {
   })
     .then((response) => {
       console.log(response.data.resultSet);
+      res.send({
+        status: "success",
+        data: response.data.resultSet,
+      });
     })
     .catch((error) => {
       console.log(error);

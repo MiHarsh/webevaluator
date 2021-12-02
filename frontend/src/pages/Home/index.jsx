@@ -182,6 +182,27 @@ const Home = () => {
               );
             })}
           </Grid>
+          <div>
+            <p className={classes.para_head}>WCAG Guidelines Errors</p>
+          </div>
+          <Grid container spacing={2}>
+            {result[4].data.data.map((data) => {
+              return (
+                <Grid item xs={4} md={4} className={classes.grid} spacing={2}>
+                  <div
+                    className={classes.grid_div}
+                    onClick={handleOpen}
+                    onKeyDown={handleOpen}
+                    aria-hidden="true"
+                  >
+                    <p className={classes.para}>{data.resultTitle}</p>
+                    <p className={classes.para}>Level: {data.level[0]}</p>
+                    <p className={classes.para}>Issue ID: {data.issueID}</p>
+                  </div>
+                </Grid>
+              );
+            })}
+          </Grid>
           <Modal
             open={open}
             onClose={handleClose}
