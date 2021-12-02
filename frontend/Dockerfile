@@ -4,8 +4,8 @@ WORKDIR /usr/app
 
 COPY . .
 
-RUN yarn
+RUN npm ci
 
 EXPOSE 3000
 
-CMD [ "yarn", "start" ]
+CMD [ "npm", "start" ]

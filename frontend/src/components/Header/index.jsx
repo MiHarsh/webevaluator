@@ -7,6 +7,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import HomeIcon from "@material-ui/icons/Home";
+import InfoIcon from "@material-ui/icons/Info";
 import { useTranslation } from "react-i18next";
 import ColorModeContext from "shared/ColorModeContext";
 import GitHubLogo from "./images/github.svg";
@@ -36,8 +37,8 @@ const Header = () => {
           <Link to="/" className={classes.link}>
             <Typography variant="body1">&nbsp;{t("header.home")}</Typography>
           </Link>
-          <HomeIcon color="primary" />
-          <Link to="/" className={classes.link}>
+          <InfoIcon color="primary" />
+          <Link to="/about" className={classes.link}>
             <Typography variant="body1">&nbsp;{t("header.about")}</Typography>
           </Link>
         </div>
@@ -52,7 +53,7 @@ const Header = () => {
           </div>
           <div className={classes.iconContainer}>
             <a
-              href="https://slack.litmuschaos.io/"
+              href="https://github.com/Aman-Codes/techfest"
               target="_blank"
               rel="noopener noreferrer"
             >
