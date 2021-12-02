@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import Table from "components/Table";
+// import Table from "components/Table";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomModal = ({ handleClose, open, rows, columns, uniqueId }) => {
+const CustomModal = ({ handleClose, open }) => {
   const classes = useStyles();
   return (
     <div>
@@ -36,7 +36,7 @@ const CustomModal = ({ handleClose, open, rows, columns, uniqueId }) => {
         }}
       >
         <Fade in={open}>
-          <Table rows={rows} columns={columns} uniqueId={uniqueId} />
+          {/* <Table rows={rows} columns={columns} uniqueId={uniqueId} /> */}
         </Fade>
       </Modal>
     </div>

@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import Container from "components/Container";
 import Loader from "components/Loader";
 import CustomModal from "components/CustomModal";
+import ScrollableTabs from "components/Tabs";
 import {
   sslColumns,
   sslId,
@@ -226,6 +227,7 @@ const Report = () => {
         columns={columns}
         uniqueId={uniqueId}
       />
+      <ScrollableTabs />
     </div>
   );
 };
