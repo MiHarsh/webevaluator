@@ -7,7 +7,7 @@ import { sendPostRequest } from "shared/sendRequest";
 import { Grid, Container, Modal } from "@material-ui/core";
 
 // trial purpose
-import TableGrid from "pages/Tables";
+import TableGrid from "components/Table";
 // ends here
 import useStyles from "./styles";
 
@@ -43,11 +43,11 @@ const Home = () => {
         url: value,
       })
     );
-    promiseList.push(
-      sendPostRequest(endpoints.tenon(), {
-        url: value,
-      })
-    );
+    // promiseList.push(
+    //   sendPostRequest(endpoints.tenon(), {
+    //     url: value,
+    //   })
+    // );
     Promise.all(promiseList)
       .then((data) => {
         setResult(data);
@@ -185,7 +185,7 @@ const Home = () => {
           <div>
             <p className={classes.para_head}>WCAG Guidelines Errors</p>
           </div>
-          <Grid container spacing={2}>
+          {/* <Grid container spacing={2}>
             {result[4].data.data.map((data) => {
               return (
                 <Grid item xs={4} md={4} className={classes.grid} spacing={2}>
@@ -202,7 +202,7 @@ const Home = () => {
                 </Grid>
               );
             })}
-          </Grid>
+          </Grid> */}
           <Modal
             open={open}
             onClose={handleClose}

@@ -4,6 +4,13 @@ import { sendPostRequestSetter } from "shared/sendRequest";
 import { useLocation } from "react-router-dom";
 import Container from "components/Container";
 import Loader from "components/Loader";
+import CustomModal from "components/CustomModal";
+import {
+  sslColumns,
+  sslId,
+  cookiesColumns,
+  cookiesId,
+} from "constants/columns";
 import useStyles from "./styles";
 
 const Report = () => {
@@ -14,6 +21,19 @@ const Report = () => {
   const [cookie, setCookie] = useState(null);
   const [ada, setAda] = useState(null);
   const [sniffer, setSniffer] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [rows, setRows] = useState(null);
+  const [columns, setColumns] = useState(null);
+  const [uniqueId, setUniqueId] = useState("id");
+  const handleClick = (row, column, uniqueid) => {
+    setRows(row);
+    setColumns(column);
+    setUniqueId(uniqueid);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     const promiseList = [];
     promiseList.push(
@@ -71,44 +91,142 @@ const Report = () => {
   }, []);
   const classes = useStyles();
   return (
-    <>
-      <h1 className={classes.heading}>Crawler Overview:</h1>
+    <div className={classes.root}>
+      <h1 className={classes.heading}>URLs:</h1>
       <div className={classes.flex}>
         <Container>
-          <h2 className={classes.heading2}>
-            Media URL:{" "}
+          <p className={classes.p}>
+            Media URLs:{" "}
             {crawl ? Object.keys(crawl?.mediaList)?.length : <Loader />}
-          </h2>
+          </p>
         </Container>
         <Container>
-          <h2 className={classes.heading2}>
-            Site URL: {crawl ? Object.keys(crawl?.urlList)?.length : <Loader />}
-          </h2>
+          <p className={classes.p}>
+            Site URLs:{" "}
+            {crawl ? Object.keys(crawl?.urlList)?.length : <Loader />}
+          </p>
         </Container>
       </div>
-      <h1 className={classes.heading}>SSL Overview:</h1>
+      <h1 className={classes.heading}>SSL Certificates:</h1>
       <div className={classes.flex}>
-        {ssl.data.map((certificate) => (
-          <Container key={certificate.SerialNumber}>
-            <h2 className={classes.heading2}>
-              Expiry Date: {certificate.NotAfter}
-            </h2>
-            <h2 className={classes.heading2}>
-              Issue Date: {certificate.NotBefore}
-            </h2>
-            <h2 className={classes.heading2}>
-              CommonName: {certificate.CommonName}
-            </h2>
-            <h2 className={classes.heading2}>
-              DNS Names: {certificate.DNSNames?.join(", ")}
-            </h2>
-          </Container>
-        ))}
+        {ssl ? (
+          ssl?.data?.map((certificate) => (
+            <Container
+              onClick={() => handleClick(certificate, sslColumns, sslId)}
+            >
+              <p className={classes.p}>Expiry Date: {certificate.NotAfter}</p>
+              <p className={classes.p}>Issue Date: {certificate.NotBefore}</p>
+              <p className={classes.p}>CommonName: {certificate.CommonName}</p>
+              <p className={classes.p}>
+                DNS Names: {certificate.DNSNames?.join(", ")}
+              </p>
+            </Container>
+          ))
+        ) : (
+          <Loader />
+        )}
       </div>
-      {cookie && "cookie"}
-      {ada && "ada"}
-      {sniffer && "sniffer"}
-    </>
+      <h1 className={classes.heading}>Cookies:</h1>
+      <div className={classes.flex}>
+        <Container>
+          <p className={classes.p}>
+            Deny Cookies Option Present:{" "}
+            {cookie ? `${cookie?.data?.["user-can_deny"]}` : <Loader />}
+          </p>
+        </Container>
+        <Container>
+          <p className={classes.p}>
+            Accept Cookies Option Present:{" "}
+            {cookie ? `${cookie?.data?.["consent-popup"]}` : <Loader />}
+          </p>
+        </Container>
+      </div>
+      <div className={classes.flex}>
+        <Container
+          onClick={() =>
+            handleClick(
+              cookie?.data?.["initial-cookies"],
+              cookiesColumns,
+              cookiesId
+            )
+          }
+        >
+          <p className={classes.p}>
+            Initial Cookies:{" "}
+            {cookie ? cookie?.data?.["initial-cookies"]?.length : <Loader />}
+          </p>
+        </Container>
+        <Container>
+          <p className={classes.p}>
+            Cookies After Accept:{" "}
+            {cookie ? (
+              cookie?.data?.["cookies-consent_accepted"]?.length || 0
+            ) : (
+              <Loader />
+            )}
+          </p>
+        </Container>
+        <Container>
+          <p className={classes.p}>
+            Cookies After Deny:{" "}
+            {cookie ? (
+              cookie?.data?.["cookies-consent_denied"]?.length || 0
+            ) : (
+              <Loader />
+            )}
+          </p>
+        </Container>
+      </div>
+      <h1 className={classes.heading}>
+        Web Content Accessibility Guidelines (WCAG) Checks:
+      </h1>
+      <div className={classes.flex}>
+        <Container>
+          <p className={classes.p}>
+            WCAG2A Errors:{" "}
+            {sniffer ? sniffer?.result?.WCAG2A?.length : <Loader />}
+          </p>
+        </Container>
+        <Container>
+          <p className={classes.p}>
+            WCAG2AA Errors:{" "}
+            {sniffer ? sniffer?.result?.WCAG2AA?.length : <Loader />}
+          </p>
+        </Container>
+        <Container>
+          <p className={classes.p}>
+            WCAG2AAA Errors:{" "}
+            {sniffer ? sniffer?.result?.WCAG2AAA?.length : <Loader />}
+          </p>
+        </Container>
+        <Container>
+          <p className={classes.p}>
+            Section 508 Errors:{" "}
+            {sniffer ? sniffer?.result?.Section508?.length : <Loader />}
+          </p>
+        </Container>
+      </div>
+      <h1 className={classes.heading}>Other Accessibility Checks:</h1>
+      <div className={classes.flex}>
+        <Container>
+          <p className={classes.p}>
+            Errors: {ada ? ada?.data?.error?.length : <Loader />}
+          </p>
+        </Container>
+        <Container>
+          <p className={classes.p}>
+            Warnings: {ada ? ada?.data?.warning?.length : <Loader />}
+          </p>
+        </Container>
+      </div>
+      <CustomModal
+        handleClose={handleClose}
+        open={open}
+        rows={rows}
+        columns={columns}
+        uniqueId={uniqueId}
+      />
+    </div>
   );
 };
 
