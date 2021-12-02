@@ -43,6 +43,11 @@ const Home = () => {
         url: value,
       })
     );
+    promiseList.push(
+      sendPostRequest(endpoints.tenon(), {
+        url: value,
+      })
+    );
     Promise.all(promiseList)
       .then((data) => {
         setResult(data);

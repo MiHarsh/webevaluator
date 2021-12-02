@@ -10,6 +10,7 @@ const endpoints = {
   sslapi: () => `${baseGoUrl}/sslapi`,
   cookieChecker: () => `${baseNodeUrl}/cchecker`,
   ada: () => `${baseNodeUrl}/errors/css`,
+  tenon: () => `${baseNodeUrl}/tenon`,
 };
 
 export default endpoints;
