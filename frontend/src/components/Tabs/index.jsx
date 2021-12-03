@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Table from "pages/Table";
+import Table from "components/Table";
+import mappings from "constants/mappings";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -42,26 +42,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const titles = [
-  "MediaURL",
-  "SiteURL",
-  "SSL Certificates",
-  "Cookies-I",
-  "Cookies-A",
-  "Cookies-D",
-  "WCAG2A",
-  "WCAG2AA",
-  "WCAG2AAA",
-  "Section 508",
-  "Error",
-  "Warnings",
-];
-
 export default function ScrollableTabs() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_event, newValue) => {
     setValue(newValue);
   };
 
@@ -75,17 +60,21 @@ export default function ScrollableTabs() {
           textColor="#0000008a"
           variant="scrollable"
           scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
+          aria-label="scrollable auto tabs"
         >
-          {titles.map((title, i) => (
-            <Tab label={title} {...a11yProps(i)} />
+          {mappings.map((item, i) => (
+            <Tab label={item.title} {...a11yProps(i)} />
           ))}
         </Tabs>
       </AppBar>
 
-      {titles.map((title, i) => (
+      {mappings.map((item, i) => (
         <TabPanel value={value} index={i}>
-          <Table />
+          <Table
+            rows={item.rows}
+            columns={item.columns}
+            uniqueId={item.uniqueId}
+          />
         </TabPanel>
       ))}
     </div>

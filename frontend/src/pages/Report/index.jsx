@@ -4,14 +4,7 @@ import { sendPostRequestSetter } from "shared/sendRequest";
 import { useLocation } from "react-router-dom";
 import Container from "components/Container";
 import Loader from "components/Loader";
-import CustomModal from "components/CustomModal";
-import ScrollableTabs from "components/Tabs";
-import {
-  sslColumns,
-  sslId,
-  cookiesColumns,
-  cookiesId,
-} from "constants/columns";
+// import ScrollableTabs from "components/Tabs";
 import useStyles from "./styles";
 
 const Report = () => {
@@ -22,19 +15,6 @@ const Report = () => {
   const [cookie, setCookie] = useState(null);
   const [ada, setAda] = useState(null);
   const [sniffer, setSniffer] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [rows, setRows] = useState(null);
-  const [columns, setColumns] = useState(null);
-  const [uniqueId, setUniqueId] = useState("id");
-  const handleClick = (row, column, uniqueid) => {
-    setRows(row);
-    setColumns(column);
-    setUniqueId(uniqueid);
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   useEffect(() => {
     const promiseList = [];
     promiseList.push(
@@ -112,9 +92,7 @@ const Report = () => {
       <div className={classes.flex}>
         {ssl ? (
           ssl?.data?.map((certificate) => (
-            <Container
-              onClick={() => handleClick(certificate, sslColumns, sslId)}
-            >
+            <Container>
               <p className={classes.p}>Expiry Date: {certificate.NotAfter}</p>
               <p className={classes.p}>Issue Date: {certificate.NotBefore}</p>
               <p className={classes.p}>CommonName: {certificate.CommonName}</p>
@@ -143,15 +121,7 @@ const Report = () => {
         </Container>
       </div>
       <div className={classes.flex}>
-        <Container
-          onClick={() =>
-            handleClick(
-              cookie?.data?.["initial-cookies"],
-              cookiesColumns,
-              cookiesId
-            )
-          }
-        >
+        <Container>
           <p className={classes.p}>
             Initial Cookies:{" "}
             {cookie ? cookie?.data?.["initial-cookies"]?.length : <Loader />}
@@ -220,14 +190,7 @@ const Report = () => {
           </p>
         </Container>
       </div>
-      <CustomModal
-        handleClose={handleClose}
-        open={open}
-        rows={rows}
-        columns={columns}
-        uniqueId={uniqueId}
-      />
-      <ScrollableTabs />
+      {/* <ScrollableTabs /> */}
     </div>
   );
 };

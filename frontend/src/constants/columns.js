@@ -102,13 +102,13 @@ export const wcagColumns = [
     field: "msgInfo",
     headerName: "Success Criterion",
     valueFormatter: (params) =>
-      params.value?.[0]?.["Success Criterion"]?.join(" \n"),
+      params.value[0]?.["Success Criterion"]?.join(" \n"),
   },
   {
     field: "msgInfo",
     headerName: "Suggested Techniques",
     valueFormatter: (params) =>
-      params.value?.[1]?.["Suggested Techniques"]?.join(" \n"),
+      params.value[1]?.["Suggested Techniques"]?.join(" \n"),
   },
 ];
 
@@ -120,7 +120,7 @@ export const section508Columns = [
   {
     field: "msgInfo",
     headerName: "Section",
-    valueFormatter: (params) => params.value?.[0]?.Section,
+    valueFormatter: (params) => params.value[0]?.Section,
   },
 ];
 
