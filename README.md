@@ -127,6 +127,11 @@ The front end is created in React.js and Material UI. All the reports are displa
 
 ## Usage or Working Demo
 
+![image](https://github.com/Aman-Codes/techfest/blob/main/1.png)
+
+![image](https://github.com/Aman-Codes/techfest/blob/main/2.png)
+
+![image](https://github.com/Aman-Codes/techfest/blob/main/3.png)
 
 ## Contributing Guidelines
 
