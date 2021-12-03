@@ -6,7 +6,7 @@ import Footer from "components/Footer";
 
 const ErrorPage = lazy(() => import("pages/ErrorPage"));
 const HomePage = lazy(() => import("pages/Home"));
-const TableView = lazy(() => import("pages/Table"));
+// const TableView = lazy(() => import("pages/Table"));
 const AboutPage = lazy(() => import("pages/About"));
 const ReportPage = lazy(() => import("pages/Report"));
 
@@ -20,7 +20,7 @@ const RoutesList = () => {
           <Route exact path="/about" element={<AboutPage />} />
           <Route exact path="/report" element={<ReportPage />} />
           <Route path="*" element={<ErrorPage />} />
-          <Route exact path="/tables" element={<TableView />} />
+          {/* <Route exact path="/tables" element={<TableView />} /> */}
         </Routes>
         <Footer />
       </BrowserRouter>

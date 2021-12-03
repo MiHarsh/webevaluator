@@ -49,72 +49,102 @@ img {
 	<h1>Web Accessibility Report</h1>
 	<h2>SSL Certificates:</h2>
 	<table>
-		<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-			<tr>
-				<th>S. No.</th>
+		<tr>
+			<th>S. No.</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= index + 1 %></td>
-			</tr>
-			<tr>
-				<th>Signature Algorithm</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Signature Algorithm</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.SignatureAlgorithm %></td>
-			</tr>
-			<tr>
-				<th>Version</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Version</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.Version %></td>
-			</tr>
-			<tr>
-				<th>Serial Number</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Serial Number</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.SerialNumber %></td>
-			</tr>
-			<tr>
-				<th>Issue Date</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Issue Date</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.NotBefore %></td>
-			</tr>
-			<tr>
-				<th>Expiry Date</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Expiry Date</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.NotAfter %></td>
-			</tr>
-			<tr>
-				<th>Common Name</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Common Name</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.CommonName %></td>
-			</tr>
-			<tr>
-				<th>DNS Names</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>DNS Names</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.DNSNames %></td>
-			</tr>
-			<tr>
-				<th>Issuer Country</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Issuer Country</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.Issuer?.Country?.join(" ") %></td>
-			</tr>
-			<tr>
-				<th>Issuer Organization</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Issuer Organization</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.Issuer?.Organization?.join(" ") %></td>
-			</tr>
-			<tr>
-				<th>Issuer Organizational Unit</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Issuer Organizational Unit</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.Issuer?.OrganizationalUnit?.join(" ") %></td>
-			</tr>
-			<tr>
-				<th>Issuer Common Name</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Issuer Common Name</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.Issuer?.CommonName %></td>
-			</tr>
-			<tr>
-				<th>Subject Country</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Subject Country</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.Issuer?.Country?.join(" ") %></td>
-			</tr>
-			<tr>
-				<th>Subject Organization</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Subject Organization</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.Issuer?.Organization?.join(" ") %></td>
-			</tr>
-			<tr>
-				<th>Subject Organizational Unit</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Subject Organizational Unit</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.Issuer?.OrganizationalUnit?.join(" ") %></td>
-			</tr>
-			<tr>
-				<th>Subject Common Name</th>
+			<% }) %>
+		</tr>
+		<tr>
+			<th>Subject Common Name</th>
+			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
 				<td><%= row.Issuer?.CommonName %></td>
-			</tr>
-		<% }) %>
+			<% }) %>
+		</tr>
 	</table>
 	<br />
 	<h2>Cookies:</h2>
