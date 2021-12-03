@@ -1,4 +1,4 @@
-# Webulator - An Automated Website Tester
+# WebEvaluator - An Automated Website Tester
 put badges here
 
 ## Introduction
@@ -233,14 +233,10 @@ upstream	git@github.com:Aman-Codes/techfest.git (push)
 * https://github.com/jkwakman/Open-Cookie-Database
 * https://cookiedatabase.org
 * https://www.cookieserve.com
+* https://github.com/bhole100/cki_json
 * https://checka11y.jackdomleo.dev
 * https://github.com/Khan/tota11y
-* https://github.com/koenbuyens/securityheaders
-* https://securityheaders.com
 * https://csp.withgoogle.com/docs/index.html
-* https://github.com/s0md3v/XSStrike
-* https://github.com/sqlmapproject/sqlmap
-* https://github.com/foospidy/web-cve-tests
 * https://github.com/oazevedo/GDPR-is-my-Website-Insecure/blob/master/GDPR%20-%20Is%20My%20Website%20inSecure-v1.4.pdf
 * https://en.wikipedia.org/wiki/Search_engine_optimization
 * https://github.com/sethblack/python-seo-analyzer
