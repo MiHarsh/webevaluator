@@ -161,11 +161,11 @@ router.post("/", async (req, res) => {
 
     Promise.all(PromiseList).then((updatedCookiesInfo) => {
       const result = {
-        "initial-cookies": updatedCookiesInfo[0],
-        "cookies-consent_denied": updatedCookiesInfo[1],
-        "cookies-consent_accepted": updatedCookiesInfo[2],
-        "user-can_deny": denyConsent,
-        "consent-popup": cnstAsked,
+        initialCookies: updatedCookiesInfo[0],
+        consentDeniedCookies: updatedCookiesInfo[1],
+        consentAcceptedCookies: updatedCookiesInfo[2],
+        denyConsent: denyConsent,
+        consentAsked: cnstAsked,
       };
 
       res.send({

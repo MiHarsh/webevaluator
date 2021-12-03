@@ -11,75 +11,77 @@ import {
   snifferId,
 } from "constants/columns";
 
-const mappings = [
-  // {
-  //   id: 0,
-  //   title: "Media URLs",
-  // },
-  // {
-  //   id: 1,
-  //   title: "Site URLs",
-  // },
-  {
-    id: 2,
+const mappings = {
+  1: {
+    id: 1,
     title: "SSL Certificates",
     columns: sslColumns,
     uniqueId: sslId,
+    rows: [],
   },
-  {
-    id: 3,
+  2: {
+    id: 2,
     title: "Initial Cookies",
     columns: cookiesColumns,
     uniqueId: cookiesId,
+    rows: [],
   },
-  {
-    id: 5,
+  3: {
+    id: 3,
     title: "Accepted Cookies",
     columns: cookiesColumns,
     uniqueId: cookiesId,
+    rows: [],
   },
-  {
-    id: 6,
+  4: {
+    id: 4,
     title: "Denied Cookies",
     columns: cookiesColumns,
     uniqueId: cookiesId,
+    rows: [],
   },
-  {
-    id: 7,
+  5: {
+    id: 5,
     title: "WCAG2A",
     columns: wcagColumns,
     uniqueId: snifferId,
+    rows: [],
   },
-  {
-    id: 8,
+  6: {
+    id: 6,
     title: "WCAG2AA",
     columns: wcagColumns,
     uniqueId: snifferId,
+    rows: [],
   },
-  {
-    id: 9,
+  7: {
+    id: 7,
     title: "WCAG2AAA",
     columns: wcagColumns,
     uniqueId: snifferId,
+    rows: [],
   },
-  {
-    id: 10,
+  8: {
+    id: 8,
     title: "Section 508",
     columns: section508Columns,
     uniqueId: snifferId,
+    rows: [],
   },
-  {
-    id: 11,
+  9: {
+    id: 9,
     title: "Accessibility Error",
     columns: adaColumn,
     uniqueId: adaId,
+    rows: [],
   },
-  {
-    id: 12,
+  10: {
+    id: 10,
     title: "Accessibility Warnings",
     columns: adaColumn,
     uniqueId: adaId,
+    rows: [],
   },
-];
+};
 
 export default mappings;

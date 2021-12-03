@@ -4,20 +4,20 @@ import { sendPostRequestSetter } from "shared/sendRequest";
 import { useLocation } from "react-router-dom";
 import Container from "components/Container";
 import Loader from "components/Loader";
-<<<<<<< HEAD
-import CustomModal from "components/CustomModal";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
-import ScrollableTabs from "components/Tabs";
+import ScrollableTabs from "components/ScrollableTabs";
 import {
   sslColumns,
   sslId,
   cookiesColumns,
   cookiesId,
+  adaColumn,
+  adaId,
+  wcagColumns,
+  section508Columns,
+  snifferId,
 } from "constants/columns";
-=======
-// import ScrollableTabs from "components/Tabs";
->>>>>>> origin
 import useStyles from "./styles";
 
 const Report = () => {
@@ -33,7 +33,176 @@ const Report = () => {
   const scrollDown = () => {
     tableRef.current.scrollIntoView({ behavior: "smooth" });
   };
-
+  const [mapping, setMapping] = useState({
+    1: {
+      id: 1,
+      title: "SSL Certificates",
+      columns: sslColumns,
+      uniqueId: sslId,
+      rows: [],
+    },
+    2: {
+      id: 2,
+      title: "Initial Cookies",
+      columns: cookiesColumns,
+      uniqueId: cookiesId,
+      rows: [],
+    },
+    3: {
+      id: 3,
+      title: "Accepted Cookies",
+      columns: cookiesColumns,
+      uniqueId: cookiesId,
+      rows: [],
+    },
+    4: {
+      id: 4,
+      title: "Denied Cookies",
+      columns: cookiesColumns,
+      uniqueId: cookiesId,
+      rows: [],
+    },
+    5: {
+      id: 5,
+      title: "WCAG2A",
+      columns: wcagColumns,
+      uniqueId: snifferId,
+      rows: [],
+    },
+    6: {
+      id: 6,
+      title: "WCAG2AA",
+      columns: wcagColumns,
+      uniqueId: snifferId,
+      rows: [],
+    },
+    7: {
+      id: 7,
+      title: "WCAG2AAA",
+      columns: wcagColumns,
+      uniqueId: snifferId,
+      rows: [],
+    },
+    8: {
+      id: 8,
+      title: "Section 508",
+      columns: section508Columns,
+      uniqueId: snifferId,
+      rows: [],
+    },
+    9: {
+      id: 9,
+      title: "Accessibility Error",
+      columns: adaColumn,
+      uniqueId: adaId,
+      rows: [],
+    },
+    10: {
+      id: 10,
+      title: "Accessibility Warnings",
+      columns: adaColumn,
+      uniqueId: adaId,
+      rows: [],
+    },
+  });
+  useEffect(() => {
+    setMapping((prev) => {
+      return {
+        ...prev,
+        1: {
+          id: 1,
+          title: "SSL Certificates",
+          columns: sslColumns,
+          uniqueId: sslId,
+          rows: ssl?.data || [],
+        },
+      };
+    });
+  }, ssl);
+  useEffect(() => {
+    setMapping((prev) => {
+      return {
+        ...prev,
+        2: {
+          id: 2,
+          title: "Initial Cookies",
+          columns: cookiesColumns,
+          uniqueId: cookiesId,
+          rows: cookie?.data?.initialCookies || [],
+        },
+        3: {
+          id: 3,
+          title: "Accepted Cookies",
+          columns: cookiesColumns,
+          uniqueId: cookiesId,
+          rows: cookie?.data?.consentAcceptedCookies || [],
+        },
+        4: {
+          id: 4,
+          title: "Denied Cookies",
+          columns: cookiesColumns,
+          uniqueId: cookiesId,
+          rows: cookie?.data?.consentDeniedCookies || [],
+        },
+      };
+    });
+  }, cookie);
+  useEffect(() => {
+    setMapping((prev) => {
+      return {
+        ...prev,
+        5: {
+          id: 5,
+          title: "WCAG2A",
+          columns: wcagColumns,
+          uniqueId: snifferId,
+          rows: sniffer?.result?.WCAG2A || [],
+        },
+        6: {
+          id: 6,
+          title: "WCAG2AA",
+          columns: wcagColumns,
+          uniqueId: snifferId,
+          rows: sniffer?.result?.WCAG2AA || [],
+        },
+        7: {
+          id: 7,
+          title: "WCAG2AAA",
+          columns: wcagColumns,
+          uniqueId: snifferId,
+          rows: sniffer?.result?.WCAG2AAA || [],
+        },
+        8: {
+          id: 8,
+          title: "Section 508",
+          columns: section508Columns,
+          uniqueId: snifferId,
+          rows: sniffer?.result?.Section508 || [],
+        },
+      };
+    });
+  }, sniffer);
+  useEffect(() => {
+    setMapping((prev) => {
+      return {
+        ...prev,
+        9: {
+          id: 9,
+          title: "Accessibility Error",
+          columns: adaColumn,
+          uniqueId: adaId,
+          rows: ada?.data?.error || [],
+        },
+        10: {
+          id: 10,
+          title: "Accessibility Warnings",
+          columns: adaColumn,
+          uniqueId: adaId,
+          rows: ada?.data?.warning || [],
+        },
+      };
+    });
+  }, [ada]);
   useEffect(() => {
     const promiseList = [];
     promiseList.push(
@@ -81,13 +250,14 @@ const Report = () => {
         setSniffer
       )
     );
-    Promise.all(promiseList)
+    Promise.allSettled(promiseList)
       .then((data) => {
         console.log(data);
       })
       .catch((error) => {
         console.error(error);
       });
+    setMapping([]);
   }, []);
   const classes = useStyles();
   return (
@@ -162,8 +332,14 @@ const Report = () => {
             onKeyDown={scrollDown}
             aria-hidden="true"
           >
-            Accept Cookies Option Present:{" "}
-            {cookie ? `${cookie?.data?.["consent-popup"]}` : <Loader />}
+            Cookies Consent Asked:{" "}
+            {cookie ? `${cookie?.data?.consentAsked}` : <Loader />}
+          </p>
+        </Container>
+        <Container>
+          <p className={classes.p}>
+            Deny Cookies Option Present:{" "}
+            {cookie ? `${cookie?.data?.denyConsent}` : <Loader />}
           </p>
         </Container>
       </div>
@@ -176,7 +352,7 @@ const Report = () => {
             aria-hidden="true"
           >
             Initial Cookies:{" "}
-            {cookie ? cookie?.data?.["initial-cookies"]?.length : <Loader />}
+            {cookie ? cookie?.data?.initialCookies?.length : <Loader />}
           </p>
         </Container>
         <Container>
@@ -188,7 +364,7 @@ const Report = () => {
           >
             Cookies After Accept:{" "}
             {cookie ? (
-              cookie?.data?.["cookies-consent_accepted"]?.length || 0
+              cookie?.data?.consentAcceptedCookies?.length || 0
             ) : (
               <Loader />
             )}
@@ -203,7 +379,7 @@ const Report = () => {
           >
             Cookies After Deny:{" "}
             {cookie ? (
-              cookie?.data?.["cookies-consent_denied"]?.length || 0
+              cookie?.data?.consentDeniedCookies?.length || 0
             ) : (
               <Loader />
             )}
@@ -293,16 +469,8 @@ const Report = () => {
           Download Complete Report
         </Button>
       </div>
-      <CustomModal
-        handleClose={handleClose}
-        open={open}
-        rows={rows}
-        columns={columns}
-        uniqueId={uniqueId}
-      />
-      <ScrollableTabs />
       <div ref={tableRef}> Get Scrolled here</div>
-      {/* <ScrollableTabs /> */}
+      <ScrollableTabs mapping={mapping} />
     </div>
   );
 };

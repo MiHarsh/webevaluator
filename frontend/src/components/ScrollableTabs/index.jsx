@@ -6,9 +6,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Table from "components/Table";
-import mappings from "constants/mappings";
 
-function TabPanel(props) {
+const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
   return (
     <div
@@ -25,14 +24,14 @@ function TabPanel(props) {
       )}
     </div>
   );
-}
+};
 
-function a11yProps(index) {
+const a11yProps = (index) => {
   return {
     id: `scrollable-auto-tab-${index}`,
     "aria-controls": `scrollable-auto-tabpanel-${index}`,
   };
-}
+};
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -42,7 +41,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ScrollableTabs() {
+const ScrollableTabs = ({ mapping }) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
@@ -62,21 +61,23 @@ export default function ScrollableTabs() {
           scrollButtons="auto"
           aria-label="scrollable auto tabs"
         >
-          {mappings.map((item, i) => (
-            <Tab label={item.title} {...a11yProps(i)} />
+          {Object.keys(mapping).map((key, i) => (
+            <Tab label={mapping[key].title} {...a11yProps(i)} />
           ))}
         </Tabs>
       </AppBar>
 
-      {mappings.map((item, i) => (
+      {Object.keys(mapping).map((key, i) => (
         <TabPanel value={value} index={i}>
           <Table
-            rows={item.rows}
-            columns={item.columns}
-            uniqueId={item.uniqueId}
+            rows={mapping[key].rows}
+            columns={mapping[key].columns}
+            uniqueId={mapping[key].uniqueId}
           />
         </TabPanel>
       ))}
     </div>
   );
-}
+};
+
+export default ScrollableTabs;

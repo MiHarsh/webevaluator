@@ -1,11 +1,12 @@
 import React from "react";
 import { DataGrid, GridToolbar } from "@material-ui/data-grid";
 
-const Table = ({ rows, columns, uniqueId }) => {
+const Table = ({ rows = [], columns, uniqueId }) => {
   return (
     <div
       style={{
-        width: 800,
+        height: 500,
+        width: "auto",
         margin: "5rem 2rem",
         background: "white",
       }}
@@ -13,7 +14,6 @@ const Table = ({ rows, columns, uniqueId }) => {
       <DataGrid
         rows={rows}
         columns={columns}
-        autoPageSize
         pagination
         checkboxSelection={false}
         components={{
