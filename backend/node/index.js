@@ -28,7 +28,6 @@ app.use("/api/status", require("./routes/status"));
 app.use("/api/errors", require("./routes/errors"));
 app.use("/api/cchecker", require("./routes/cookie"));
 app.use("/api/screenshot", require("./routes/screenshot"));
-app.use("/api/tenon", require("./routes/tenon"));
 app.use("/api/sniffer", require("./routes/sniffer"));
 app.use("/api/pdf", require("./routes/pdf"));
 

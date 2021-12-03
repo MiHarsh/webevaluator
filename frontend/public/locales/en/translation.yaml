@@ -4,11 +4,11 @@ error:
   pageDoesNotExist: The page does not exist, or please try again later.
   goHome: Go to Home page
 header:
-  title: WebCrawler
+  title: WebEvaluator
   home: Home
   about: About
 footer:
-  copyrightNotice: Copyright © 2021 WebCrawler. All rights reserved
+  copyrightNotice: Copyright © 2021 WebEvaluator. All rights reserved
   terms: Terms and Privacy
   about: About
   github: GitHub

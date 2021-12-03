@@ -1,5 +1,5 @@
 {
-  "name": "webcrawler",
+  "name": "webevaluator",
   "version": "1.0.0",
   "description": "node.js index",
   "main": "index.js",
