@@ -12,6 +12,7 @@ const endpoints = {
   ada: () => `${baseNodeUrl}/errors/css`,
   tenon: () => `${baseNodeUrl}/tenon`,
   sniffer: () => `${baseNodeUrl}/sniffer`,
+  download: () => `${baseNodeUrl}/pdf`,
 };
 
 export default endpoints;

@@ -1,14 +1,13 @@
 # WebEvaluator - An Automated Website Tester
-put badges here
 
 ## Introduction
 
-This is an advanced web crawling tool that will not only discover the active URLs within the website but also provide information about SSL certificate compliance, Cookie checker, ADA compliance.
+This is an advanced web crawling tool that will not only discover the active URLs within the website but also provide information about SSL certificate compliance, Cookie checker and ADA compliance.
 ## Implementation Details
 
 #### Crawler
 
-A super-fast crawler is created in golang using the [colly framework](https://github.com/gocolly/colly) (Apache-2.0 License). The crawler is configured with all the advanced features like:
+A super-fast crawler is created in Golang using the [colly framework](https://github.com/gocolly/colly) (Apache-2.0 License). The crawler is configured with all the advanced features like:
 * Superfast (more than 1000 requests/second on a single core)
 * Request delays and maximum concurrency per domain to prevent reaching rate limit of domain
 * Async or Parallel scraping support
@@ -23,8 +22,8 @@ The complete unique list of URLs found from the above process are subdivided bas
 * Domain wise classification of URLs
 * HTTP and HTTPS URLs
 
-The above-classified list of URLs are been passed to other agents for further processing. 
-The URLs found are been saved in a file on disk storage for a temporary basis and its content would be passed to other agents.
+The above-classified list of URLs have been passed to other agents for further processing. 
+The URLs found are saved in a file on disk storage for a temporary basis and its content would be passed to other agents.
 
 #### SSL certificate compliance
 
@@ -111,7 +110,7 @@ The project is using a microstructure architecture where we have the main server
 
 | **Agent name/ Feature** | **Tech Stack** | **Description** |
 | --- | --- | --- |
-| Crawler | Golang colly framework | Using colly framework of golang as it is one of the fastest available crawler |
+| Crawler | Golang colly framework | Using colly framework of Golang as it is one of the fastest available crawler |
 | SSL certificate compliance | Golang | Golang script that uses ssllabs API which is an [open-source](https://github.com/ssllabs/ssllabs-scan) project |
 | Cookie checker | Node.js and JavaScript | Using Puppeteer for automated cookie consent verification |
 | ADA compliance | Node.js and JavaScript | Using a variety of node libraries for getting complete ADA compliance information |
@@ -125,7 +124,6 @@ The front end is created in React.js and Material UI. All the reports are displa
 | SSL Agent | ✅ | ❌ |
 | Cookies checker | ✅ | ❌ |
 | ADA compliance | ✅ | ✅ |
-| GDPR compliance | ✅ | ✅ |
 
 ## Usage or Working Demo
 
@@ -203,10 +201,10 @@ upstream	git@github.com:Aman-Codes/techfest.git (push)
 
 #### Steps
 
-1. Make sure you are in the root of the project (i.e., `./techfest/` folder).
-2. Setup environement variables in `.env` files of all `services` and `root` according to `.env.sample` files.
+1. Make sure you are inside the root of the project (i.e., `./techfest/` folder).
+2. Setup environment variables in `.env` files of all folders according to `.env.sample` files.
 3. Run `docker-compose up` to spin up the containers.
-4. The website would then be available locally at `http://localhost:WEB_PORT/`. (`WEB_PORT` in `.env.sample`)
+4. The website would then be available locally at `http://localhost:3000/`.
 5. The above command could be run in detached mode with `-d` flag as `docker-compose up -d`.
 6. For help, run the command `docker-compose -h`.
 
@@ -221,9 +219,24 @@ upstream	git@github.com:Aman-Codes/techfest.git (push)
 
 #### Setup Node Backend
 
-1.   
-2. 
+1. Run `cd backend/node` to go inside the Node.js server folder.
+2. Run `npm install` to install all the dependencies.
+3. Setup environment variables according to `.env.sample` file.
+4. Run `npm start` to start the node backend server.
 
+#### Setup Golang Backend
+
+1. Run `cd backend/go` to go inside the Golang server folder.
+2. Run `go mod download` to install all the dependencies.
+3. Setup environment variables according to `.env.sample` file.
+4. Run `go run main.go` to start the Golang backend server.
+
+#### Setup Frontend
+
+1. Run `cd frontend` to go inside the frontend folder.
+2. Run `npm install` to install all the dependencies.
+3. Setup environment variables according to `.env.sample` file.
+4. Run `npm start` to start the Golang backend server.
 
 ### References
 

@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import endpoints from "constants/endpoints";
+import axios from "axios";
 import { sendPostRequestSetter } from "shared/sendRequest";
 import { useLocation } from "react-router-dom";
 import Container from "components/Container";
 import Loader from "components/Loader";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
+import fileDownload from "js-file-download";
 import ScrollableTabs from "components/ScrollableTabs";
 import {
   sslColumns,
@@ -32,6 +34,18 @@ const Report = () => {
 
   const scrollDown = () => {
     tableRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+  const handleDownload = () => {
+    axios({
+      url: endpoints.download(),
+      method: "POST",
+      data: {
+        url,
+      },
+      responseType: "blob",
+    }).then((response) => {
+      fileDownload(response.data, "report.pdf");
+    });
   };
   const [mapping, setMapping] = useState({
     1: {
@@ -321,8 +335,8 @@ const Report = () => {
             onKeyDown={scrollDown}
             aria-hidden="true"
           >
-            Deny Cookies Option Present:{" "}
-            {cookie ? `${cookie?.data?.["user-can_deny"]}` : <Loader />}
+            Cookies Consent Asked:{" "}
+            {cookie ? `${cookie?.data?.consentAsked}` : <Loader />}
           </p>
         </Container>
         <Container>
@@ -332,12 +346,6 @@ const Report = () => {
             onKeyDown={scrollDown}
             aria-hidden="true"
           >
-            Cookies Consent Asked:{" "}
-            {cookie ? `${cookie?.data?.consentAsked}` : <Loader />}
-          </p>
-        </Container>
-        <Container>
-          <p className={classes.p}>
             Deny Cookies Option Present:{" "}
             {cookie ? `${cookie?.data?.denyConsent}` : <Loader />}
           </p>
@@ -465,11 +473,12 @@ const Report = () => {
           size="large"
           className={classes.button}
           startIcon={<SaveIcon />}
+          onClick={handleDownload}
         >
           Download Complete Report
         </Button>
       </div>
-      <div ref={tableRef}> Get Scrolled here</div>
+      <div ref={tableRef} />
       <ScrollableTabs mapping={mapping} />
     </div>
   );

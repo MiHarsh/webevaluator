@@ -8,7 +8,7 @@
     "backend-go": "cd backend && cd node && nodemon index.js",
     "backend-node": "cd backend && cd go && nodemon --exec go run main.go --signal SIGTERM",
     "frontend": "cd frontend && npm start ",
-    "start": "concurrently \"npm run backend-go\" \"npm run backend-node\""
+    "start": "concurrently \"npm run backend-go\" \"npm run backend-node\" \"npm run frontend\""
   },
   "repository": {
     "type": "git",
