@@ -112,8 +112,7 @@ The project is using a microstructure architecture where we have the main server
 | **Agent name/ Feature** | **Tech Stack** | **Description** |
 | --- | --- | --- |
 | Crawler | Golang colly framework | Using colly framework of golang as it is one of the fastest available crawler |
-| SSL certificate compliance | Golang | Golang
-script that uses ssllabs API |
+| SSL certificate compliance | Golang | Golang script that uses ssllabs API which is an [open-source](https://github.com/ssllabs/ssllabs-scan) project |
 | Cookie checker | Node.js and JavaScript | Using Puppeteer for automated cookie consent verification |
 | ADA compliance | Node.js and JavaScript | Using a variety of node libraries for getting complete ADA compliance information |
 

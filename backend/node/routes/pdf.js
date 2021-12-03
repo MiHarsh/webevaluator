@@ -2,76 +2,71 @@ const express = require("express");
 const ejs = require("ejs");
 const pdf = require("html-pdf");
 const path = require("path");
-const { sendFile } = require("../controllers/helper");
+const { sendFile, randomString } = require("../controllers/helper");
+const {
+  adaErrors,
+  cookieChecker,
+  sniffer,
+  lowvision,
+  colorblind,
+  ssl,
+} = require("../controllers/process");
 
 const router = express.Router();
 
-const students = [
-  {
-    name: "Joy",
-    email: "joy@example.com",
-    city: "New York",
-    country: "USA",
-  },
-  {
-    name: "John",
-    email: "John@example.com",
-    city: "San Francisco",
-    country: "USA",
-  },
-  {
-    name: "Clark",
-    email: "Clark@example.com",
-    city: "Seattle",
-    country: "USA",
-  },
-  {
-    name: "Watson",
-    email: "Watson@example.com",
-    city: "Boston",
-    country: "USA",
-  },
-  {
-    name: "Tony",
-    email: "Tony@example.com",
-    city: "Los Angels",
-    country: "USA",
-  },
-];
-
 router.get("/", (req, res) => {
-  ejs.renderFile(
-    path.join(__dirname, "../views/", "report-template.ejs"),
-    {
-      students: students,
-    },
-    (err, data) => {
-      if (err) {
-        res.send(err);
-      } else {
-        const options = {
-          // this will contain pdf export configurations detail at https://www.npmjs.com/package/html-pdf
-          height: "11.25in",
-          width: "8.5in",
-          header: {
-            height: "20mm",
-          },
-          footer: {
-            height: "20mm",
-          },
-        };
-        const fileName = "report.pdf";
-        pdf.create(data, options).toFile(fileName, function (error, _response) {
-          if (error) {
-            res.send(error);
+  const url = "https://aman-codes.github.io";
+  Promise.allSettled([
+    cookieChecker(url),
+    sniffer(url),
+    adaErrors(url),
+    lowvision(url),
+    colorblind(url),
+    ssl(url),
+  ])
+    .then((allData) => {
+      console.log("allData is", allData);
+      ejs.renderFile(
+        path.join(__dirname, "../views/", "report-template.ejs"),
+        {
+          allData: allData,
+        },
+        (err, data) => {
+          if (err) {
+            console.log("error occurred", err);
+            res.send(err);
           } else {
-            const filePath = path.resolve(__dirname, "..", fileName);
-            sendFile(res, filePath);
+            const options = {
+              // this will contain pdf export configurations detail at https://www.npmjs.com/package/html-pdf
+              height: "11.25in",
+              width: "8.5in",
+              header: {
+                height: "15mm",
+              },
+              footer: {
+                height: "15mm",
+              },
+            };
+            const fileName = `report${randomString(10)}.pdf`;
+            pdf
+              .create(data, options)
+              .toFile(fileName, function (error, _response) {
+                if (error) {
+                  console.log("error occurred", error);
+                  res.send(error);
+                } else {
+                  const filePath = path.resolve(__dirname, "..", fileName);
+                  sendFile(res, filePath);
+                }
+              });
           }
-        });
-      }
-    }
-  );
+        }
+      );
+    })
+    .catch((e) => {
+      console.log("error occurred", e);
+      res.send(e);
+    });
 });
 
 module.exports = router;

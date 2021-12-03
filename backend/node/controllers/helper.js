@@ -25,7 +25,7 @@ const autoScroll = async (page) => {
   });
 };
 
-const screenshot = async (page, filePath = `${__dirname}page.png`) => {
+const screenshot = async (page, filePath) => {
   await autoScroll(page);
   await page?.screenshot({
     path: filePath,
@@ -79,6 +79,22 @@ const handleError = async (error, res, browser) => {
   });
 };
 
+const handleSubError = async (error, browser) => {
+  await browser?.close();
+  console.log("error is", error);
+};
+
+const randomString = (length) => {
+  let result = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+
 module.exports = {
   puppeteerConf,
   autoScroll,
@@ -87,4 +103,6 @@ module.exports = {
   sendFile,
   openPage,
   handleError,
+  handleSubError,
+  randomString,
 };

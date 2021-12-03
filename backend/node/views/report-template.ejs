@@ -2,28 +2,427 @@
 <html>
 <head>
 <style>
-table {
-  border-collapse: collapse;
+table{
+	border-collapse: collapse;
 }
-
 table, th, td {
   border: 1px solid black;
+	font-size: 5px;
+	text-align : center;
 }
+.successText {
+	color: green;
+}
+.failText {
+	color: red;
+}
+.warningText {
+	color: #ffc107;
+}
+.successBg {
+	background: green;
+}
+.failBg {
+	background: red;
+}
+.warningBg {
+	background: #ffc107;
+}
+.infoBg {
+	background: #0dcaf0;
+}
+img {
+	max-width: 90vw;
+	margin: auto;
+	align-items: center;
+	align-content: center;
+}
+/* td {
+	max-width: 50px;
+	word-break: break-all;
+} */
 </style>
 </head>
 <body>
-<div style="width: 85%; margin: 0 7.5%;">
-	<div style="text-align: center; padding-left: 50px;">
-	<h3>Student Report (This renders student data which was in JSON)</h5>
-	<center>
-	<table style="text-align : center">
-		<% if (students.length > 0) { %>
-			<% students.forEach(student => {%>
-				<tr><td><%= student.name %></td><td><%= student.email %></td><td><%= student.city %></td><td><%= student.country %></td></tr>
-		<%	});%>
-		<% }%>
-	</table>	
-	</center>
+<div>
+	<div>
+	<h1>Web Accessibility Report</h1>
+	<h2>SSL Certificates:</h2>
+	<table>
+		<% allData[5]?.value?.data?.forEach((row, index) => {  %>
+			<tr>
+				<th>S. No.</th>
+				<td><%= index + 1 %></td>
+			</tr>
+			<tr>
+				<th>Signature Algorithm</th>
+				<td><%= row.SignatureAlgorithm %></td>
+			</tr>
+			<tr>
+				<th>Version</th>
+				<td><%= row.Version %></td>
+			</tr>
+			<tr>
+				<th>Serial Number</th>
+				<td><%= row.SerialNumber %></td>
+			</tr>
+			<tr>
+				<th>Issue Date</th>
+				<td><%= row.NotBefore %></td>
+			</tr>
+			<tr>
+				<th>Expiry Date</th>
+				<td><%= row.NotAfter %></td>
+			</tr>
+			<tr>
+				<th>Common Name</th>
+				<td><%= row.CommonName %></td>
+			</tr>
+			<tr>
+				<th>DNS Names</th>
+				<td><%= row.DNSNames %></td>
+			</tr>
+			<tr>
+				<th>Issuer Country</th>
+				<td><%= row.Issuer?.Country?.join(" ") %></td>
+			</tr>
+			<tr>
+				<th>Issuer Organization</th>
+				<td><%= row.Issuer?.Organization?.join(" ") %></td>
+			</tr>
+			<tr>
+				<th>Issuer Organizational Unit</th>
+				<td><%= row.Issuer?.OrganizationalUnit?.join(" ") %></td>
+			</tr>
+			<tr>
+				<th>Issuer Common Name</th>
+				<td><%= row.Issuer?.CommonName %></td>
+			</tr>
+			<tr>
+				<th>Subject Country</th>
+				<td><%= row.Issuer?.Country?.join(" ") %></td>
+			</tr>
+			<tr>
+				<th>Subject Organization</th>
+				<td><%= row.Issuer?.Organization?.join(" ") %></td>
+			</tr>
+			<tr>
+				<th>Subject Organizational Unit</th>
+				<td><%= row.Issuer?.OrganizationalUnit?.join(" ") %></td>
+			</tr>
+			<tr>
+				<th>Subject Common Name</th>
+				<td><%= row.Issuer?.CommonName %></td>
+			</tr>
+		<% }) %>
+	</table>
+	<br />
+	<h2>Cookies:</h2>
+	<p>
+		Cookies consent asked: <% if (allData[0]?.value?.consentAsked) { %>
+		<span class="successText">Yes</span> <% } else { %> 
+		<span class="failText">No</span> <% } %>
+		<br/>
+		Cookies consent deny option present: <% if (allData[0]?.value?.denyConsent) { %> 
+		<span class="successText">Yes</span> <% } else { %>
+		<span class="failText">No</span> <% } %>
+	</p>
+	<strong>Initial cookies:</strong>
+	<table>
+		<tr>
+			<th>S. No.</th>
+			<th>Name</th>
+			<th>Value</th>
+			<th>Domain</th>
+			<th>Path</th>
+			<th>Expires</th>
+			<th>Size</th>
+			<th>HTTP Only</th>
+			<th>Secure</th>
+			<th>Session</th>
+			<th>Same Party</th>
+			<th>Source Scheme</th>
+			<th>Source Port</th>
+			<th>Placed By</th>
+			<th>Functionality</th>
+			<th>Purpose</th>
+		</tr>
+		<% allData[0]?.value?.initialCookies?.forEach((cookie, index) => {  %>
+			<tr>
+				<td><%= index + 1 %></td>
+				<td><%= cookie.name %></td>
+				<td><%= cookie.value %></td>
+				<td><%= cookie.domain %></td>
+				<td><%= cookie.path %></td>
+				<td><%= cookie.expires %></td>
+				<td><%= cookie.size %></td>
+				<td><%= cookie.httpOnly %></td>
+				<% if (cookie.secure) {%>
+					<td class="successBg"><%= cookie.secure %></td>
+				<% } else {%>
+					<td class="failBg"><%= cookie.secure %></td>
+				<% } %>
+				<td><%= cookie.session %></td>
+				<td><%= cookie.sameParty %></td>
+				<td><%= cookie.sourceScheme %></td>
+				<td><%= cookie["source Port"] %></td>
+				<td><%= cookie.info.placed_by %></td>
+				<td><%= cookie.info.functionality %></td>
+				<td><%= cookie.info.purpose %></td>
+			</tr>
+		<% }) %>
+	</table>
+	<br/>
+	<strong>Cookies after consent accepted:</strong>
+	<table>
+		<tr>
+			<th>S. No.</th>
+			<th>Name</th>
+			<th>Value</th>
+			<th>Domain</th>
+			<th>Path</th>
+			<th>Expires</th>
+			<th>Size</th>
+			<th>HTTP Only</th>
+			<th>Secure</th>
+			<th>Session</th>
+			<th>Same Party</th>
+			<th>Source Scheme</th>
+			<th>Source Port</th>
+			<th>Placed By</th>
+			<th>Functionality</th>
+			<th>Purpose</th>
+		</tr>
+		<% allData[0]?.value?.consentAcceptedCookies?.forEach((cookie, index) => {  %>
+			<tr>
+				<td><%= index + 1 %></td>
+				<td><%= cookie.name %></td>
+				<td><%= cookie.value %></td>
+				<td><%= cookie.domain %></td>
+				<td><%= cookie.path %></td>
+				<td><%= cookie.expires %></td>
+				<td><%= cookie.size %></td>
+				<td><%= cookie.httpOnly %></td>
+				<% if (cookie.secure) {%>
+					<td class="successBg"><%= cookie.secure %></td>
+				<% } else {%>
+					<td class="failBg"><%= cookie.secure %></td>
+				<% } %>
+				<td><%= cookie.session %></td>
+				<td><%= cookie.sameParty %></td>
+				<td><%= cookie.sourceScheme %></td>
+				<td><%= cookie["source Port"] %></td>
+				<td><%= cookie.info.placed_by %></td>
+				<td><%= cookie.info.functionality %></td>
+				<td><%= cookie.info.purpose %></td>
+			</tr>
+		<% }) %>
+	</table>
+	<br/>
+	<strong>Cookies after consent denied:</strong>
+	<table>
+		<tr>
+			<th>S. No.</th>
+			<th>Name</th>
+			<th>Value</th>
+			<th>Domain</th>
+			<th>Path</th>
+			<th>Expires</th>
+			<th>Size</th>
+			<th>HTTP Only</th>
+			<th>Secure</th>
+			<th>Session</th>
+			<th>Same Party</th>
+			<th>Source Scheme</th>
+			<th>Source Port</th>
+			<th>Placed By</th>
+			<th>Functionality</th>
+			<th>Purpose</th>
+		</tr>
+		<% allData[0]?.value?.consentDeniedCookies?.forEach((cookie, index) => {  %>
+			<tr>
+				<td><%= index + 1 %></td>
+				<td><%= cookie.name %></td>
+				<td><%= cookie.value %></td>
+				<td><%= cookie.domain %></td>
+				<td><%= cookie.path %></td>
+				<td><%= cookie.expires %></td>
+				<td><%= cookie.size %></td>
+				<td><%= cookie.httpOnly %></td>
+				<% if (cookie.secure) {%>
+					<td class="successBg"><%= cookie.secure %></td>
+				<% } else {%>
+					<td class="failBg"><%= cookie.secure %></td>
+				<% } %>
+				<td><%= cookie.session %></td>
+				<td><%= cookie.sameParty %></td>
+				<td><%= cookie.sourceScheme %></td>
+				<td><%= cookie["source Port"] %></td>
+				<td><%= cookie.info.placed_by %></td>
+				<td><%= cookie.info.functionality %></td>
+				<td><%= cookie.info.purpose %></td>
+			</tr>
+		<% }) %>
+	</table>
+	<br/>
+	<h2>Web Content Accessibility Guidelines:</h2>
+	<strong>WCAG2A:</strong>
+	<table>
+		<tr>
+			<th>S. No.</th>
+			<th>Type</th>
+			<th>Message</th>
+			<th>Element</th>
+			<th>Success Criterion</th>
+			<th>Suggested Techniques</th>
+		</tr>
+		<% allData[1]?.value?.WCAG2A?.forEach((row, index) => {  %>
+			<tr>
+				<td><%= index + 1 %></td>
+				<% if (row.type == "error") {%>
+					<td class="failBg"><%= row.type %></td>
+				<% } else if (row.type == "warning") {%>
+					<td class="warningBg"><%= row.type %></td>
+				<% } else {%>
+					<td class="infoBg"><%= row.type %></td>
+				<% } %>
+				<td><%= row.message %></td>
+				<td><%= row.element?.substr(0, 20) %></td>
+				<td><%= row.msgInfo[0]?.["Success Criterion"]?.join(" \n") %></td>
+				<td><%= row.msgInfo[1]?.["Suggested Techniques"]?.join(" \n") %></td>
+			</tr>
+		<% }) %>
+	</table>
+	<br/>
+	<strong>WCAG2AA:</strong>
+	<table>
+		<tr>
+			<th>S. No.</th>
+			<th>Type</th>
+			<th>Message</th>
+			<th>Element</th>
+			<th>Success Criterion</th>
+			<th>Suggested Techniques</th>
+		</tr>
+		<% allData[1]?.value?.WCAG2AA?.forEach((row, index) => {  %>
+			<tr>
+				<td><%= index + 1 %></td>
+				<% if (row.type == "error") {%>
+					<td class="failBg"><%= row.type %></td>
+				<% } else if (row.type == "warning") {%>
+					<td class="warningBg"><%= row.type %></td>
+				<% } else {%>
+					<td class="infoBg"><%= row.type %></td>
+				<% } %>
+				<td><%= row.message %></td>
+				<td><%= row.element?.substr(0, 20) %></td>
+				<td><%= row.msgInfo[0]?.["Success Criterion"]?.join(" \n") %></td>
+				<td><%= row.msgInfo[1]?.["Suggested Techniques"]?.join(" \n") %></td>
+			</tr>
+		<% }) %>
+	</table>
+	<br/>
+	<strong>WCAG2AAA:</strong>
+	<table>
+		<tr>
+			<th>S. No.</th>
+			<th>Type</th>
+			<th>Message</th>
+			<th>Element</th>
+			<th>Success Criterion</th>
+			<th>Suggested Techniques</th>
+		</tr>
+		<% allData[1]?.value?.WCAG2AAA?.forEach((row, index) => {  %>
+			<tr>
+				<td><%= index + 1 %></td>
+				<% if (row.type == "error") {%>
+					<td class="failBg"><%= row.type %></td>
+				<% } else if (row.type == "warning") {%>
+					<td class="warningBg"><%= row.type %></td>
+				<% } else {%>
+					<td class="infoBg"><%= row.type %></td>
+				<% } %>
+				<td><%= row.message %></td>
+				<td><%= row.element?.substr(0, 20) %></td>
+				<td><%= row.msgInfo[0]?.["Success Criterion"]?.join(" \n") %></td>
+				<td><%= row.msgInfo[1]?.["Suggested Techniques"]?.join(" \n") %></td>
+			</tr>
+		<% }) %>
+	</table>
+	<br/>
+	<strong>Section 508:</strong>
+	<table>
+		<tr>
+			<th>S. No.</th>
+			<th>Type</th>
+			<th>Message</th>
+			<th>Element</th>
+			<th>Section</th>
+		</tr>
+		<% allData[1]?.value?.Section508?.forEach((row, index) => {  %>
+			<tr>
+				<td><%= index + 1 %></td>
+				<% if (row.type == "error") {%>
+					<td class="failBg"><%= row.type %></td>
+				<% } else if (row.type == "warning") {%>
+					<td class="warningBg"><%= row.type %></td>
+				<% } else {%>
+					<td class="infoBg"><%= row.type %></td>
+				<% } %>
+				<td><%= row.message %></td>
+				<td><%= row.element?.substr(0, 40) %></td>
+				<td><%= row.msgInfo[0]?.Section %></td>
+			</tr>
+		<% }) %>
+	</table>
+	<br/>
+	<h2>Other Accessibility Checks:</h2>
+	<strong class="failText">Errors:</strong>
+	<table>
+		<tr>
+			<th>S. No.</th>
+			<th>Selector</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Count</th>
+		</tr>
+		<% allData[2]?.value?.error?.forEach((row, index) => {  %>
+			<tr>
+				<td><%= index + 1 %></td>
+				<td><%= row.selector %></td>
+				<td><%= row.name %></td>
+				<td><%= row.description %></td>
+				<td><%= row.count %></td>
+			</tr>
+		<% }) %>
+	</table>
+	<br/>
+	<strong class="warningText">Warnings:</strong>
+	<table>
+		<tr>
+			<th>S. No.</th>
+			<th>Selector</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Count</th>
+		</tr>
+		<% allData[2]?.value?.warning?.forEach((row, index) => {  %>
+			<tr>
+				<td><%= index + 1 %></td>
+				<td><%= row.selector %></td>
+				<td><%= row.name %></td>
+				<td><%= row.description %></td>
+				<td><%= row.count %></td>
+			</tr>
+		<% }) %>
+	</table>
+	<br/>
+	<strong>Website look for low vision:</strong>
+	<img src="http://localhost:5000/<%= allData[3]?.value %>" alt="Website look for low vision"/>
+	<br />
+	<strong>Website look for color blind:</strong>
+	<img src="http://localhost:5000/<%= allData[4]?.value %>" alt="Website look for color blind"/>
+	
 	</div>
 </div>
 </body>
