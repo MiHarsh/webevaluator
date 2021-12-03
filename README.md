@@ -1,15 +1,14 @@
-# Webex - An Automated Website Tester
+# Webulator - An Automated Website Tester
 put badges here
 
 ## Introduction
 
-This is an advanced web crawling tool that will not only discover the active URLs within the website but also provide information about SSL certificate compliance, Cookie checker, ADA compliance, Security-related checks, SEO and the complete analysis of the website.
-
+This is an advanced web crawling tool that will not only discover the active URLs within the website but also provide information about SSL certificate compliance, Cookie checker, ADA compliance.
 ## Implementation Details
 
 #### Crawler
 
-A super-fast crawler will be created in golang using the [colly framework](https://github.com/gocolly/colly) (Apache-2.0 License). The crawler would be configured with all the advanced features like:
+A super-fast crawler is created in golang using the [colly framework](https://github.com/gocolly/colly) (Apache-2.0 License). The crawler is configured with all the advanced features like:
 * Superfast (more than 1000 requests/second on a single core)
 * Request delays and maximum concurrency per domain to prevent reaching rate limit of domain
 * Async or Parallel scraping support
@@ -18,23 +17,23 @@ A super-fast crawler will be created in golang using the [colly framework](https
 * Option to specify maximum depth of scrapping
 * Specify allowed list of domains (like scrape only root domain and its subdomain)
 
-The complete unique list of URLs found from the above process would be subdivided based on :
+The complete unique list of URLs found from the above process are subdivided based on :
 * Active URLs
 * Inactive/Broken URLs
 * Domain wise classification of URLs
 * HTTP and HTTPS URLs
 
-The above-classified list of URLs would be passed to other agents for further processing. 
-The URLs found would be saved in a file on disk storage for a temporary basis and its content would be passed to other agents.
+The above-classified list of URLs are been passed to other agents for further processing. 
+The URLs found are been saved in a file on disk storage for a temporary basis and its content would be passed to other agents.
 
 #### SSL certificate compliance
 
-For collecting the SSL/TLS information from the host we would be using a [python script](https://github.com/narbehaj/ssl-checker) (GPL-3.0 License) which uses the SSLLabs API to get the information from the host and returns the information in JSON format. Some of the features of the script are:
+For collecting the SSL/TLS information from the host we have used the [SSLLabs API](https://www.ssllabs.com/projects/ssllabs-apis/) which is an [open-source](https://github.com/ssllabs/ssllabs-scan) project to get the information about the host and returns the information in JSON format. Some of the features are:
 * Checks for the validity and issuer of the certificate
 * Analyzes the SSL certificate for security issues
 * Checks for some well-known vulnerabilities
 
-Other than this we will also be checking that all the HTTP links are automatically redirected to HTTPS using crawler.
+Other than this we are also checking that all the HTTP links are automatically redirected to HTTPS using crawler.
 
 #### Cookie checker
 
@@ -46,7 +45,7 @@ According to the General Data Protection Regulation cookies compliance are:
 * Allow users to access your service even if they refuse to allow the use of certain cookies
 * Make it as easy for users to withdraw their consent as it was for them to give their consent in the first place
 
-We would be implementing the cookie checker agent in the following manner:
+We implemented the cookie checker agent in the following manner:
 * Firstly, a list of every cookie along with all its details like domain, expiry date, secure or insure etc. would be created.
 * The above-found cookies would be classified into various different types based on their categories like:
     * Advertisement
@@ -72,7 +71,7 @@ We would be implementing the cookie checker agent in the following manner:
 
 #### ADA compliance
 
-ADA compliance stands for the Americans with Disabilities Act Standards for Accessible Design. What that means is that all electronic information and technology (website) must be accessible to those with disabilities.
+ADA compliance stands for the Americans with Disabilities Act Standards for Accessible Design. Means all electronic information and technology (website) must be accessible to those with disabilities.
 The ADA compliance majorly includes the following points:
 
 | <!-- -->    | <!-- -->    |
@@ -100,7 +99,7 @@ Then in the next stage all the CSS and style related errors using [checka11y](ht
 
 ##### JavaScript Errors
 
-Lastly, all the JavaScript related errors would be reported like:
+Lastly, all the JavaScript related errors are been reported like:
 * Errors/warnings on the console
 * Syntactically invalid code
 * Runtime time and logical errors
@@ -108,12 +107,13 @@ Lastly, all the JavaScript related errors would be reported like:
 
 ## Tools and Technology
 
-The project is using a microstructure architecture where we have the main server in golang which would be communicating with all other services/agents/scripts such as Python, Node.js etc.
+The project is using a microstructure architecture where we have the main server in golang which is communicating with all other services/agents/scripts such as Python, Node.js etc.
 
 | **Agent name/ Feature** | **Tech Stack** | **Description** |
 | --- | --- | --- |
 | Crawler | Golang colly framework | Using colly framework of golang as it is one of the fastest available crawler |
-| SSL certificate compliance | Python | Python script that uses ssllabs API |
+| SSL certificate compliance | Golang | Golang
+script that uses ssllabs API |
 | Cookie checker | Node.js and JavaScript | Using Puppeteer for automated cookie consent verification |
 | ADA compliance | Node.js and JavaScript | Using a variety of node libraries for getting complete ADA compliance information |
 
@@ -216,25 +216,15 @@ upstream	git@github.com:Aman-Codes/techfest.git (push)
 ##### Pre-requisites
 
 1. Signup and Install `mongodb` from [here](https://www.mongodb.com/try/download).
-2. 
-3. 
+2. Download and Install Nodejs from [here](https://nodejs.org/en/download)
+3. Install and setup Golang from [here](https://go.dev/doc/install)
 
 
-#### Setup Crawler
-
-1. 
-2. 
-
-#### Setup node backend
+#### Setup Node Backend
 
 1.   
 2. 
 
-
-#### Setup SSL
- 
-1. 
-2. 
 
 ### References
 
