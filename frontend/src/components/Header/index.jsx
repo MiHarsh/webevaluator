@@ -10,7 +10,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import InfoIcon from "@material-ui/icons/Info";
 import { useTranslation } from "react-i18next";
 import ColorModeContext from "shared/ColorModeContext";
-import GitHubLogo from "./images/github.svg";
+import GitHubIcon from "@material-ui/icons/GitHub";
 import useStyles from "./styles";
 
 const Header = () => {
@@ -57,7 +57,7 @@ const Header = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src={GitHubLogo} alt="GitHub logo" />
+              <GitHubIcon color="primary" />
             </a>
           </div>
         </div>
