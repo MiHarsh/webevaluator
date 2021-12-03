@@ -26,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     fontSize: "1.5em",
   },
+  button_div: {
+    marginTop: "40px",
+    marginBottom: "40px",
+    textAlign: "center",
+  },
 }));
 
 export default useStyles;

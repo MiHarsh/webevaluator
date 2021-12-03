@@ -5,6 +5,8 @@ import { useLocation } from "react-router-dom";
 import Container from "components/Container";
 import Loader from "components/Loader";
 import CustomModal from "components/CustomModal";
+import Button from "@material-ui/core/Button";
+import SaveIcon from "@material-ui/icons/Save";
 import ScrollableTabs from "components/Tabs";
 import {
   sslColumns,
@@ -93,7 +95,7 @@ const Report = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <h1 className={classes.heading}>URLs:</h1>
+      <h1 className={classes.heading}>URL getting scanned: {url}</h1>
       <div className={classes.flex}>
         <Container>
           <p className={classes.p}>
@@ -219,6 +221,17 @@ const Report = () => {
             Warnings: {ada ? ada?.data?.warning?.length : <Loader />}
           </p>
         </Container>
+      </div>
+      <div className={classes.button_div}>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          className={classes.button}
+          startIcon={<SaveIcon />}
+        >
+          Download Complete Report
+        </Button>
       </div>
       <CustomModal
         handleClose={handleClose}

@@ -2,7 +2,11 @@ const express = require("express");
 const ejs = require("ejs");
 const pdf = require("html-pdf");
 const path = require("path");
-const { sendFile, randomString } = require("../controllers/helper");
+const {
+  sendFile,
+  randomString,
+  urlValidation,
+} = require("../controllers/helper");
 const {
   adaErrors,
   cookieChecker,
@@ -14,8 +18,8 @@ const {
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  const url = "https://aman-codes.github.io";
+router.post("/", (req, res) => {
+  const url = urlValidation(req, res);
   Promise.allSettled([
     cookieChecker(url),
     sniffer(url),
