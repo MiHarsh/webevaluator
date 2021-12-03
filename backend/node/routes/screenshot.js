@@ -7,6 +7,7 @@ const {
   sendFile,
   openPage,
   handleError,
+  randomString,
 } = require("../controllers/helper");
 
 const router = express.Router();
@@ -36,7 +37,7 @@ router.post("/lowvision", async (req, res) => {
       document.body.style.cssText +=
         "-webkit-filter:blur(3px);-moz-filter:blur(3px);-ms-filter:blur(3px);filter:blur(3px);";
     });
-    const filePath = `${__dirname}page.png`;
+    const filePath = `${__dirname}page${randomString(10)}.png`;
     await screenshot(page, filePath);
     await browser.close();
     sendFile(res, filePath);
@@ -55,7 +56,7 @@ router.post("/colorblind", async (req, res) => {
       document.body.style.cssText +=
         "-webkit-filter:grayscale(100%);-moz-filter:grayscale(100%);-ms-filter:grayscale(100%);filter:grayscale(100%);";
     });
-    const filePath = `${__dirname}page.png`;
+    const filePath = `${__dirname}page${randomString(10)}.png`;
     await screenshot(page, filePath);
     await browser.close();
     sendFile(res, filePath);
