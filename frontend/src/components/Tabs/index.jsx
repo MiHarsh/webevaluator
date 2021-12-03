@@ -34,11 +34,11 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#f5f5f5",
   },
 }));
 
@@ -72,7 +72,7 @@ export default function ScrollableTabs() {
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
-          textColor="primary"
+          textColor="#0000008a"
           variant="scrollable"
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"

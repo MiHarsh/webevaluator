@@ -24,20 +24,20 @@ services:
     ports:
       - "${BACKEND_NODE_PORT}:${BACKEND_NODE_PORT}"
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   container_name: frontend
-  #   depends_on:
-  #     - backend-go
-  #     - backend-node
-  #   volumes:
-  #     - ./frontend/:/usr/app
-  #     - node_modules_frontend:/usr/app/node_modules
-  #   ports:
-  #     - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    depends_on:
+      - backend-go
+      - backend-node
+    volumes:
+      - ./frontend/:/usr/app
+      # - node_modules_frontend:/usr/app/node_modules
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
 
-# volumes:
-  # node_modules_server:
-  # node_modules_frontend:
+volumes:
+  node_modules_server:
+  node_modules_frontend:
