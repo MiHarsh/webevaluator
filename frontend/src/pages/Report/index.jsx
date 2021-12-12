@@ -3,11 +3,10 @@ import endpoints from "constants/endpoints";
 import axios from "axios";
 import { sendPostRequestSetter } from "shared/sendRequest";
 import { useLocation } from "react-router-dom";
-import Container from "components/Container";
 import Loader from "components/Loader";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
-import fileDownload from "js-file-download";
+import { fileDownload } from "js-file-download";
 import ScrollableTabs from "components/ScrollableTabs";
 import {
   sslColumns,
@@ -31,6 +30,10 @@ const Report = () => {
   const [ada, setAda] = useState(null);
   const [sniffer, setSniffer] = useState(null);
   const tableRef = useRef(null);
+  const [sslScore, setSslScore] = useState(null);
+  const [cookieScore, setCookieScore] = useState(null);
+  const [wcagScore, setWcagScore] = useState(null);
+  const [accessScore, setAccessScore] = useState(null);
 
   const scrollDown = () => {
     tableRef.current.scrollIntoView({ behavior: "smooth" });
@@ -267,6 +270,17 @@ const Report = () => {
     Promise.allSettled(promiseList)
       .then((data) => {
         console.log(data);
+        setSslScore(data[0].value.data.length ? 100 : 0);
+        setCookieScore(data[2].value.data.consentAsked ? 100 : 50);
+        setWcagScore(
+          data[4].value.result.Section508.length +
+            data[4].value.result.WCAG2A.length +
+            data[4].value.result.WCAG2AA.length +
+            data[4].value.result.WCAG2AAA.length
+        );
+        setAccessScore(
+          data[3].value.data.error.length + data[3].value.data.warning.length
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -276,83 +290,152 @@ const Report = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <h1 className={classes.heading}>URL getting scanned: {url}</h1>
-      <div className={classes.flex}>
-        <Container>
-          <p
-            className={classes.p}
-            onClick={scrollDown}
-            onKeyDown={scrollDown}
-            aria-hidden="true"
-          >
-            Media URLs:{" "}
-            {crawl ? Object.keys(crawl?.mediaList)?.length : <Loader />}
-          </p>
-        </Container>
-        <Container>
-          <p
-            className={classes.p}
-            onClick={scrollDown}
-            onKeyDown={scrollDown}
-            aria-hidden="true"
-          >
-            Site URLs:{" "}
-            {crawl ? Object.keys(crawl?.urlList)?.length : <Loader />}
-          </p>
-        </Container>
+      <div className={classes.head_div}>
+        <h1 className={classes.heading}>URL getting scanned: {url}</h1>
       </div>
-      <h1 className={classes.heading}>SSL Certificates:</h1>
+      <div className={classes.head_div}>
+        <div className={classes.score_div}>
+          {sslScore ? (
+            <div className={classes.score_val}>
+              <p className={classes.score_ssl}>{sslScore}</p>
+              <p className={classes.para}>SSL Security</p>
+            </div>
+          ) : (
+            <Loader />
+          )}
+          {cookieScore ? (
+            <div className={classes.score_val}>
+              <p className={classes.score_ssl}>{cookieScore}</p>
+              <p className={classes.para}>Cookie Analysis</p>
+            </div>
+          ) : (
+            <Loader />
+          )}
+          {wcagScore ? (
+            <div className={classes.score_val}>
+              <p className={classes.score_text}>{(1000 - wcagScore) / 10}</p>
+              <p className={classes.para}>WCAG Guidelines</p>
+            </div>
+          ) : (
+            <Loader />
+          )}
+          {accessScore ? (
+            <div className={classes.score_val}>
+              <p className={classes.score_ada}>{100 - accessScore}</p>
+              <p className={classes.para}>Accessibility Issues</p>
+            </div>
+          ) : (
+            <Loader />
+          )}
+        </div>
+      </div>
+      <div className={classes.flex}>
+        <div className={classes.url_container}>
+          <p
+            className={classes.p}
+            onClick={scrollDown}
+            onKeyDown={scrollDown}
+            aria-hidden="true"
+          >
+            Media URLs{" "}
+          </p>
+          <div className={classes.url_div}>
+            <p className={classes.url_p}>
+              {crawl ? Object.keys(crawl?.mediaList)?.length : <Loader />}
+            </p>
+          </div>
+        </div>
+        <div className={classes.url_container}>
+          <p
+            className={classes.p}
+            onClick={scrollDown}
+            onKeyDown={scrollDown}
+            aria-hidden="true"
+          >
+            Site URLs{" "}
+          </p>
+          <div className={classes.url_div}>
+            <p className={classes.url_p}>
+              {crawl ? Object.keys(crawl?.urlList)?.length : <Loader />}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className={classes.head_div}>
+        <h1 className={classes.heading}>Secure Sockets Layer Certifications</h1>
+      </div>
       <div className={classes.flex}>
         {ssl ? (
           ssl?.data?.map((certificate) => (
-            <Container>
+            <div className={classes.ssl_container}>
               <div
                 onClick={scrollDown}
                 onKeyDown={scrollDown}
                 aria-hidden="true"
               >
-                <p className={classes.p}>Expiry Date: {certificate.NotAfter}</p>
-                <p className={classes.p}>Issue Date: {certificate.NotBefore}</p>
-                <p className={classes.p}>
-                  CommonName: {certificate.CommonName}
-                </p>
-                <p className={classes.p}>
-                  DNS Names: {certificate.DNSNames?.join(", ")}
-                </p>
+                <p className={classes.p}>{certificate.CommonName}</p>
+                <div className={classes.ssl_div}>
+                  <p className={classes.ssl_para_issue}>
+                    Issued on: {certificate.NotBefore}
+                  </p>
+                  <p className={classes.ssl_para_expire}>
+                    Expires on: {certificate.NotAfter}
+                  </p>
+                </div>
               </div>
-            </Container>
+            </div>
           ))
         ) : (
           <Loader />
         )}
       </div>
-      <h1 className={classes.heading}>Cookies:</h1>
-      <div className={classes.flex}>
-        <Container>
-          <p
-            className={classes.p}
-            onClick={scrollDown}
-            onKeyDown={scrollDown}
-            aria-hidden="true"
-          >
-            Cookies Consent Asked:{" "}
-            {cookie ? `${cookie?.data?.consentAsked}` : <Loader />}
-          </p>
-        </Container>
-        <Container>
-          <p
-            className={classes.p}
-            onClick={scrollDown}
-            onKeyDown={scrollDown}
-            aria-hidden="true"
-          >
-            Deny Cookies Option Present:{" "}
-            {cookie ? `${cookie?.data?.denyConsent}` : <Loader />}
-          </p>
-        </Container>
+      <div className={classes.head_div}>
+        <h1 className={classes.heading}>
+          Cookies Availability and Permissions
+        </h1>
       </div>
       <div className={classes.flex}>
-        <Container>
+        <div className={classes.ssl_container}>
+          <p
+            className={classes.p}
+            onClick={scrollDown}
+            onKeyDown={scrollDown}
+            aria-hidden="true"
+          >
+            Cookies Consent Asked{" "}
+          </p>
+          <div className={classes.url_div}>
+            <p className={classes.url_p}>
+              {cookie ? (
+                `${cookie?.data?.consentAsked ? "Yes" : "No"}`
+              ) : (
+                <Loader />
+              )}
+            </p>
+          </div>
+        </div>
+        <div className={classes.ssl_container}>
+          <p
+            className={classes.p}
+            onClick={scrollDown}
+            onKeyDown={scrollDown}
+            aria-hidden="true"
+          >
+            Deny Cookies Option Present{" "}
+          </p>
+          <div className={classes.url_div}>
+            <p className={classes.url_p}>
+              {cookie ? (
+                `${cookie?.data?.denyConsent ? "Yes" : "No"}`
+              ) : (
+                <Loader />
+              )}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className={classes.flex}>
+        <div className={classes.ssl_container}>
           <p
             className={classes.p}
             onClick={scrollDown}
@@ -360,10 +443,14 @@ const Report = () => {
             aria-hidden="true"
           >
             Initial Cookies:{" "}
-            {cookie ? cookie?.data?.initialCookies?.length : <Loader />}
           </p>
-        </Container>
-        <Container>
+          <div className={classes.url_div}>
+            <p className={classes.url_p}>
+              {cookie ? cookie?.data?.initialCookies?.length : <Loader />}
+            </p>
+          </div>
+        </div>
+        <div className={classes.ssl_container}>
           <p
             className={classes.p}
             onClick={scrollDown}
@@ -371,14 +458,20 @@ const Report = () => {
             aria-hidden="true"
           >
             Cookies After Accept:{" "}
-            {cookie ? (
-              cookie?.data?.consentAcceptedCookies?.length || 0
-            ) : (
-              <Loader />
-            )}
           </p>
-        </Container>
-        <Container>
+          {cookie ? (
+            <div className={classes.url_div}>
+              <p className={classes.url_p}>
+                {cookie?.data?.consentAcceptedCookies?.length || 0}
+              </p>
+            </div>
+          ) : (
+            <Loader />
+          )}
+        </div>
+      </div>
+      <div className={classes.flex}>
+        <div className={classes.ssl_container}>
           <p
             className={classes.p}
             onClick={scrollDown}
@@ -386,19 +479,25 @@ const Report = () => {
             aria-hidden="true"
           >
             Cookies After Deny:{" "}
-            {cookie ? (
-              cookie?.data?.consentDeniedCookies?.length || 0
-            ) : (
-              <Loader />
-            )}
           </p>
-        </Container>
+          {cookie ? (
+            <div className={classes.url_div}>
+              <p className={classes.url_p}>
+                {cookie?.data?.consentDeniedCookies?.length || 0}
+              </p>
+            </div>
+          ) : (
+            <Loader />
+          )}
+        </div>
       </div>
-      <h1 className={classes.heading}>
-        Web Content Accessibility Guidelines (WCAG) Checks:
-      </h1>
+      <div className={classes.head_div}>
+        <h1 className={classes.heading}>
+          Web Content Accessibility (WCAG) Checks
+        </h1>
+      </div>
       <div className={classes.flex}>
-        <Container>
+        <div className={classes.wcag_container}>
           <p
             className={classes.p}
             onClick={scrollDown}
@@ -406,10 +505,14 @@ const Report = () => {
             aria-hidden="true"
           >
             WCAG2A Errors:{" "}
-            {sniffer ? sniffer?.result?.WCAG2A?.length : <Loader />}
           </p>
-        </Container>
-        <Container>
+          <div className={classes.url_div}>
+            <p className={classes.url_p}>
+              {sniffer ? sniffer?.result?.WCAG2A?.length : <Loader />}
+            </p>
+          </div>
+        </div>
+        <div className={classes.wcag_container}>
           <p
             className={classes.p}
             onClick={scrollDown}
@@ -417,10 +520,16 @@ const Report = () => {
             aria-hidden="true"
           >
             WCAG2AA Errors:{" "}
-            {sniffer ? sniffer?.result?.WCAG2AA?.length : <Loader />}
           </p>
-        </Container>
-        <Container>
+          <div className={classes.url_div}>
+            <p className={classes.url_p}>
+              {sniffer ? sniffer?.result?.WCAG2AA?.length : <Loader />}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className={classes.flex}>
+        <div className={classes.wcag_container}>
           <p
             className={classes.p}
             onClick={scrollDown}
@@ -428,10 +537,14 @@ const Report = () => {
             aria-hidden="true"
           >
             WCAG2AAA Errors:{" "}
-            {sniffer ? sniffer?.result?.WCAG2AAA?.length : <Loader />}
           </p>
-        </Container>
-        <Container>
+          <div className={classes.url_div}>
+            <p className={classes.url_p}>
+              {sniffer ? sniffer?.result?.WCAG2AAA?.length : <Loader />}
+            </p>
+          </div>
+        </div>
+        <div className={classes.wcag_container}>
           <p
             className={classes.p}
             onClick={scrollDown}
@@ -439,32 +552,50 @@ const Report = () => {
             aria-hidden="true"
           >
             Section 508 Errors:{" "}
-            {sniffer ? sniffer?.result?.Section508?.length : <Loader />}
           </p>
-        </Container>
+          <div className={classes.url_div}>
+            <p className={classes.url_p}>
+              {sniffer ? sniffer?.result?.Section508?.length : <Loader />}
+            </p>
+          </div>
+        </div>
       </div>
-      <h1 className={classes.heading}>Other Accessibility Checks:</h1>
+      <div className={classes.head_div}>
+        <h1 className={classes.heading}>
+          Other Accessibility and ADA Compliance Checks
+        </h1>
+      </div>
       <div className={classes.flex}>
-        <Container>
+        <div className={classes.wcag_container}>
           <p
             className={classes.p}
             onClick={scrollDown}
             onKeyDown={scrollDown}
             aria-hidden="true"
           >
-            Errors: {ada ? ada?.data?.error?.length : <Loader />}
+            Errors
           </p>
-        </Container>
-        <Container>
+          <div className={classes.url_div}>
+            <p className={classes.url_p}>
+              {ada ? ada?.data?.error?.length : <Loader />}
+            </p>
+          </div>
+        </div>
+        <div className={classes.wcag_container_warn}>
           <p
             className={classes.p}
             onClick={scrollDown}
             onKeyDown={scrollDown}
             aria-hidden="true"
           >
-            Warnings: {ada ? ada?.data?.warning?.length : <Loader />}
+            Warnings
           </p>
-        </Container>
+          <div className={classes.url_div}>
+            <p className={classes.url_p}>
+              {ada ? ada?.data?.warning?.length : <Loader />}
+            </p>
+          </div>
+        </div>
       </div>
       <div className={classes.button_div}>
         <Button
