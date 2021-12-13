@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "1rem 0 5rem 0",
+    fontFamily: "Roboto",
   },
   heading: {
     color: theme.palette.primary.main,
@@ -116,6 +117,13 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "10px",
   },
   score_ssl: {
+    color: "#7bc043",
+    margin: 0,
+    cursor: "pointer",
+    display: "block",
+    fontSize: "2.5em",
+  },
+  score_cookie: {
     color: "#2ab7ca",
     margin: 0,
     cursor: "pointer",
@@ -142,6 +150,18 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     display: "block",
     fontSize: "1.5em",
+  },
+  score_loader1: {
+    marginLeft: "85px",
+  },
+  score_border: {
+    padding: "20px",
+    border: "2px solid red",
+    borderRadius: "50%",
+    width: "90px",
+    borderColor: theme.palette.primary.main,
+    marginBottom: "15px",
+    margin: "auto",
   },
 }));
 

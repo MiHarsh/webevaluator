@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles({
   about_div: {
     margin: "auto",
+    fontFamily: "Roboto",
   },
   about_size: {
     margin: "auto",

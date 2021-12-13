@@ -4,6 +4,7 @@ const useStyles = makeStyles({
   root: {
     marginTop: "10vh",
     marginBottom: "3rem",
+    fontFamily: "Roboto",
   },
 });
 

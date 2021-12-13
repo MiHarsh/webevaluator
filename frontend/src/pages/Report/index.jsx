@@ -297,35 +297,51 @@ const Report = () => {
         <div className={classes.score_div}>
           {sslScore ? (
             <div className={classes.score_val}>
-              <p className={classes.score_ssl}>{sslScore}</p>
-              <p className={classes.para}>SSL Security</p>
+              <div className={classes.score_border}>
+                <p className={classes.score_ssl}>{sslScore}</p>
+              </div>
+              <p className={classes.para}>SSL Score</p>
             </div>
           ) : (
-            <Loader />
+            <div className={classes.score_loader1}>
+              <Loader />
+            </div>
           )}
           {cookieScore ? (
             <div className={classes.score_val}>
-              <p className={classes.score_ssl}>{cookieScore}</p>
-              <p className={classes.para}>Cookie Analysis</p>
+              <div className={classes.score_border}>
+                <p className={classes.score_cookie}>{cookieScore}</p>
+              </div>
+              <p className={classes.para}>Cookie Score</p>
             </div>
           ) : (
-            <Loader />
+            <div className={classes.score_loader1}>
+              <Loader />
+            </div>
           )}
           {wcagScore ? (
             <div className={classes.score_val}>
-              <p className={classes.score_text}>{(1000 - wcagScore) / 10}</p>
-              <p className={classes.para}>WCAG Guidelines</p>
+              <div className={classes.score_border}>
+                <p className={classes.score_text}>{(1000 - wcagScore) / 10}</p>
+              </div>
+              <p className={classes.para}>WCAG Score</p>
             </div>
           ) : (
-            <Loader />
+            <div className={classes.score_loader1}>
+              <Loader />
+            </div>
           )}
           {accessScore ? (
             <div className={classes.score_val}>
-              <p className={classes.score_ada}>{100 - accessScore}</p>
-              <p className={classes.para}>Accessibility Issues</p>
+              <div className={classes.score_border}>
+                <p className={classes.score_ada}>{100 - accessScore}</p>
+              </div>
+              <p className={classes.para}>Accessibility Score</p>
             </div>
           ) : (
-            <Loader />
+            <div className={classes.score_loader1}>
+              <Loader />
+            </div>
           )}
         </div>
       </div>

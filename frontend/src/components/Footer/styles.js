@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     height: "4rem",
     padding: "1.5rem",
+    fontFamily: "Roboto",
   },
   anchor: {
     color: theme.palette.text.secondary,

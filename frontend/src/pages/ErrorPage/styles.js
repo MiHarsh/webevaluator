@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+    fontFamily: "Roboto",
   },
   mainHeader: {
     height: "103%",
