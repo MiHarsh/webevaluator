@@ -99,7 +99,7 @@ const cookieChecker = async (url) => {
     // if user can deny consent, open a new incognito page, deny the consent and check for cookies
     await page.goto(url, { waitUntil: waitUntil });
 
-    const triggerAccept = ["Accept all"]; // more can be added
+    const triggerAccept = ["Accept all", "Manage Cookies"]; // more can be added
     const triggerDeny = ["Deny", "Deny all"];
 
     let aCookies, dCookies;

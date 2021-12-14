@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import Loader from "components/Loader";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
-import { fileDownload } from "js-file-download";
+import fileDownload from "js-file-download";
 import ScrollableTabs from "components/ScrollableTabs";
 import {
   sslColumns,
@@ -34,11 +34,13 @@ const Report = () => {
   const [cookieScore, setCookieScore] = useState(null);
   const [wcagScore, setWcagScore] = useState(null);
   const [accessScore, setAccessScore] = useState(null);
+  const [downloadInProgress, setDownloadInProgress] = useState(false);
 
   const scrollDown = () => {
     tableRef.current.scrollIntoView({ behavior: "smooth" });
   };
   const handleDownload = () => {
+    setDownloadInProgress(true);
     axios({
       url: endpoints.download(),
       method: "POST",
@@ -48,6 +50,7 @@ const Report = () => {
       responseType: "blob",
     }).then((response) => {
       fileDownload(response.data, "report.pdf");
+      setDownloadInProgress(false);
     });
   };
   const [mapping, setMapping] = useState({
@@ -624,6 +627,7 @@ const Report = () => {
         >
           Download Complete Report
         </Button>
+        {downloadInProgress ? <Loader /> : null}
       </div>
       <div ref={tableRef} />
       <ScrollableTabs mapping={mapping} />

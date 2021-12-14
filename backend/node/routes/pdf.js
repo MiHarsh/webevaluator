@@ -34,6 +34,7 @@ router.post("/", (req, res) => {
         path.join(__dirname, "../views/", "report-template.ejs"),
         {
           allData: allData,
+          url: url,
         },
         (err, data) => {
           if (err) {

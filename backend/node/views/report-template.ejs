@@ -4,11 +4,18 @@
 <style>
 table{
 	border-collapse: collapse;
+	table-layout: fixed;
+	width: 100%;
 }
 table, th, td {
   border: 1px solid black;
 	font-size: 5px;
 	text-align : center;
+}
+th, td {
+	max-width: 100px;
+	overflow-wrap: anywhere;
+	word-wrap: break-word;
 }
 .successText {
 	color: green;
@@ -37,16 +44,124 @@ img {
 	align-items: center;
 	align-content: center;
 }
-/* td {
-	max-width: 50px;
-	word-break: break-all;
-} */
+.head_div {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+	display: flex;
+}
+.score_div {
+	text-align: center;
+	margin: auto;
+	padding: 30px;
+	display: flex;
+}
+.score_val {
+	margin: auto;
+	padding: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.score_ssl {
+	color: #7bc043;
+	margin: 0;
+	cursor: pointer;
+	display: block;
+	font-size: 2.5em;
+}
+.score_cookie {
+	color: #fe4a49;
+	margin: 0;
+	cursor: pointer;
+	display: block;
+	font-size: 2.5em;
+}
+.score_ada {
+	color: #fed766;
+	margin: 0;
+	cursor: pointer;
+	display: block;
+	font-size: 2.5em;
+}
+.score_text {
+	color: #fe4a49;
+	margin: 0;
+	cursor: pointer;
+	display: block;
+	font-size: 2.5em;
+}
+.score_border {
+	padding: 20px;
+	border: 2px solid red;
+	border-radius: 50%;
+	width: 90px;
+	border-color: #5B44BA;
+	margin-bottom: 15px;
+	margin: auto;
+}
+.para {
+	color: #5B44BA;
+	margin: 0;
+	cursor: pointer;
+	display: block;
+	font-size: 1.5em;
+}
 </style>
 </head>
 <body>
 <div>
 	<div>
 	<h1>Web Accessibility Report</h1>
+	<b>URL:</b> <%= url %>
+	<div class="head_div">
+		<div class="score_div">
+			<div class="score_val">
+				<div class="score_border">
+					<p class="score_ssl">
+						<% if(allData[5]?.value?.data?.length){ %>
+							100
+						<% }else{ %>
+							0
+						<% }%>
+					</p>
+				</div>
+				<p class="para">SSL Score</p>
+			</div>
+			<div class="score_val">
+				<div class="score_border">
+					<p class="score_cookie">
+						<% if (allData[0]?.value?.consentAsked && allData[0]?.value?.denyConsent) { %>
+							100
+						<% }else if(allData[0]?.value?.consentAsked || allData[0]?.value?.denyConsent) { %>
+							50
+						<% } else{ %>
+							0
+						<% } %>
+					</p>
+				</div>
+				<p class="para">Cookie Score</p>
+			</div>
+			<div class="score_val">
+				<div class="score_border">
+					<p class="score_text">
+						<%= (1000 - allData[1]?.value?.Section508?.length
+            - allData[1]?.value?.WCAG2A?.length
+						- allData[1]?.value?.WCAG2AA?.length
+						- allData[1]?.value?.WCAG2AAA?.length)/10 %>
+					</p>
+				</div>
+				<p class="para">WCAG Score</p>
+			</div>
+			<div class="score_val">
+				<div class="score_border">
+					<p class="score_text">
+						<%= (100 - allData[2]?.value?.error?.length - allData[2]?.value?.warning?.length) %>
+					</p>
+				</div>
+				<p class="para">Accessibility Score</p>
+			</div>
+		</div>
+	</div>
 	<h2>SSL Certificates:</h2>
 	<table>
 		<tr>
@@ -457,4 +572,3 @@ img {
 </div>
 </body>
 </html>
-<!-- We will Render all the details here which we get as JSON and finally this page will get exported as PDF on another api call(/generatePDFReport) -->
