@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     left: "35%",
     top: "30%",
     width: 400,
-    backgroundColor: "white",
+    backgroundColor: "#b3cde0",
     padding: "20px",
     margin: "auto",
   },
@@ -58,10 +58,10 @@ const useStyles = makeStyles((theme) => ({
 const InputButton = ({ value, handleChange, handleSubmit }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [crawl, setCrawl] = useState(false);
-  const [ssl, setSsl] = useState(false);
-  const [ada, setAda] = useState(false);
-  const [cookie, setCookie] = useState(false);
+  const [crawl, setCrawl] = useState(true);
+  const [ssl, setSsl] = useState(true);
+  const [ada, setAda] = useState(true);
+  const [cookie, setCookie] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
