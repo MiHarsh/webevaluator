@@ -69,7 +69,7 @@ router.post("/", async (req, res) => {
         return { WCAG2A, WCAG2AA, WCAG2AAA, Section508 };
       });
     });
-    console.log("resultList", resultList);
+    // console.log("resultList", resultList);
     await browser.close();
     res.send({
       status: "success",

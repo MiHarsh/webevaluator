@@ -2,7 +2,7 @@
 
 Run app.py as flask app
 
-Send URL as POST data on `http://localhost:5000` just as below:
+Send URL as POST data on `http://localhost:8000` just as below:
 
 ```
 {"URL":"https://aman-codes.github.io"}

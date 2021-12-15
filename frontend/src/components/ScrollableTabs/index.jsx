@@ -62,13 +62,13 @@ const ScrollableTabs = ({ mapping }) => {
           aria-label="scrollable auto tabs"
         >
           {Object.keys(mapping).map((key, i) => (
-            <Tab label={mapping[key].title} {...a11yProps(i)} />
+            <Tab label={mapping[key].title} {...a11yProps(i)} key={i} />
           ))}
         </Tabs>
       </AppBar>
 
       {Object.keys(mapping).map((key, i) => (
-        <TabPanel value={value} index={i}>
+        <TabPanel value={value} index={i} key={i}>
           <Table
             rows={mapping[key].rows}
             columns={mapping[key].columns}

@@ -2,15 +2,12 @@ package core
 
 import (
 	"crypto/tls"
-	"fmt"
 	"net"
 	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
 	"time"
-
-	jsoniter "github.com/json-iterator/go"
 
 	"github.com/Aman-Codes/backend/go/pkg/log"
 	"github.com/Aman-Codes/backend/go/pkg/stringset"
@@ -190,7 +187,7 @@ func (crawler *Crawler) feedLinkfinder(jsFileUrl string, OutputType string, sour
 
 	if !crawler.jsSet.Duplicate(jsFileUrl) {
 		// outputFormat := fmt.Sprintf("[%s] - %s", OutputType, jsFileUrl)
-		var outputFormat string
+		// var outputFormat string
 
 		if crawler.JsonOutput {
 			sout := SpiderOutput{
@@ -205,10 +202,10 @@ func (crawler *Crawler) feedLinkfinder(jsFileUrl string, OutputType string, sour
 			} else {
 				crawler.Output.WriteToList(sout)
 			}
-			if data, err := jsoniter.MarshalToString(sout); err == nil {
-				outputFormat = data
-				log.Infof(outputFormat)
-			}
+			// if data, err := jsoniter.MarshalToString(sout); err == nil {
+			// 	outputFormat = data
+			// 	log.Infof(outputFormat)
+			// }
 		}
 
 		// if crawler.Output != nil {
@@ -241,7 +238,7 @@ func (crawler *Crawler) Start(linkfinder bool) {
 			return
 		}
 		if !crawler.urlSet.Duplicate(urlString) {
-			outputFormat := fmt.Sprintf("[href] - %s", urlString)
+			// outputFormat := fmt.Sprintf("[href] - %s", urlString)
 			if crawler.JsonOutput {
 				sout := SpiderOutput{
 					Input:      crawler.Input,
@@ -255,11 +252,11 @@ func (crawler *Crawler) Start(linkfinder bool) {
 				} else {
 					crawler.Output.WriteToList(sout)
 				}
-				if data, err := jsoniter.MarshalToString(sout); err == nil {
-					outputFormat = data
-				}
+				// if data, err := jsoniter.MarshalToString(sout); err == nil {
+				// 	outputFormat = data
+				// }
 			}
-			log.Infof(outputFormat)
+			// log.Infof(outputFormat)
 			// if crawler.Output != nil {
 			// 	crawler.Output.WriteToFile(outputFormat)
 			// }
@@ -271,7 +268,7 @@ func (crawler *Crawler) Start(linkfinder bool) {
 	crawler.C.OnHTML("form[action]", func(e *colly.HTMLElement) {
 		formUrl := e.Request.URL.String()
 		if !crawler.formSet.Duplicate(formUrl) {
-			outputFormat := fmt.Sprintf("[form] - %s", formUrl)
+			// outputFormat := fmt.Sprintf("[form] - %s", formUrl)
 			if crawler.JsonOutput {
 				sout := SpiderOutput{
 					Input:      crawler.Input,
@@ -285,11 +282,11 @@ func (crawler *Crawler) Start(linkfinder bool) {
 				} else {
 					crawler.Output.WriteToList(sout)
 				}
-				if data, err := jsoniter.MarshalToString(sout); err == nil {
-					outputFormat = data
-				}
+				// if data, err := jsoniter.MarshalToString(sout); err == nil {
+				// 	outputFormat = data
+				// }
 			}
-			log.Infof(outputFormat)
+			// log.Infof(outputFormat)
 			// if crawler.Output != nil {
 			// 	crawler.Output.WriteToFile(outputFormat)
 			// }
@@ -302,7 +299,7 @@ func (crawler *Crawler) Start(linkfinder bool) {
 	crawler.C.OnHTML(`input[type="file"]`, func(e *colly.HTMLElement) {
 		uploadUrl := e.Request.URL.String()
 		if !uploadFormSet.Duplicate(uploadUrl) {
-			outputFormat := fmt.Sprintf("[upload-form] - %s", uploadUrl)
+			// outputFormat := fmt.Sprintf("[upload-form] - %s", uploadUrl)
 			if crawler.JsonOutput {
 				sout := SpiderOutput{
 					Input:      crawler.Input,
@@ -316,11 +313,11 @@ func (crawler *Crawler) Start(linkfinder bool) {
 				} else {
 					crawler.Output.WriteToList(sout)
 				}
-				if data, err := jsoniter.MarshalToString(sout); err == nil {
-					outputFormat = data
-				}
+				// if data, err := jsoniter.MarshalToString(sout); err == nil {
+				// 	outputFormat = data
+				// }
 			}
-			log.Infof(outputFormat)
+			// log.Infof(outputFormat)
 			// if crawler.Output != nil {
 			// 	crawler.Output.WriteToFile(outputFormat)
 			// }
@@ -350,7 +347,7 @@ func (crawler *Crawler) Start(linkfinder bool) {
 			// Verify which link is working
 			u := response.Request.URL.String()
 			// outputFormat := fmt.Sprintf("[url] - [code-%d] - %s", response.StatusCode, u)
-			var outputFormat string
+			// var outputFormat string
 			if crawler.JsonOutput {
 				sout := SpiderOutput{
 					Input:      crawler.Input,
@@ -365,11 +362,11 @@ func (crawler *Crawler) Start(linkfinder bool) {
 				} else {
 					crawler.Output.WriteToList(sout)
 				}
-				if data, err := jsoniter.MarshalToString(sout); err == nil {
-					outputFormat = data
-				}
+				// if data, err := jsoniter.MarshalToString(sout); err == nil {
+				// 	outputFormat = data
+				// }
 			}
-			log.Infof(outputFormat)
+			// log.Infof(outputFormat)
 			// if crawler.Output != nil {
 			// 	crawler.Output.WriteToFile(outputFormat)
 			// }
@@ -395,7 +392,7 @@ func (crawler *Crawler) Start(linkfinder bool) {
 
 		u := response.Request.URL.String()
 		// outputFormat := fmt.Sprintf("[url] - [code-%d] - %s", response.StatusCode, u)
-		var outputFormat string
+		// var outputFormat string
 		if crawler.JsonOutput {
 			sout := SpiderOutput{
 				Input:      crawler.Input,
@@ -410,10 +407,10 @@ func (crawler *Crawler) Start(linkfinder bool) {
 			} else {
 				crawler.Output.WriteToList(sout)
 			}
-			if data, err := jsoniter.MarshalToString(sout); err == nil {
-				outputFormat = data
-				log.Infof(outputFormat)
-			}
+			// if data, err := jsoniter.MarshalToString(sout); err == nil {
+			// 	outputFormat = data
+			// 	log.Infof(outputFormat)
+			// }
 		}
 
 		// if crawler.Output != nil {
@@ -432,7 +429,7 @@ func (crawler *Crawler) findSubdomains(resp string) {
 	subs := GetSubdomains(resp, crawler.domain)
 	for _, sub := range subs {
 		if !crawler.subSet.Duplicate(sub) {
-			outputFormat := fmt.Sprintf("[subdomains] - %s", sub)
+			// outputFormat := fmt.Sprintf("[subdomains] - %s", sub)
 
 			if crawler.JsonOutput {
 				sout := SpiderOutput{
@@ -447,10 +444,10 @@ func (crawler *Crawler) findSubdomains(resp string) {
 				} else {
 					crawler.Output.WriteToList(sout)
 				}
-				if data, err := jsoniter.MarshalToString(sout); err == nil {
-					outputFormat = data
-				}
-				log.Infof(outputFormat)
+				// if data, err := jsoniter.MarshalToString(sout); err == nil {
+				// 	outputFormat = data
+				// }
+				// log.Infof(outputFormat)
 			}
 			// if crawler.Output != nil {
 			// 	crawler.Output.WriteToFile(outputFormat)
@@ -464,7 +461,7 @@ func (crawler *Crawler) findAWSS3(resp string) {
 	aws := GetAWSS3(resp)
 	for _, e := range aws {
 		if !crawler.awsSet.Duplicate(e) {
-			outputFormat := fmt.Sprintf("[aws-s3] - %s", e)
+			// outputFormat := fmt.Sprintf("[aws-s3] - %s", e)
 			if crawler.JsonOutput {
 				sout := SpiderOutput{
 					Input:      crawler.Input,
@@ -478,11 +475,11 @@ func (crawler *Crawler) findAWSS3(resp string) {
 				} else {
 					crawler.Output.WriteToList(sout)
 				}
-				if data, err := jsoniter.MarshalToString(sout); err == nil {
-					outputFormat = data
-				}
+				// if data, err := jsoniter.MarshalToString(sout); err == nil {
+				// 	outputFormat = data
+				// }
 			}
-			log.Infof(outputFormat)
+			// log.Infof(outputFormat)
 			// if crawler.Output != nil {
 			// 	crawler.Output.WriteToFile(outputFormat)
 			// }
@@ -504,7 +501,7 @@ func (crawler *Crawler) setupLinkFinder() {
 			// Verify which link is working
 			u := response.Request.URL.String()
 			// outputFormat := fmt.Sprintf("[url] - [code-%d] - %s", response.StatusCode, u)
-			var outputFormat string
+			// var outputFormat string
 			if crawler.JsonOutput {
 				sout := SpiderOutput{
 					Input:      crawler.Input,
@@ -519,11 +516,11 @@ func (crawler *Crawler) setupLinkFinder() {
 				} else {
 					crawler.Output.WriteToList(sout)
 				}
-				if data, err := jsoniter.MarshalToString(sout); err == nil {
-					outputFormat = data
-				}
+				// if data, err := jsoniter.MarshalToString(sout); err == nil {
+				// 	outputFormat = data
+				// }
 			}
-			log.Infof(outputFormat)
+			// log.Infof(outputFormat)
 
 			// if crawler.Output != nil {
 			// 	crawler.Output.WriteToFile(outputFormat)
@@ -547,7 +544,7 @@ func (crawler *Crawler) setupLinkFinder() {
 				}
 
 				for _, relPath := range paths {
-					var outputFormat string
+					// var outputFormat string
 					// JS Regex Result
 					if crawler.JsonOutput {
 						sout := SpiderOutput{
@@ -562,11 +559,11 @@ func (crawler *Crawler) setupLinkFinder() {
 						} else {
 							crawler.Output.WriteToList(sout)
 						}
-						if data, err := jsoniter.MarshalToString(sout); err == nil {
-							outputFormat = data
-						}
+						// if data, err := jsoniter.MarshalToString(sout); err == nil {
+						// 	outputFormat = data
+						// }
 					}
-					log.Infof(outputFormat)
+					// log.Infof(outputFormat)
 
 					// if crawler.Output != nil {
 					// 	crawler.Output.WriteToFile(outputFormat)
@@ -602,12 +599,12 @@ func (crawler *Crawler) setupLinkFinder() {
 							} else {
 								crawler.Output.WriteToList(sout)
 							}
-							if data, err := jsoniter.MarshalToString(sout); err == nil {
-								outputFormat = data
-							}
+							// if data, err := jsoniter.MarshalToString(sout); err == nil {
+							// 	outputFormat = data
+							// }
 						}
 
-						log.Infof(outputFormat)
+						// log.Infof(outputFormat)
 
 						// if crawler.Output != nil {
 						// 	crawler.Output.WriteToFile(outputFormat)
@@ -640,11 +637,11 @@ func (crawler *Crawler) setupLinkFinder() {
 									} else {
 										crawler.Output.WriteToList(sout)
 									}
-									if data, err := jsoniter.MarshalToString(sout); err == nil {
-										outputFormat = data
-									}
+									// if data, err := jsoniter.MarshalToString(sout); err == nil {
+									// 	outputFormat = data
+									// }
 								}
-								log.Infof(outputFormat)
+								// log.Infof(outputFormat)
 
 								// if crawler.Output != nil {
 								// 	crawler.Output.WriteToFile(outputFormat)

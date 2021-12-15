@@ -329,7 +329,7 @@ const ssl = async (url) => {
     },
   })
     .then((response) => {
-      console.log("data is ", response.data);
+      // console.log("data is ", response.data);
       return response?.data;
     })
     .catch((error) => {

@@ -2,6 +2,8 @@ const baseGoUrl =
   process.env.REACT_APP_GO_SERVER_URL || "http://localhost:8080";
 const baseNodeUrl =
   process.env.REACT_APP_NODE_SERVER_URL || "http://localhost:5000/api";
+const basePythonUrl =
+  process.env.REACT_APP_PYTHON_SERVER_URL || "http://localhost:8000";
 
 const endpoints = {
   goStatus: () => `${baseGoUrl}/status`,
@@ -13,6 +15,7 @@ const endpoints = {
   tenon: () => `${baseNodeUrl}/tenon`,
   sniffer: () => `${baseNodeUrl}/sniffer`,
   download: () => `${baseNodeUrl}/pdf`,
+  header: () => `${basePythonUrl}/`,
 };
 
 export default endpoints;

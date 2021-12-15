@@ -40,7 +40,7 @@ const fetchCookiesInfo = async (cookiesList) => {
     promiseList.push(
       fetchCookieInfo(cookie.name)
         .then((cookieInfo) => {
-          return { ...cookie, info: cookieInfo };
+          return { ...cookie, ...cookieInfo };
         })
         .catch((err) => console.log("error is", err))
     );

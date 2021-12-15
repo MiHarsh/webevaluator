@@ -1,12 +1,10 @@
 package core
 
 import (
-	"fmt"
 	"net/url"
 	"sync"
 
 	"github.com/Aman-Codes/backend/go/pkg/log"
-	jsoniter "github.com/json-iterator/go"
 
 	"github.com/gocolly/colly/v2"
 	sitemap "github.com/oxffaa/gopher-parse-sitemap"
@@ -22,20 +20,20 @@ func ParseSiteMap(site *url.URL, crawler *Crawler, c *colly.Collector, wg *sync.
 		// Ignore error when that not valid sitemap.xml path
 		log.Infof("Trying to find %s", site.String()+path)
 		_ = sitemap.ParseFromSite(site.String()+path, func(entry sitemap.Entry) error {
-			outputFormat := fmt.Sprintf("[sitemap] - %s", entry.GetLocation())
+			// outputFormat := fmt.Sprintf("[sitemap] - %s", entry.GetLocation())
 
-			if crawler.JsonOutput {
-				sout := SpiderOutput{
-					Input:      crawler.Input,
-					Source:     "sitemap",
-					OutputType: "url",
-					Output:     entry.GetLocation(),
-				}
-				if data, err := jsoniter.MarshalToString(sout); err == nil {
-					outputFormat = data
-				}
-			}
-			log.Infof(outputFormat)
+			// if crawler.JsonOutput {
+			// 	sout := SpiderOutput{
+			// 		Input:      crawler.Input,
+			// 		Source:     "sitemap",
+			// 		OutputType: "url",
+			// 		Output:     entry.GetLocation(),
+			// 	}
+			// if data, err := jsoniter.MarshalToString(sout); err == nil {
+			// 	outputFormat = data
+			// }
+			// }
+			// log.Infof(outputFormat)
 			// if crawler.Output != nil {
 			// 	crawler.Output.WriteToFile(outputFormat)
 			// }

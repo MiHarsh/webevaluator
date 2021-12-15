@@ -75,21 +75,21 @@ export const cookiesColumns = [
   { flex: 1, field: "source Port", headerName: "Source Port" },
   {
     flex: 1,
-    field: "info",
+    field: "placed_by",
     headerName: "Placed By",
-    valueFormatter: (params) => params.value.placed_by,
+    // valueFormatter: (params) => params.value.placed_by || "",
   },
   {
     flex: 1,
-    field: "info",
+    field: "functionality",
     headerName: "Functionality",
-    valueFormatter: (params) => params.value.functionality,
+    // valueFormatter: (params) => params.value.functionality || "",
   },
   {
     flex: 1,
-    field: "info",
+    field: "purpose",
     headerName: "Purpose",
-    valueFormatter: (params) => params.value.purpose,
+    // valueFormatter: (params) => params.value.purpose || "",
   },
 ];
 

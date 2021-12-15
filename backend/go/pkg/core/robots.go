@@ -1,7 +1,6 @@
 package core
 
 import (
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -10,7 +9,6 @@ import (
 	"sync"
 
 	"github.com/Aman-Codes/backend/go/pkg/log"
-	jsoniter "github.com/json-iterator/go"
 
 	"github.com/gocolly/colly/v2"
 )
@@ -39,20 +37,20 @@ func ParseRobots(site *url.URL, crawler *Crawler, c *colly.Collector, wg *sync.W
 				if url == "" {
 					continue
 				}
-				outputFormat := fmt.Sprintf("[robots] - %s", url)
+				// outputFormat := fmt.Sprintf("[robots] - %s", url)
 
-				if crawler.JsonOutput {
-					sout := SpiderOutput{
-						Input:      crawler.Input,
-						Source:     "robots",
-						OutputType: "url",
-						Output:     url,
-					}
-					if data, err := jsoniter.MarshalToString(sout); err == nil {
-						outputFormat = data
-					}
-				}
-				log.Infof(outputFormat)
+				// if crawler.JsonOutput {
+				// sout := SpiderOutput{
+				// 	Input:      crawler.Input,
+				// 	Source:     "robots",
+				// 	OutputType: "url",
+				// 	Output:     url,
+				// }
+				// if data, err := jsoniter.MarshalToString(sout); err == nil {
+				// 	outputFormat = data
+				// }
+				// }
+				// log.Infof(outputFormat)
 				// if crawler.Output != nil {
 				// 	crawler.Output.WriteToFile(outputFormat)
 				// }

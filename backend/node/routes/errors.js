@@ -40,7 +40,7 @@ router.post("/css", async (req, res) => {
       errorList,
       warningList
     );
-    console.log("resultList is", resultList);
+    // console.log("resultList is", resultList);
     await browser.close();
     res.send({
       status: "success",

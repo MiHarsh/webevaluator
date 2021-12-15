@@ -29,11 +29,13 @@ const Report = () => {
   const [cookie, setCookie] = useState(null);
   const [ada, setAda] = useState(null);
   const [sniffer, setSniffer] = useState(null);
+  const [header, setHeader] = useState(null);
   const tableRef = useRef(null);
   const [sslScore, setSslScore] = useState(null);
   const [cookieScore, setCookieScore] = useState(null);
   const [wcagScore, setWcagScore] = useState(null);
   const [accessScore, setAccessScore] = useState(null);
+  const [headerScore, setHeaderScore] = useState(null);
   const [downloadInProgress, setDownloadInProgress] = useState(false);
 
   const scrollDown = () => {
@@ -138,7 +140,7 @@ const Report = () => {
         },
       };
     });
-  }, ssl);
+  }, [JSON.stringify(ssl)]);
   useEffect(() => {
     setMapping((prev) => {
       return {
@@ -166,7 +168,7 @@ const Report = () => {
         },
       };
     });
-  }, cookie);
+  }, [JSON.stringify(cookie)]);
   useEffect(() => {
     setMapping((prev) => {
       return {
@@ -201,7 +203,7 @@ const Report = () => {
         },
       };
     });
-  }, sniffer);
+  }, [JSON.stringify(sniffer)]);
   useEffect(() => {
     setMapping((prev) => {
       return {
@@ -222,7 +224,7 @@ const Report = () => {
         },
       };
     });
-  }, [ada]);
+  }, [JSON.stringify(ada)]);
   useEffect(() => {
     const promiseList = [];
     promiseList.push(
@@ -270,11 +272,28 @@ const Report = () => {
         setSniffer
       )
     );
+    promiseList.push(
+      sendPostRequestSetter(
+        endpoints.header(),
+        {
+          URL: url,
+        },
+        setHeader
+      )
+    );
     Promise.allSettled(promiseList)
       .then((data) => {
         console.log(data);
+        console.log("header is", header);
         setSslScore(data[0].value.data.length ? 100 : 0);
-        setCookieScore(data[2].value.data.consentAsked ? 100 : 50);
+        setCookieScore(
+          // eslint-disable-next-line no-nested-ternary
+          data[2].value.data.consentAsked && data[2].value.data.denyConsent
+            ? 100
+            : data[2].value.data.consentAsked || data[2].value.data.denyConsent
+            ? 50
+            : 0
+        );
         setWcagScore(
           data[4].value.result.Section508.length +
             data[4].value.result.WCAG2A.length +
@@ -284,6 +303,14 @@ const Report = () => {
         setAccessScore(
           data[3].value.data.error.length + data[3].value.data.warning.length
         );
+        setHeaderScore(
+          (
+            (Object.keys(data[5]?.value?.[url]?.present)?.length * 100) /
+            (Object.keys(data[5]?.value?.[url]?.present)?.length +
+              data[5]?.value?.[url]?.missing?.length)
+          ).toFixed(1)
+        );
+        console.log("data[5]?.value?.[url]", data[5]?.value[url]);
       })
       .catch((error) => {
         console.error(error);
@@ -340,6 +367,18 @@ const Report = () => {
                 <p className={classes.score_ada}>{100 - accessScore}</p>
               </div>
               <p className={classes.para}>Accessibility Score</p>
+            </div>
+          ) : (
+            <div className={classes.score_loader1}>
+              <Loader />
+            </div>
+          )}
+          {headerScore ? (
+            <div className={classes.score_val}>
+              <div className={classes.score_border}>
+                <p className={classes.score_text}>{headerScore}</p>
+              </div>
+              <p className={classes.para}>Security Header Score</p>
             </div>
           ) : (
             <div className={classes.score_loader1}>
