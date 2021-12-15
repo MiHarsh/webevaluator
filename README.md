@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is an advanced web crawling tool that will not only discover the active URLs within the website but also provide information about SSL certificate compliance, Cookie checker and ADA compliance.
+This is an advanced web crawling tool that will not only discover the active URLs within the website but also provide information about SSL certificate compliance, Cookie checker and ADA compliance and details about the security headers.
 ## Implementation Details
 
 #### Crawler
@@ -11,10 +11,6 @@ A super-fast crawler is created in Golang using the [colly framework](https://gi
 * Superfast (more than 1000 requests/second on a single core)
 * Request delays and maximum concurrency per domain to prevent reaching rate limit of domain
 * Async or Parallel scraping support
-* Robots.txt Support
-* Supports switching between multiple proxies
-* Option to specify maximum depth of scrapping
-* Specify allowed list of domains (like scrape only root domain and its subdomain)
 
 The complete unique list of URLs found from the above process are subdivided based on :
 * Active URLs
@@ -27,10 +23,9 @@ The URLs found are saved in a file on disk storage for a temporary basis and its
 
 #### SSL certificate compliance
 
-For collecting the SSL/TLS information from the host we have used the [SSLLabs API](https://www.ssllabs.com/projects/ssllabs-apis/) which is an [open-source](https://github.com/ssllabs/ssllabs-scan) project to get the information about the host and returns the information in JSON format. Some of the features are:
+For collecting the SSL/TLS information from the host we build an API to get the information about the host and returns the information in JSON format. Some of the features are:
 * Checks for the validity and issuer of the certificate
 * Analyzes the SSL certificate for security issues
-* Checks for some well-known vulnerabilities
 
 Other than this we are also checking that all the HTTP links are automatically redirected to HTTPS using crawler.
 
@@ -58,11 +53,7 @@ We implemented the cookie checker agent in the following manner:
 ##### Assumptions for cookie agents:
 
 
-* For cookie classification, we are using a collection of some open-source datasets such as:
-    * https://github.com/jkwakman/Open-Cookie-Database
-    * https://cookiedatabase.org/
-    * https://www.cookieserve.com
-
+* For cookie classification, we are using a collection of some open-source datasets.
 * Any cookie whose information is not available in the above dataset would be classified into the Others category.
 * To check if user consent for cookies is asked and followed we would be relying on certain keywords present on the button text such as 
     * Accept List: ["Accept",  "Accept All", "Allow"]
@@ -111,10 +102,10 @@ The project is using a microstructure architecture where we have the main server
 | **Agent name/ Feature** | **Tech Stack** | **Description** |
 | --- | --- | --- |
 | Crawler | Golang colly framework | Using colly framework of Golang as it is one of the fastest available crawler |
-| SSL certificate compliance | Golang | Golang script that uses ssllabs API which is an [open-source](https://github.com/ssllabs/ssllabs-scan) project |
+| SSL certificate compliance | Golang | Golang script that search for the ssl information |
 | Cookie checker | Node.js and JavaScript | Using Puppeteer for automated cookie consent verification |
 | ADA compliance | Node.js and JavaScript | Using a variety of node libraries for getting complete ADA compliance information |
-
+| Security Headers | Python | Build an Flask API which checks for the headers in the HTTP request |
 
 The front end is created in React.js and Material UI. All the reports are displayed to users in a visually appealing manner which can be exported in formats such as PDF. We created a very flexible and versatile foundation for our codebase, so that in future its functionality could be easily extended and new agents could be easily added into it. 
 
@@ -124,6 +115,7 @@ The front end is created in React.js and Material UI. All the reports are displa
 | SSL Agent | ✅ | ❌ |
 | Cookies checker | ✅ | ❌ |
 | ADA compliance | ✅ | ✅ |
+| Security Headers | ✅ | ❌ |
 
 ## Usage or Working Demo
 
@@ -246,7 +238,6 @@ upstream	git@github.com:Aman-Codes/techfest.git (push)
 ### References
 
 * https://github.com/gocolly/colly
-* https://github.com/narbehaj/ssl-checker
 * https://gdpr.eu/cookies
 * https://github.com/jkwakman/Open-Cookie-Database
 * https://cookiedatabase.org
@@ -256,10 +247,6 @@ upstream	git@github.com:Aman-Codes/techfest.git (push)
 * https://github.com/Khan/tota11y
 * https://csp.withgoogle.com/docs/index.html
 * https://github.com/oazevedo/GDPR-is-my-Website-Insecure/blob/master/GDPR%20-%20Is%20My%20Website%20inSecure-v1.4.pdf
-* https://en.wikipedia.org/wiki/Search_engine_optimization
 * https://github.com/sethblack/python-seo-analyzer
-* https://www.python.org/success-stories/python-seo-link-analyzer/
-* https://www.searchenginejournal.com/python-technical-seo/330515/
 * https://github.com/eliasdabbas/advertools
-* https://www.holisticseo.digital/python-seo/crawl-analyse-website/
-* https://github.com/jonathankamau/seo_check
+* https://github.com/santoru/shcheck
