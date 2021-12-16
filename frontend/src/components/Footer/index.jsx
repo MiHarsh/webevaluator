@@ -16,7 +16,7 @@ const Footer = () => {
           {t("footer.about")}
         </a>
         <a
-          href="https://github.com/Aman-Codes/techfest"
+          href="https://github.com/Aman-Codes/webevaluator"
           target="_blank"
           rel="noopener noreferrer"
           className={classes.anchor}

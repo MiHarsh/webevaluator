@@ -23,6 +23,16 @@ services:
     ports:
       - "${BACKEND_NODE_PORT}:${BACKEND_NODE_PORT}"
 
+  backend-python:
+    build:
+      context: ./backend/python/security_header
+      dockerfile: Dockerfile
+    container_name: backend-python
+    volumes:
+      - ./backend/python/security_header/:/app
+    ports:
+      - "${BACKEND_PYTHON_PORT}:${BACKEND_PYTHON_PORT}"
+
   frontend:
     build:
       context: ./frontend
@@ -31,6 +41,7 @@ services:
     depends_on:
       - backend-go
       - backend-node
+      - backend-python
     volumes:
       - ./frontend/:/usr/app
     ports:

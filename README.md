@@ -3,6 +3,7 @@
 ## Introduction
 
 This is an advanced web crawling tool that will not only discover the active URLs within the website but also provide information about SSL certificate compliance, Cookie checker and ADA compliance and details about the security headers.
+Source Code available at: https://github.com/Aman-Codes/webevaluator
 ## Implementation Details
 
 #### Crawler
@@ -119,14 +120,13 @@ The front end is created in React.js and Material UI. All the reports are displa
 
 ## Usage or Working Demo
 
-![image](https://github.com/Aman-Codes/techfest/blob/main/1.png)
+![image](https://github.com/Aman-Codes/webevaluator/blob/main/1.png)
 
-![image](https://github.com/Aman-Codes/techfest/blob/main/2.jpeg)
+![image](https://github.com/Aman-Codes/webevaluator/blob/main/2.png)
 
-![image](https://github.com/Aman-Codes/techfest/blob/main/3.jpeg)
+![image](https://github.com/Aman-Codes/webevaluator/blob/main/3.png)
 
-![image](https://github.com/Aman-Codes/techfest/blob/main/4.jpeg)
-
+![image](https://github.com/Aman-Codes/webevaluator/blob/main/4.png)
 
 ## Contributing Guidelines
 
@@ -141,17 +141,17 @@ The front end is created in React.js and Material UI. All the reports are displa
 
 2. Clone your forked repo to your local machine:
 ```
-git clone https://github.com/Aman-Codes/techfest.git (https)
+git clone https://github.com/Aman-Codes/webevaluator.git (https)
 ```
 or
 ```
-git clone git@github.com:Aman-Codes/techfest.git (ssh)
+git clone git@github.com:Aman-Codes/webevaluator.git (ssh)
 ```
 This will make a copy of the code to your local machine.
 
-3. Change directory to `techfest`.
+3. Change directory to `webevaluator`.
 ```
-cd techfest
+cd webevaluator
 ```
 
 4. Check the remote of your local repo by:
@@ -160,35 +160,35 @@ git remote -v
 ```
 It should output the following:
 ```
-origin	https://github.com/<username>/techfest.git (fetch)
-origin	https://github.com/<username>/techfest.git (push)
+origin	https://github.com/<username>/webevaluator.git (fetch)
+origin	https://github.com/<username>/webevaluator.git (push)
 ```
 or
 ```
-origin	git@github.com:<username>/techfest.git (fetch)
-origin	git@github.com:<username>/techfest.git (push)
+origin	git@github.com:<username>/webevaluator.git (fetch)
+origin	git@github.com:<username>/webevaluator.git (push)
 ```
 Add upstream to remote:
 ```
-git remote add upstream https://github.com/Aman-Codes/techfest.git (https)
+git remote add upstream https://github.com/Aman-Codes/webevaluator.git (https)
 ```
 or
 ```
-git remote add upstream git@github.com:Aman-Codes/techfest.git (ssh)
+git remote add upstream git@github.com:Aman-Codes/webevaluator.git (ssh)
 ```
 Running `git remote -v` should then print the following:
 ```
-origin	https://github.com/<username>/techfest.git (fetch)
-origin	https://github.com/<username>/techfest.git (push)
-upstream	https://github.com/Aman-Codes/techfest.git (fetch)
-upstream	https://github.com/Aman-Codes/techfest.git (push)
+origin	https://github.com/<username>/webevaluator.git (fetch)
+origin	https://github.com/<username>/webevaluator.git (push)
+upstream	https://github.com/Aman-Codes/webevaluator.git (fetch)
+upstream	https://github.com/Aman-Codes/webevaluator.git (push)
 ```
 or
 ```
-origin	git@github.com:<username>/techfest.git (fetch)
-origin	git@github.com:<username>/techfest.git (push)
-upstream	git@github.com:Aman-Codes/techfest.git (fetch)
-upstream	git@github.com:Aman-Codes/techfest.git (push)
+origin	git@github.com:<username>/webevaluator.git (fetch)
+origin	git@github.com:<username>/webevaluator.git (push)
+upstream	git@github.com:Aman-Codes/webevaluator.git (fetch)
+upstream	git@github.com:Aman-Codes/webevaluator.git (push)
 ```
 ## Installation or Dev Setup
 
@@ -201,7 +201,7 @@ upstream	git@github.com:Aman-Codes/techfest.git (push)
 
 #### Steps
 
-1. Make sure you are inside the root of the project (i.e., `./techfest/` folder).
+1. Make sure you are inside the root of the project (i.e., `./webevaluator/` folder).
 2. Setup environment variables in `.env` files of all folders according to `.env.sample` files.
 3. Run `docker-compose up` to spin up the containers.
 4. The website would then be available locally at `http://localhost:3000/`.

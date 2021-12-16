@@ -53,7 +53,7 @@ const Header = () => {
           </div>
           <div className={classes.iconContainer}>
             <a
-              href="https://github.com/Aman-Codes/techfest"
+              href="https://github.com/Aman-Codes/webevaluator"
               target="_blank"
               rel="noopener noreferrer"
             >

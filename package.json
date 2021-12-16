@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Aman-Codes/techfest.git"
+    "url": "git+https://github.com/Aman-Codes/webevaluator.git"
   },
   "author": "Aman Dwivedi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Aman-Codes/techfest/issues"
+    "url": "https://github.com/Aman-Codes/webevaluator/issues"
   },
-  "homepage": "https://github.com/Aman-Codes/techfest#readme"
+  "homepage": "https://github.com/Aman-Codes/webevaluator#readme"
 }
