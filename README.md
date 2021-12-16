@@ -120,13 +120,13 @@ The front end is created in React.js and Material UI. All the reports are displa
 
 ## Usage or Working Demo
 
-![image](https://github.com/Aman-Codes/webevaluator/blob/main/1.png)
+![image](https://raw.githubusercontent.com/Aman-Codes/webevaluator/main/1.png)
 
-![image](https://github.com/Aman-Codes/webevaluator/blob/main/2.png)
+![image](https://raw.githubusercontent.com/Aman-Codes/webevaluator/main/2.jpeg)
 
-![image](https://github.com/Aman-Codes/webevaluator/blob/main/3.png)
+![image](https://raw.githubusercontent.com/Aman-Codes/webevaluator/main/3.jpeg)
 
-![image](https://github.com/Aman-Codes/webevaluator/blob/main/4.png)
+![image](https://raw.githubusercontent.com/Aman-Codes/webevaluator/main/4.jpeg)
 
 ## Contributing Guidelines
 
