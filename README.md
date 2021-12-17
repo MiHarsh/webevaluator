@@ -245,7 +245,6 @@ upstream	git@github.com:Aman-Codes/webevaluator.git (push)
 * https://github.com/jkwakman/Open-Cookie-Database
 * https://cookiedatabase.org
 * https://www.cookieserve.com
-* https://github.com/bhole100/cki_json
 * https://checka11y.jackdomleo.dev
 * https://github.com/Khan/tota11y
 * https://csp.withgoogle.com/docs/index.html
