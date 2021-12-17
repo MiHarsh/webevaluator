@@ -9,7 +9,6 @@ import sys
 import os
 
 
-# Client headers to send to the server during the request.
 client_headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:53.0)\
  Gecko/20100101 Firefox/53.0',
@@ -20,7 +19,6 @@ client_headers = {
  }
 
 
-# Security headers that should be enabled
 sec_headers = {
     'X-XSS-Protection': 'deprecated',
     'X-Frame-Options': 'warning',
@@ -84,11 +82,7 @@ def print_error(e):
 
 
 def check_target(target):
-    '''
-    Just put a protocol to a valid IP and check if connection works,
-    returning HEAD response
-    '''
-    # Recover used options
+    
     ssldisabled = False
     useget = False
     proxy = False
@@ -97,15 +91,13 @@ def check_target(target):
     target = normalize(target)
 
     request = urllib.request.Request(target, headers=client_headers)
-    # Set method
+    
     method = 'GET' if useget else 'HEAD'
     request.get_method = lambda: method
 
-    # Build opener for proxy and SSL
     try:
         response = urllib.request.urlopen(request, timeout=10)
 
-    # Handling issues with HTTP/2
     except Exception as e:
         print_error(e)
         sys.exit(1)
@@ -116,17 +108,13 @@ def check_target(target):
 
 
 def is_https(target):
-    '''
-    Check if target support HTTPS for Strict-Transport-Security
-    '''
+    
     return target.startswith('https://')
                      
 
 
 def main(targets):
 
-    
-    # Getting options
     information = True
     json_output = True
     
@@ -141,7 +129,6 @@ def main(targets):
         safe = 0
         unsafe = 0
 
-        # Check if target is valid
         response = check_target(target)
         rUrl = response.geturl()
         json_results = {}
@@ -158,17 +145,14 @@ def main(targets):
                 safe += 1
                 json_results["present"][safeh] = headers.get(lsafeh)
 
-                # Taking care of special headers that could have bad values
 
             else:
                 unsafe += 1
                 json_results["missing"].append(safeh)
-                # HSTS works obviously only on HTTPS
                 if safeh == 'Strict-Transport-Security' and not is_https(rUrl):
                     unsafe -= 1
                     json_results["missing"].remove(safeh)
                     continue
-                # Hide deprecated
                 if sec_headers.get(safeh) == "deprecated":
                     unsafe -= 1
                     json_results["missing"].remove(safeh)            
