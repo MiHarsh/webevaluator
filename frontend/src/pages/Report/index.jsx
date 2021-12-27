@@ -37,6 +37,7 @@ const Report = () => {
   const [accessScore, setAccessScore] = useState(null);
   const [headerScore, setHeaderScore] = useState(null);
   const [downloadInProgress, setDownloadInProgress] = useState(false);
+  const [missingHeaders, setMissingHeaders] = useState(null);
 
   const scrollDown = () => {
     tableRef.current.scrollIntoView({ behavior: "smooth" });
@@ -284,7 +285,7 @@ const Report = () => {
     Promise.allSettled(promiseList)
       .then((data) => {
         console.log(data);
-        console.log("header is", header);
+        // console.log("header is", header);
         setSslScore(data[0].value.data.length ? 100 : 0);
         setCookieScore(
           // eslint-disable-next-line no-nested-ternary
@@ -303,14 +304,10 @@ const Report = () => {
         setAccessScore(
           data[3].value.data.error.length + data[3].value.data.warning.length
         );
-        setHeaderScore(
-          (
-            (Object.keys(data[5]?.value?.[url]?.present)?.length * 100) /
-            (Object.keys(data[5]?.value?.[url]?.present)?.length +
-              data[5]?.value?.[url]?.missing?.length)
-          ).toFixed(1)
-        );
-        console.log("data[5]?.value?.[url]", data[5]?.value[url]);
+        setHeaderScore(100 - Object.values(header)[0].missing.length * 10);
+        setMissingHeaders(Object.values(header)[0].missing);
+        console.log(Object.values(header)[0].missing);
+        console.log(missingHeaders);
       })
       .catch((error) => {
         console.error(error);
@@ -654,6 +651,26 @@ const Report = () => {
             </p>
           </div>
         </div>
+      </div>
+      <div className={classes.head_div}>
+        <h1 className={classes.heading}>Missing Security Headers</h1>
+      </div>
+      <div>
+        {missingHeaders.map((data) => (
+          <div
+            className={classes.wcag_container}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+          >
+            <p
+              className={classes.p}
+              onClick={scrollDown}
+              onKeyDown={scrollDown}
+              aria-hidden="true"
+            >
+              {data}
+            </p>
+          </div>
+        ))}
       </div>
       <div className={classes.button_div}>
         <Button
