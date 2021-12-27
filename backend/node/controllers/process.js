@@ -338,6 +338,24 @@ const ssl = async (url) => {
     });
 };
 
+const securityHeader = async (url) => {
+  return axios({
+    method: "post",
+    url: "http://localhost:8000/",
+    data: {
+      URL: url,
+    },
+  })
+    .then((response) => {
+      // console.log("data is ", response.data);
+      return response?.data;
+    })
+    .catch((error) => {
+      console.log(error);
+      return null;
+    });
+};
+
 module.exports = {
   adaErrors,
   cookieChecker,
@@ -345,4 +363,5 @@ module.exports = {
   lowvision,
   colorblind,
   ssl,
+  securityHeader,
 };

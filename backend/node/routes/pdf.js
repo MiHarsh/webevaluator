@@ -14,6 +14,7 @@ const {
   lowvision,
   colorblind,
   ssl,
+  securityHeader,
 } = require("../controllers/process");
 
 const router = express.Router();
@@ -27,6 +28,7 @@ router.post("/", (req, res) => {
     lowvision(url),
     colorblind(url),
     ssl(url),
+    securityHeader(url),
   ])
     .then((allData) => {
       console.log("allData is", allData);

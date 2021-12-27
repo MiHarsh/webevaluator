@@ -656,21 +656,23 @@ const Report = () => {
         <h1 className={classes.heading}>Missing Security Headers</h1>
       </div>
       <div>
-        {missingHeaders.map((data) => (
-          <div
-            className={classes.wcag_container}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-          >
-            <p
-              className={classes.p}
-              onClick={scrollDown}
-              onKeyDown={scrollDown}
-              aria-hidden="true"
-            >
-              {data}
-            </p>
-          </div>
-        ))}
+        {missingHeaders
+          ? missingHeaders.map((data) => (
+              <div
+                className={classes.wcag_container}
+                columns={{ xs: 4, sm: 8, md: 12 }}
+              >
+                <p
+                  className={classes.p}
+                  onClick={scrollDown}
+                  onKeyDown={scrollDown}
+                  aria-hidden="true"
+                >
+                  {data}
+                </p>
+              </div>
+            ))
+          : null}
       </div>
       <div className={classes.button_div}>
         <Button

@@ -410,6 +410,40 @@ img {
 		<% }) %>
 	</table>
 	<br/>
+
+	<h2>Security Headers:</h2>
+	<strong>Missing:</strong>
+	<table>
+		<tr>
+			<th>S. No.</th>
+			<th>Missing</th>
+		</tr>
+		<% allData[6]?.value[url]?.missing?.forEach((row, index) => { %> 
+			<tr>
+				<td><%= index + 1 %></td>
+				<td class="failBg"><%= row %></td>
+			</tr>
+		<% }) %>
+	</table>
+    <br />
+
+	<strong>Present:</strong>
+	<table>
+		<tr>
+			<th>S. No.</th>
+			<th>Name</th>
+			<th>Value</th>
+		</tr>
+		<% Object.keys(allData[6]?.value[url]?.present)?.forEach((row, index) => { %> 
+			<tr>
+				<td><%= index + 1 %></td>
+				<td><%= row %></td>
+				<td><%= allData[6]?.value[url]?.present[row] %></td>
+			</tr>
+		<% }) %>
+	</table>
+    <br />
+
 	<h2>Web Content Accessibility Guidelines:</h2>
 	<strong>WCAG2A:</strong>
 	<table>
