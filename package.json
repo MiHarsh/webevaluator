@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "pre-install": "npm install -g nodemon concurrently",
     "backend-go": "cd backend && cd node && nodemon index.js",
     "python-activate": "cd backend && cd python && cd security_header && cd flask && source bin/activate",
     "backend-node": "cd backend && cd go && nodemon --exec go run main.go --signal SIGTERM",
@@ -17,7 +18,7 @@
     "url": "git+https://github.com/Aman-Codes/webevaluator.git"
   },
   "author": "Aman Dwivedi",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Aman-Codes/webevaluator/issues"
   },

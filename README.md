@@ -103,10 +103,10 @@ The project is using a microstructure architecture where we have the main server
 | **Agent name/ Feature** | **Tech Stack** | **Description** |
 | --- | --- | --- |
 | Crawler | Golang colly framework | Using colly framework of Golang as it is one of the fastest available crawler |
-| SSL certificate compliance | Golang | Golang script that search for the ssl information |
+| SSL certificate compliance | Golang | Golang script that searches for the SSL information |
 | Cookie checker | Node.js and JavaScript | Using Puppeteer for automated cookie consent verification |
 | ADA compliance | Node.js and JavaScript | Using a variety of node libraries for getting complete ADA compliance information |
-| Security Headers | Python | Build an Flask API which checks for the headers in the HTTP request |
+| Security Headers | Python | Built a Flask API that checks for the headers in the HTTP request |
 
 The front end is created in React.js and Material UI. All the reports are displayed to users in a visually appealing manner which can be exported in formats such as PDF. We created a very flexible and versatile foundation for our codebase, so that in future its functionality could be easily extended and new agents could be easily added into it. 
 
@@ -210,33 +210,7 @@ upstream	git@github.com:Aman-Codes/webevaluator.git (push)
 
 ### Method 2 (not recommended): Setup services independently
 
-##### Pre-requisites
-
-1. Signup and Install `mongodb` from [here](https://www.mongodb.com/try/download).
-2. Download and Install Nodejs from [here](https://nodejs.org/en/download)
-3. Install and setup Golang from [here](https://go.dev/doc/install)
-
-
-#### Setup Node Backend
-
-1. Run `cd backend/node` to go inside the Node.js server folder.
-2. Run `npm install` to install all the dependencies.
-3. Setup environment variables according to `.env.sample` file.
-4. Run `npm start` to start the node backend server.
-
-#### Setup Golang Backend
-
-1. Run `cd backend/go` to go inside the Golang server folder.
-2. Run `go mod download` to install all the dependencies.
-3. Setup environment variables according to `.env.sample` file.
-4. Run `go run main.go` to start the Golang backend server.
-
-#### Setup Frontend
-
-1. Run `cd frontend` to go inside the frontend folder.
-2. Run `npm install` to install all the dependencies.
-3. Setup environment variables according to `.env.sample` file.
-4. Run `npm start` to start the Golang backend server.
+For Linux based systems refer to [LinuxInstallation.md](https://github.com/Aman-Codes/webevaluator/blob/main/LinuxInstallation.md) and for Windows refer to [WindowsInstallation.md](https://github.com/Aman-Codes/webevaluator/blob/main/WindowsInstallation.md)
 
 ### References
 
