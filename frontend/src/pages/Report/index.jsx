@@ -304,10 +304,13 @@ const Report = () => {
         setAccessScore(
           data[3].value.data.error.length + data[3].value.data.warning.length
         );
-        setHeaderScore(100 - Object.values(header)[0].missing.length * 10);
-        setMissingHeaders(Object.values(header)[0].missing);
-        console.log(Object.values(header)[0].missing);
+        setHeaderScore(
+          100 - Object.values(data[5].value)[0].missing.length * 10
+        );
+        setMissingHeaders(Object.values(data[5].value)[0].missing);
+        console.log(Object.values(data[5].value)[0].missing);
         console.log(missingHeaders);
+        console.log(header);
       })
       .catch((error) => {
         console.error(error);
