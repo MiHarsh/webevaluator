@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import endpoints from "constants/endpoints";
 import axios from "axios";
-import { sendPostRequestSetter } from "shared/sendRequest";
+import {
+  sendPostRequestSetter,
+  sendSslPostRequestSetter,
+} from "shared/sendRequest";
 import { useLocation } from "react-router-dom";
 import Loader from "components/Loader";
 import Button from "@material-ui/core/Button";
@@ -9,8 +12,8 @@ import SaveIcon from "@material-ui/icons/Save";
 import fileDownload from "js-file-download";
 import ScrollableTabs from "components/ScrollableTabs";
 import {
-  sslColumns,
-  sslId,
+  sslApiColumns,
+  sslApiId,
   cookiesColumns,
   cookiesId,
   adaColumn,
@@ -25,7 +28,7 @@ const Report = () => {
   const query = new URLSearchParams(useLocation().search);
   const url = query.get("url");
   const [crawl, setCrawl] = useState(null);
-  const [ssl, setSsl] = useState(null);
+  const [ssl, setSsl] = useState({});
   const [cookie, setCookie] = useState(null);
   const [ada, setAda] = useState(null);
   const [sniffer, setSniffer] = useState(null);
@@ -60,8 +63,8 @@ const Report = () => {
     1: {
       id: 1,
       title: "SSL Certificates",
-      columns: sslColumns,
-      uniqueId: sslId,
+      columns: sslApiColumns,
+      uniqueId: sslApiId,
       rows: [],
     },
     2: {
@@ -130,14 +133,15 @@ const Report = () => {
   });
   useEffect(() => {
     setMapping((prev) => {
+      console.log("ssl inside useEffect is ", ssl);
       return {
         ...prev,
         1: {
           id: 1,
           title: "SSL Certificates",
-          columns: sslColumns,
-          uniqueId: sslId,
-          rows: ssl?.data || [],
+          columns: sslApiColumns,
+          uniqueId: sslApiId,
+          rows: [ssl] || [],
         },
       };
     });
@@ -229,8 +233,8 @@ const Report = () => {
   useEffect(() => {
     const promiseList = [];
     promiseList.push(
-      sendPostRequestSetter(
-        endpoints.ssl(),
+      sendSslPostRequestSetter(
+        endpoints.sslapi(),
         {
           URL: url,
         },
@@ -286,7 +290,7 @@ const Report = () => {
       .then((data) => {
         console.log(data);
         // console.log("header is", header);
-        setSslScore(data[0].value.data.length ? 100 : 0);
+        setSslScore(data[0].value ? 100 : 0);
         setCookieScore(
           // eslint-disable-next-line no-nested-ternary
           data[2].value.data.consentAsked && data[2].value.data.denyConsent
@@ -424,25 +428,19 @@ const Report = () => {
       </div>
       <div className={classes.flex}>
         {ssl ? (
-          ssl?.data?.map((certificate) => (
-            <div className={classes.ssl_container}>
-              <div
-                onClick={scrollDown}
-                onKeyDown={scrollDown}
-                aria-hidden="true"
-              >
-                <p className={classes.p}>{certificate.CommonName}</p>
-                <div className={classes.ssl_div}>
-                  <p className={classes.ssl_para_issue}>
-                    Issued on: {certificate.NotBefore}
-                  </p>
-                  <p className={classes.ssl_para_expire}>
-                    Expires on: {certificate.NotAfter}
-                  </p>
-                </div>
+          <div className={classes.ssl_container}>
+            <div onClick={scrollDown} onKeyDown={scrollDown} aria-hidden="true">
+              <p className={classes.p}>{ssl.issuer_cn}</p>
+              <div className={classes.ssl_div}>
+                <p className={classes.ssl_para_issue}>
+                  Issued on: {ssl?.valid_from}
+                </p>
+                <p className={classes.ssl_para_expire}>
+                  Expires on: {ssl?.valid_till}
+                </p>
               </div>
             </div>
-          ))
+          </div>
         ) : (
           <Loader />
         )}

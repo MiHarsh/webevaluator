@@ -58,7 +58,40 @@ export const sslColumns = [
   },
 ];
 
+export const sslApiColumns = [
+  { field: "host", headerName: "Host" },
+  { field: "tcp_port", headerName: "TCP Port" },
+  { field: "issued_to", headerName: "Issued To" },
+  { field: "issued_o", headerName: "Issued Organization" },
+  { field: "issuer_c", headerName: "Issuer Country" },
+  { field: "issuer_o", headerName: "Issuer Organization" },
+  { field: "issuer_ou", headerName: "Issuer Organizational Unit" },
+  { field: "issuer_cn", headerName: "Issuer Common Name" },
+  { field: "cert_sn", headerName: "Serial Number" },
+  { field: "cert_sha1", headerName: "SHA1" },
+  { field: "cert_alg", headerName: "Algorithm" },
+  { field: "cert_ver", headerName: "Version" },
+  { field: "valid_from", headerName: "Valid From" },
+  { field: "valid_till", headerName: "Valid Till" },
+  { field: "days_left", headerName: "Days Left" },
+  { field: "grade", headerName: "Grade" },
+  { field: "poodle_vuln", headerName: "Poodle Vulnerability" },
+  { field: "heartbleed_vuln", headerName: "Heartbleed Vulnerability" },
+  { field: "heartbeat_vuln", headerName: "Heartbeat Vulnerability" },
+  { field: "freak_vuln", headerName: "Freak Vulnerability" },
+  { field: "logjam_vuln", headerName: "Logjam Vulnerability" },
+  { field: "drownVulnerable", headerName: "Drown Vulnerable" },
+  {
+    field: "cert_sans",
+    headerName: "DNS Names",
+    valueFormatter: (params) =>
+      params.value.replace(/DNS:/g, "").replace(/;/g, ","),
+  },
+];
+
 export const sslId = "SerialNumber";
+
+export const sslApiId = "cert_sn";
 
 export const cookiesColumns = [
   { flex: 1, field: "name", headerName: "Name" },

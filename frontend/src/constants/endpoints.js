@@ -9,13 +9,13 @@ const endpoints = {
   goStatus: () => `${baseGoUrl}/status`,
   crawl: () => `${baseGoUrl}/crawl`,
   ssl: () => `${baseGoUrl}/ssl`,
-  sslapi: () => `${baseGoUrl}/sslapi`,
+  sslapi: () => `${basePythonUrl}/ssl`,
   cookieChecker: () => `${baseNodeUrl}/cchecker`,
   ada: () => `${baseNodeUrl}/errors/css`,
   tenon: () => `${baseNodeUrl}/tenon`,
   sniffer: () => `${baseNodeUrl}/sniffer`,
   download: () => `${baseNodeUrl}/pdf`,
-  header: () => `${basePythonUrl}/`,
+  header: () => `${basePythonUrl}/securityheader`,
 };
 
 export default endpoints;

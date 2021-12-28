@@ -341,7 +341,25 @@ const ssl = async (url) => {
 const securityHeader = async (url) => {
   return axios({
     method: "post",
-    url: "http://localhost:8000/",
+    url: "http://localhost:8000/securityheader",
+    data: {
+      URL: url,
+    },
+  })
+    .then((response) => {
+      // console.log("data is ", response.data);
+      return response?.data;
+    })
+    .catch((error) => {
+      console.log(error);
+      return null;
+    });
+};
+
+const sslapi = async (url) => {
+  return axios({
+    method: "post",
+    url: "http://localhost:8000/ssl",
     data: {
       URL: url,
     },
@@ -364,4 +382,5 @@ module.exports = {
   colorblind,
   ssl,
   securityHeader,
+  sslapi,
 };

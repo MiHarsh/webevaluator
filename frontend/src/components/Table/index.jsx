@@ -6,9 +6,9 @@ const Table = ({ rows = [], columns, uniqueId }) => {
     <div
       style={{
         height: 500,
-        width: "auto",
-        margin: "5rem 2rem",
+        width: "100%",
         background: "white",
+        overflowX: "auto",
       }}
     >
       <DataGrid

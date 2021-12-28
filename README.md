@@ -212,6 +212,10 @@ upstream	git@github.com:Aman-Codes/webevaluator.git (push)
 
 For Linux based systems refer to [LinuxInstallation.md](https://github.com/Aman-Codes/webevaluator/blob/main/LinuxInstallation.md) and for Windows refer to [WindowsInstallation.md](https://github.com/Aman-Codes/webevaluator/blob/main/WindowsInstallation.md)
 
+### Sample Report
+
+See the [sample report](https://github.com/Aman-Codes/webevaluator/blob/main/sampleReport.pdf) generated from the tool.
+
 ### References
 
 * https://github.com/gocolly/colly

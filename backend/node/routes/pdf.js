@@ -13,7 +13,7 @@ const {
   sniffer,
   lowvision,
   colorblind,
-  ssl,
+  sslapi,
   securityHeader,
 } = require("../controllers/process");
 
@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
     adaErrors(url),
     lowvision(url),
     colorblind(url),
-    ssl(url),
+    sslapi(url),
     securityHeader(url),
   ])
     .then((allData) => {

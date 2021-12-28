@@ -118,7 +118,7 @@ img {
 			<div class="score_val">
 				<div class="score_border">
 					<p class="score_ssl">
-						<% if(allData[5]?.value?.data?.length){ %>
+						<% if(allData[5]?.value){ %>
 							100
 						<% }else{ %>
 							0
@@ -165,100 +165,100 @@ img {
 	<h2>SSL Certificates:</h2>
 	<table>
 		<tr>
-			<th>S. No.</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= index + 1 %></td>
-			<% }) %>
-		</tr>
-		<tr>
-			<th>Signature Algorithm</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.SignatureAlgorithm %></td>
-			<% }) %>
-		</tr>
-		<tr>
-			<th>Version</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.Version %></td>
-			<% }) %>
-		</tr>
-		<tr>
 			<th>Serial Number</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.SerialNumber %></td>
-			<% }) %>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.cert_sn  %></td>
 		</tr>
 		<tr>
-			<th>Issue Date</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.NotBefore %></td>
-			<% }) %>
+			<th>Host</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.host  %></td>
 		</tr>
 		<tr>
-			<th>Expiry Date</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.NotAfter %></td>
-			<% }) %>
+			<th>TCP Port</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.tcp_port  %></td>
 		</tr>
 		<tr>
-			<th>Common Name</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.CommonName %></td>
-			<% }) %>
+			<th>Issued To</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.issued_to  %></td>
 		</tr>
 		<tr>
-			<th>DNS Names</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.DNSNames %></td>
-			<% }) %>
+			<th>Issued Organization</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.issued_o  %></td>
 		</tr>
 		<tr>
 			<th>Issuer Country</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.Issuer?.Country?.join(" ") %></td>
-			<% }) %>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.issuer_c  %></td>
 		</tr>
 		<tr>
 			<th>Issuer Organization</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.Issuer?.Organization?.join(" ") %></td>
-			<% }) %>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.issuer_o  %></td>
 		</tr>
 		<tr>
 			<th>Issuer Organizational Unit</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.Issuer?.OrganizationalUnit?.join(" ") %></td>
-			<% }) %>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.issuer_ou  %></td>
 		</tr>
 		<tr>
 			<th>Issuer Common Name</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.Issuer?.CommonName %></td>
-			<% }) %>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.issuer_cn  %></td>
 		</tr>
 		<tr>
-			<th>Subject Country</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.Issuer?.Country?.join(" ") %></td>
-			<% }) %>
+			<th>Serial Number</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.cert_sn  %></td>
 		</tr>
 		<tr>
-			<th>Subject Organization</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.Issuer?.Organization?.join(" ") %></td>
-			<% }) %>
+			<th>SHA1</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.cert_sha1  %></td>
 		</tr>
 		<tr>
-			<th>Subject Organizational Unit</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.Issuer?.OrganizationalUnit?.join(" ") %></td>
-			<% }) %>
+			<th>Algorithm</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.cert_alg  %></td>
 		</tr>
 		<tr>
-			<th>Subject Common Name</th>
-			<% allData[5]?.value?.data?.forEach((row, index) => {  %>
-				<td><%= row.Issuer?.CommonName %></td>
-			<% }) %>
+			<th>Version</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.cert_ver  %></td>
+		</tr>
+		<tr>
+			<th>Valid From</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.valid_from  %></td>
+		</tr>
+		<tr>
+			<th>Valid Till</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.valid_till  %></td>
+		</tr>
+		<tr>
+			<th>Days Left</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.days_left  %></td>
+		</tr>
+		<tr>
+			<th>Grade</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.grade  %></td>
+		</tr>
+		<tr>
+			<th>Poodle Vulnerability</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.poodle_vuln  %></td>
+		</tr>
+		<tr>
+			<th>Heartbleed Vulnerability</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.heartbleed_vuln  %></td>
+		</tr>
+		<tr>
+			<th>Heartbeat Vulnerability</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.heartbeat_vuln  %></td>
+		</tr>
+		<tr>
+			<th>Freak Vulnerability</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.freak_vuln  %></td>
+		</tr>
+		<tr>
+			<th>Logjam Vulnerability</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.logjam_vuln  %></td>
+		</tr>
+		<tr>
+			<th>Drown Vulnerable</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.drownVulnerable  %></td>
+		</tr>
+		<tr>
+			<th>DNS Names</th>
+			<td><%= allData[5]?.value[Object.keys(allData[5]?.value)[0]]?.cert_sans  %></td>
 		</tr>
 	</table>
 	<br />
